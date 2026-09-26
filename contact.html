@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | NaponTech</title>
+    <title>Contact Us | Napon Tech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -471,7 +473,6 @@
     <!-- Navigation Header -->
     <nav>
         <div class="nav-left">
-            <!-- Header Text - Logo completely removed, only title and back arrow -->
             <div class="header-title" onclick="history.back()">
                 <i class="fa-solid fa-arrow-left back-arrow"></i>
                 <span>Contact Us</span>
@@ -499,8 +500,8 @@
 
     <!-- Contact Hero Section -->
     <header class="contact-hero reveal-up">
-        <h1>Let's Start a Conversation</h1>
-        <p>Whether you have a question about our services, pricing, or need a technical consultation, our team is ready to answer all your questions.</p>
+        <h1>Contact Us</h1>
+        <p>Have a question or want to discuss a project? Send us a message and we'll get back to you.</p>
     </header>
 
     <!-- Main Contact Section -->
@@ -519,7 +520,7 @@
                     <div class="info-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                     <div class="info-content">
                         <h4>Email Us</h4>
-                        <p>For general queries and project briefs.</p>
+                        <p>For general questions and project details.</p>
                         <span>Send an Email <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </a>
@@ -539,7 +540,7 @@
                     <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <div class="info-content">
                         <h4>WhatsApp Us</h4>
-                        <p>Chat directly with our support team instantly.</p>
+                        <p>Send us a message on WhatsApp.</p>
                         <span>Start Chatting <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </a>
@@ -565,7 +566,7 @@
                   - JavaScript handles sanitization on submit to encode characters.
                 -->
                 <form id="secureContactForm" class="contact-form">
-                    <h3>Send Us a Message</h3>
+                    <h3>Send a Message</h3>
                     
                     <div class="form-row">
                         <div class="form-group">
@@ -616,21 +617,20 @@
 
     <!-- Image Section (Replacing Google Map) -->
     <div class="image-replacement-section reveal-up">
-        <img src="design_image.PNG" alt="NaponTech Design Graphic" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=500&fit=crop'">
+        <img src="design_image.PNG" alt="Napon Tech Design Graphic" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=500&fit=crop'">
     </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col reveal-up">
-                <!-- Full Logo Restored in Footer -->
                 <div class="footer-logo">
-                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon<span class="text-blue">Tech</span>
+                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon <span class="text-blue">Tech</span>
                 </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
                 <br>
-                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
             </div>
 
             <div class="footer-col reveal-up delay-1">
@@ -673,7 +673,7 @@
         </div>
 
         <div class="footer-bottom reveal-up">
-            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="terms.html">Terms of Use</a>
                 <a href="privacy.html">Privacy Policy</a>
@@ -691,6 +691,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
+            // Dynamic copyright year
+            const currentYear = new Date().getFullYear();
+            const startYear = 2025;
+            const copyrightElement = document.getElementById('copyright-year');
+            if (copyrightElement) {
+                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+            }
+
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
@@ -769,7 +777,7 @@
                 formFeedback.style.backgroundColor = '#f0fdf4';
                 formFeedback.style.color = '#16a34a';
                 formFeedback.style.border = '1px solid #86efac';
-                formFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> Thank you, ${fName}! Your message was securely sent.`;
+                formFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> Thank you, ${fName}. Your message has been sent.`;
                 
                 // Reset form
                 secureForm.reset();

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <!-- Security: Prevents basic front-end attacks (XSS) -->
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
     
-    <title>Get Started | NaponTech</title>
+    <title>Get Started | Napon Tech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -362,7 +363,6 @@
             </div>
         </div>
         <div class="nav-right">
-            <!-- Updated Auth Button with custom gradient styling -->
             <a href="credentials.html" class="btn btn-auth"><i class="fa-solid fa-user-circle" style="margin-right: 4px;"></i> Sign in / Sign up</a>
         </div>
     </nav>
@@ -381,10 +381,10 @@
                 <div class="option-icon icon-chat">
                     <i class="fa-solid fa-comment-dots"></i>
                 </div>
-                <h3>Live Chat</h3>
+                <h3>Support Chat</h3>
                 <p>Chat directly with a member of the Napon Tech team.</p>
                 <button class="btn btn-primary" onclick="openView('chatView')">
-                    <i class="fa-solid fa-paper-plane"></i> Start Live Chat
+                    <i class="fa-solid fa-paper-plane"></i> Leave a Message
                 </button>
             </div>
 
@@ -426,8 +426,7 @@
         <div class="project-banner reveal-scale">
             <div class="project-banner-content">
                 <h2>Start a Project</h2>
-                <p>Ready to build something? Tell us what you need and our team will get back to you.</p>
-                <!-- Styled specifically to pop against the dark banner -->
+                <p>Tell us what you want to build. Share the details of your project, and we'll review the requirements with you.</p>
                 <button class="btn btn-primary" style="background: var(--accent-yellow); color: var(--black);" onclick="openView('projectView')">
                     <i class="fa-solid fa-rocket"></i> Start Your Project
                 </button>
@@ -443,14 +442,14 @@
             <button class="fs-back-btn" onclick="closeView('chatView')" aria-label="Go Back">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
-            <h3><i class="fa-solid fa-headset text-blue" style="margin-right: 5px;"></i> Napon Tech Live Support</h3>
+            <h3><i class="fa-solid fa-headset text-blue" style="margin-right: 5px;"></i> Napon Tech Support</h3>
         </div>
         
         <div class="fs-content">
             <div class="form-wrapper" id="chatFormView">
                 <div class="form-box">
-                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Welcome to Live Chat</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Please provide your basic details so we can assist you better.</p>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Welcome to Support</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Please provide your details so we can help you.</p>
                     
                     <form id="startChatForm" onsubmit="startChat(event)">
                         <div class="form-grid">
@@ -482,7 +481,7 @@
 
             <div class="chat-interface" id="chatInterfaceView">
                 <div class="chat-messages" id="chatMessages">
-                    <div class="chat-status" id="chatStatusText">Connecting you to a team member...</div>
+                    <div class="chat-status" id="chatStatusText">Connecting...</div>
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chatMessageInput" placeholder="Type your message..." autocomplete="off" maxlength="800" enterkeyhint="send" onkeypress="handleChatEnter(event)">
@@ -505,7 +504,7 @@
             <div class="form-wrapper" id="projectFormView">
                 <div class="form-box">
                     <h3 style="margin-bottom: 10px; color: var(--text-dark);">Project Details</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Tell us about what you want to build, and we'll get right back to you.</p>
+                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Share the details of your project, and we'll review the requirements with you.</p>
                     
                     <form id="projectRequestForm" onsubmit="submitProject(event)">
                         <div class="form-grid">
@@ -572,7 +571,7 @@
             <div class="form-wrapper success-state" id="projectSuccessView">
                 <i class="fa-solid fa-circle-check success-icon"></i>
                 <h3>Request Received</h3>
-                <p>Project request received. Thank you for choosing Napon Tech. Our team will review your request and get in touch with you shortly.</p>
+                <p>Your request has been submitted. We will review your requirements and contact you to discuss the next steps.</p>
                 <button class="btn btn-outline" style="margin-top: 15px;" onclick="closeView('projectView')"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
             </div>
         </div>
@@ -582,14 +581,13 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col reveal-up">
-                <!-- Full Logo Restored in Footer -->
                 <div class="footer-logo">
-                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon<span class="text-blue">Tech</span>
+                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon <span class="text-blue">Tech</span>
                 </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
                 <br>
-                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
             </div>
 
             <div class="footer-col reveal-up delay-1">
@@ -632,7 +630,7 @@
         </div>
 
         <div class="footer-bottom reveal-up">
-            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="terms.html">Terms of Use</a>
                 <a href="privacy.html">Privacy Policy</a>
@@ -649,6 +647,14 @@
     <!-- Interactive Scripts -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Dynamic copyright year
+            const currentYear = new Date().getFullYear();
+            const startYear = 2025;
+            const copyrightElement = document.getElementById('copyright-year');
+            if (copyrightElement) {
+                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+            }
+
             // Populate dynamic contact fields
             document.getElementById('callBtnText').innerHTML = `<i class="fa-solid fa-phone"></i> Call ${NAPON_CONFIG.displayPhone}`;
 
@@ -706,8 +712,8 @@
                 appendMessage('visitor', userData.message);
 
                 setTimeout(() => {
-                    document.getElementById('chatStatusText').innerText = 'A team member has joined the chat.';
-                    appendMessage('team', `Hi ${userData.firstName}! I'm looking at your message now. How can I help you today?`);
+                    document.getElementById('chatStatusText').innerText = 'Thank you for reaching out.';
+                    appendMessage('team', `Hi ${userData.firstName}! We have received your details. How can we help you today?`);
                     
                     const chatMessagesBox = document.getElementById('chatMessages');
                     const prompt = document.createElement('a');
@@ -740,11 +746,11 @@
             input.value = '';
 
             const statusText = document.getElementById('chatStatusText');
-            statusText.innerText = 'Napon Tech is typing...';
+            statusText.innerText = 'Processing...';
             
             setTimeout(() => {
                 appendMessage('team', 'Thanks for the details. We will process this and get back to you shortly.');
-                statusText.innerText = 'Agent is online.';
+                statusText.innerText = 'Message sent.';
             }, 2000);
         }
 
@@ -784,3 +790,4 @@
     </script>
 </body>
 </html>
+

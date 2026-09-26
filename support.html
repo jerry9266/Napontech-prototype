@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support & Help Center | NaponTech</title>
+    <title>Support & Help Center | Napon Tech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -347,14 +347,13 @@
         </div>
         
         <div class="nav-actions">
-            <!-- Search icon removed as requested -->
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
     </nav>
 
-    <!-- Support Hero (Search Input Kept) -->
+    <!-- Support Hero -->
     <header class="support-hero reveal-up">
         <h1>How can we help you?</h1>
         <div class="search-container">
@@ -363,7 +362,7 @@
         </div>
     </header>
 
-    <!-- Support Grid (Cards Updated with specific text & links) -->
+    <!-- Support Grid -->
     <section class="section-padding">
         <div class="support-grid">
             <div class="support-card reveal-up delay-1" onclick="window.location.href='getstarted.html'">
@@ -392,7 +391,7 @@
         </div>
     </section>
 
-    <!-- FAQ Accordion (Updated with specific Q&A) -->
+    <!-- FAQ Accordion -->
     <section class="section-padding faq-section">
         <div class="section-title reveal-up">
             <div class="section-label">Find Answers</div>
@@ -426,10 +425,10 @@
         </div>
     </section>
 
-    <!-- Call to Action (Applied Frosted Image Background) -->
+    <!-- Call to Action -->
     <section class="faq-cta reveal-scale">
-        <h2>Still have a question?</h2>
-        <p>Can't find the answer you're looking for? Our support team is always ready to help you out with whatever you need.</p>
+        <h2>Need more help?</h2>
+        <p>If you can't find the answer you're looking for, send us a message and we'll help you resolve the issue.</p>
         <div class="cta-buttons">
             <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Support</a>
             <a href="https://wa.me/2348012345678" target="_blank" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -442,12 +441,12 @@
             <div class="footer-col reveal-up">
                 <!-- Full Logo Restored in Footer -->
                 <div class="footer-logo">
-                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon<span class="text-blue">Tech</span>
+                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon <span class="text-blue">Tech</span>
                 </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
                 <br>
-                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
             </div>
 
             <div class="footer-col reveal-up delay-1">
@@ -490,7 +489,7 @@
         </div>
 
         <div class="footer-bottom reveal-up">
-            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="terms.html">Terms of Use</a>
                 <a href="privacy.html">Privacy Policy</a>
@@ -508,6 +507,11 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
+            // Dynamic copyright year
+            const currentYear = new Date().getFullYear();
+            const startYear = 2025;
+            document.getElementById('copyright-year').textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');

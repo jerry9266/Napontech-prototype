@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Search | Napon Tech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            --border: #E5E7EB;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--off-white);
+            color: var(--text-gray);
+            line-height: 1.6;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            border: none; transition: var(--transition); font-size: 0.95rem; gap: 8px;
+        }
+        .btn-primary { background-color: var(--brand-blue); color: var(--white); }
+        .btn-primary:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); }
+        .btn-secondary { background-color: var(--white); color: var(--text-dark); border: 1px solid var(--border); }
+        .btn-secondary:hover { background-color: var(--off-white); transform: translateY(-2px); }
+
+        /* --- Search Header --- */
+        .search-nav {
+            display: flex; align-items: center; padding: 15px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            width: 100%; flex-shrink: 0; gap: 15px;
+        }
+        .back-btn {
+            color: var(--white); font-size: 1.2rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.1); color: var(--accent-yellow); }
+
+        /* --- New Custom Search Input Bar --- */
+        .search-input-wrapper {
+            flex-grow: 1; 
+            display: flex; 
+            align-items: stretch; 
+            background: var(--white);
+            border-radius: 6px; 
+            border: 2px solid var(--brand-blue);
+            height: 45px; 
+            min-width: 0;
+            overflow: hidden; /* Clips the button's right corners to match */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .search-input-wrapper input {
+            flex-grow: 1; border: none; outline: none; padding: 0 15px; font-size: 1rem;
+            background: transparent; color: var(--text-dark); width: 100%; min-width: 0;
+        }
+        /* Hide native webkit clear icon so we can use our custom one */
+        .search-input-wrapper input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+        
+        .search-input-wrapper button {
+            background: var(--brand-blue); 
+            border: none; 
+            color: var(--white); 
+            font-size: 1.2rem;
+            cursor: pointer; 
+            padding: 0 22px; 
+            flex-shrink: 0;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .search-input-wrapper button:hover {
+            background: var(--brand-blue-hover);
+        }
+
+        /* --- Main Content Area --- */
+        .main-content {
+            flex-grow: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+            display: flex; flex-direction: column; width: 100%; position: relative;
+        }
+
+        /* --- Empty / Idle State --- */
+        .empty-state {
+            flex-grow: 1; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; text-align: center; padding: 20px; color: var(--text-light);
+        }
+        .empty-state i { font-size: 3.5rem; color: #d1d5db; margin-bottom: 15px; }
+        .empty-state p { font-size: 1rem; font-weight: 500; }
+
+        /* --- Loading State --- */
+        .loading-state {
+            flex-grow: 1; display: none; flex-direction: column; align-items: center;
+            justify-content: center; text-align: center; padding: 20px; color: var(--brand-blue);
+        }
+        .loading-state i { font-size: 3rem; margin-bottom: 15px; }
+        .loading-state p { font-size: 1rem; font-weight: 500; color: var(--text-gray); }
+
+        /* --- Recent Searches --- */
+        .recent-searches {
+            display: none; /* Shown via JS when input is empty */
+            padding: 30px 5%; max-width: 1000px; margin: 0 auto; width: 100%;
+        }
+        .recent-header {
+            font-size: 0.85rem; font-weight: 600; color: var(--text-light);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;
+        }
+        .recent-list { display: flex; flex-direction: column; gap: 10px; }
+        .recent-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 18px; background: var(--white); border: 1px solid var(--border);
+            border-radius: 8px; transition: var(--transition);
+        }
+        .recent-item:hover { border-color: var(--brand-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .recent-text {
+            display: flex; align-items: center; gap: 12px; color: var(--text-dark);
+            font-weight: 500; flex-grow: 1; cursor: pointer;
+        }
+        .recent-text i { color: var(--text-light); font-size: 0.9rem; }
+        .recent-delete {
+            color: var(--text-light); cursor: pointer; padding: 5px;
+            font-size: 1.1rem; transition: var(--transition);
+        }
+        .recent-delete:hover { color: #ef4444; transform: scale(1.1); }
+
+        /* --- Search Results Feed --- */
+        .feed {
+            display: none; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; padding: 25px 5% 80px; max-width: 1400px; margin: 0 auto; width: 100%;
+        }
+        
+        .service-card {
+            background: var(--white); overflow: hidden; border: 1px solid var(--border);
+            border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .service-image-container { position: relative; width: 100%; height: 240px; cursor: pointer; background-color: var(--black); }
+        .service-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background: rgba(10, 10, 10, 0.7); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: var(--white); font-size: 20px; pointer-events: none;
+        }
+        .play-overlay i { margin-left: 4px; }
+        
+        .content-indicator {
+            position: absolute; top: 15px; right: 15px; background: rgba(10, 10, 10, 0.7);
+            color: var(--white); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; pointer-events: none;
+        }
+        
+        .service-content { padding: 20px; }
+        .service-title-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; gap: 10px;}
+        .service-title { font-size: 1.1rem; color: var(--text-dark); font-weight: 700; cursor: pointer; transition: var(--transition);}
+        .service-title:hover { color: var(--brand-blue); }
+        
+        .timestamp { font-size: 12px; color: var(--text-light); font-weight: 500; white-space: nowrap;}
+        
+        .service-description {
+            font-size: 14px; color: var(--text-gray); margin-bottom: 20px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+        }
+        
+        .action-buttons { display: flex; gap: 10px; }
+        .action-buttons .btn { flex: 1; padding: 10px 5px; font-size: 12px; }
+
+        /* Content Viewer */
+        .content-viewer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--black); z-index: 2000; display: none; overflow-y: auto; -webkit-overflow-scrolling: touch;
+        }
+        .content-viewer.active { display: block; }
+        .viewer-header {
+            position: sticky; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; color: var(--white); font-size: 18px; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); z-index: 20;
+        }
+        .viewer-header button { background: transparent; border: none; color: inherit; cursor: pointer; padding: 10px; font-size: inherit; display: inline-flex; align-items: center; justify-content: center; }
+        .viewer-header button:hover { color: var(--brand-blue); }
+        .viewer-counter-text { font-weight: 600; font-size: 16px; letter-spacing: 2px; }
+        .viewer-slider-wrapper { position: relative; width: 100%; height: min(70vh, 800px); background: var(--black); transition: height 0.3s ease; }
+        .viewer-slides { display: flex; height: 100%; transition: transform 0.3s ease-out; }
+        .viewer-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .viewer-slide img, .viewer-slide video { width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer; }
+        .viewer-footer { background-color: var(--white); color: var(--text-dark); padding: 25px 5%; min-height: 40vh; }
+        .viewer-footer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+        .viewer-title { font-weight: 700; font-size: 20px; color: var(--text-dark); }
+        .viewer-time { font-size: 13px; color: var(--text-light); font-weight: 500;}
+        .viewer-desc { font-size: 15px; line-height: 1.6; color: var(--text-gray); }
+        .content-viewer.pure-mode { overflow: hidden; }
+        .content-viewer.pure-mode .viewer-header { background: rgba(10,10,10,0.5); position: absolute; }
+        .content-viewer.pure-mode .viewer-slider-wrapper { height: 100vh; position: fixed; inset: 0; z-index: 10; }
+        .content-viewer.pure-mode .viewer-footer { display: none; }
+
+        @media (max-width: 768px) {
+            .search-nav { padding: 12px; gap: 10px; }
+            .feed { grid-template-columns: 1fr; padding: 15px 0 80px 0; gap: 15px; }
+            .service-card { border-radius: 0; border-left: none; border-right: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Search Header with Custom Styled Input Bar -->
+    <nav class="search-nav">
+        <div class="back-btn" onclick="history.back()" title="Go Back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="search-input-wrapper">
+            <input type="search" id="searchInput" placeholder="Search for anything..." autocomplete="off">
+            <button id="searchBtn"><i class="fa-solid fa-magnifying-glass" id="searchBtnIcon"></i></button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <p>Searching...</p>
+        </div>
+
+        <!-- Recent Searches List -->
+        <div class="recent-searches" id="recentSearchesContainer">
+            <div class="recent-header">Recent Searches</div>
+            <div class="recent-list" id="recentSearchesList">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Idle/Empty State -->
+        <div class="empty-state" id="emptyState">
+            <i class="fa-solid fa-magnifying-glass" id="statusIcon"></i>
+            <p id="statusText">Search for services, projects, or posts</p>
+        </div>
+        
+        <!-- Search Results Feed -->
+        <main class="feed" id="searchResults"></main>
+    </div>
+
+    <!-- Master Content Viewer (Identical to Home page) -->
+    <div class="content-viewer" id="content-viewer">
+        <header class="viewer-header">
+            <button type="button" id="close-viewer" aria-label="Close viewer" title="Close">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <span class="viewer-counter-text" id="viewer-counter">1/1</span>
+            <button type="button" class="viewer-share-btn" aria-label="Share content" title="Share">
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
+        </header>
+        <div class="viewer-slider-wrapper" id="viewer-slider-wrapper">
+            <div class="viewer-slides" id="viewer-slides"></div>
+        </div>
+        <div class="viewer-footer">
+            <div class="viewer-footer-header">
+                <div class="viewer-title" id="viewer-title">Title</div>
+                <div class="viewer-time" id="viewer-time">Time</div>
+            </div>
+            <div class="viewer-desc" id="viewer-desc">Description text...</div>
+        </div>
+    </div>
+
+    <!-- Core Logic: Fetching, Searching, and Deep Linking -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchBtnIcon = document.getElementById('searchBtnIcon');
+            const searchResults = document.getElementById('searchResults');
+            
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            const recentContainer = document.getElementById('recentSearchesContainer');
+            const recentList = document.getElementById('recentSearchesList');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusText = document.getElementById('statusText');
+
+            let homepageCards = [];
+            let typingTimer;
+            
+            // Load recent searches from local storage
+            let recentSearches = JSON.parse(localStorage.getItem('napon_recent_searches')) || [];
+
+            // 1. Fetch Source Data directly from home.html
+            async function loadHomeContent() {
+                try {
+                    const response = await fetch('home.html');
+                    if (!response.ok) throw new Error('Network response failed.');
+                    
+                    const htmlText = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    
+                    const cards = doc.querySelectorAll('.service-card');
+                    const seenIds = new Set();
+                    
+                    cards.forEach(card => {
+                        const trigger = card.querySelector('.content-trigger');
+                        if (!trigger) return; 
+                        
+                        const postId = trigger.getAttribute('data-post-id');
+                        if (!postId || seenIds.has(postId)) return; 
+                        seenIds.add(postId);
+
+                        const title = trigger.getAttribute('data-title') || '';
+                        const desc = trigger.getAttribute('data-desc') || '';
+                        const category = card.getAttribute('data-category') || '';
+                        
+                        const searchableText = `${title} ${desc} ${category} ${card.textContent}`
+                            .toLowerCase()
+                            .replace(/\s+/g, ' ')
+                            .trim();
+                        
+                        homepageCards.push({
+                            id: postId,
+                            html: card.outerHTML,
+                            searchableText: searchableText
+                        });
+                    });
+
+                    renderRecentSearches();
+
+                } catch (error) {
+                    console.error("Error loading homepage content:", error);
+                    statusIcon.className = 'fa-solid fa-triangle-exclamation';
+                    statusText.innerText = 'Unable to connect to the search index. Ensure you are viewing this via a server.';
+                }
+            }
+
+            // HTML Escape helper
+            const escapeHTML = (str) => {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            };
+
+            // Deep-link generator mapping back to home.html
+            function getHomeDeepLink(postId) {
+                const url = new URL(window.location.href);
+                url.pathname = url.pathname.replace(/search\.html$/i, 'home.html');
+                if (!url.pathname.includes('home.html')) {
+                    const parts = url.pathname.split('/');
+                    parts[parts.length - 1] = 'home.html';
+                    url.pathname = parts.join('/');
+                }
+                url.search = '';
+                url.hash = '';
+                url.searchParams.set('post', postId);
+                return url.toString();
+            }
+
+            /* --- RECENT SEARCH LOGIC --- */
+            function renderRecentSearches() {
+                if (recentSearches.length === 0) {
+                    recentContainer.style.display = 'none';
+                    if (searchInput.value.trim() === '') {
+                        emptyState.style.display = 'flex';
+                    }
+                    return;
+                }
+
+                recentList.innerHTML = '';
+                recentSearches.forEach((term, index) => {
+                    const li = document.createElement('div');
+                    li.className = 'recent-item';
+                    li.innerHTML = `
+                        <div class="recent-text" onclick="triggerRecentSearch('${escapeHTML(term)}')">
+                            <i class="fa-solid fa-clock-rotate-left"></i> ${escapeHTML(term)}
+                        </div>
+                        <div class="recent-delete" onclick="deleteRecentSearch(${index})">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    `;
+                    recentList.appendChild(li);
+                });
+
+                if (searchInput.value.trim() === '') {
+                    recentContainer.style.display = 'block';
+                    emptyState.style.display = 'none';
+                }
+            }
+
+            function addRecentSearch(term) {
+                if (!term) return;
+                term = term.toLowerCase().trim();
+                recentSearches = recentSearches.filter(t => t !== term);
+                recentSearches.unshift(term);
+                if (recentSearches.length > 6) recentSearches.pop(); // Keep last 6
+                localStorage.setItem('napon_recent_searches', JSON.stringify(recentSearches));
+            }
+
+            window.deleteRecentSearch = function(index) {
+                recentSearches.splice(index, 1);
+                localStorage.setItem('napon_recent_searches', JSON.stringify(recentSearches));
+                renderRecentSearches();
+            };
+
+            window.triggerRecentSearch = function(term) {
+                searchInput.value = term;
+                searchBtnIcon.className = 'fa-solid fa-xmark';
+                executeSearch(term, true);
+            };
+
+            /* --- SEARCH EXECUTION & UI STATES --- */
+            function showState(state) {
+                emptyState.style.display = state === 'empty' ? 'flex' : 'none';
+                loadingState.style.display = state === 'loading' ? 'flex' : 'none';
+                recentContainer.style.display = state === 'recent' ? 'block' : 'none';
+                searchResults.style.display = state === 'results' ? 'grid' : 'none';
+            }
+
+            function executeSearch(query, saveToRecents = false) {
+                showState('loading');
+
+                // Artificial delay for UI feedback
+                setTimeout(() => {
+                    searchResults.innerHTML = '';
+                    const searchTerms = query.split(/\s+/);
+                    const results = homepageCards.filter(item => {
+                        return searchTerms.every(term => item.searchableText.includes(term));
+                    });
+
+                    if (results.length === 0) {
+                        statusIcon.className = 'fa-solid fa-circle-exclamation';
+                        statusText.innerHTML = `No results found for "<strong>${escapeHTML(query)}</strong>"`;
+                        showState('empty');
+                        return;
+                    }
+
+                    // Render results
+                    results.forEach(post => {
+                        searchResults.insertAdjacentHTML('beforeend', post.html);
+                    });
+                    
+                    showState('results');
+                    if (saveToRecents) addRecentSearch(query);
+
+                }, 400); // 400ms loading delay
+            }
+
+            // Input Event (Handles icon toggle and auto-search debounce)
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.trim().toLowerCase();
+                clearTimeout(typingTimer);
+
+                // Toggle Icon
+                if (query.length > 0) {
+                    searchBtnIcon.className = 'fa-solid fa-xmark';
+                    showState('loading');
+                    // Auto search after typing stops (does NOT save to recents to avoid spamming local storage)
+                    typingTimer = setTimeout(() => {
+                        executeSearch(query, false);
+                    }, 500);
+                } else {
+                    searchBtnIcon.className = 'fa-solid fa-magnifying-glass';
+                    renderRecentSearches(); // Reverts to recent/empty
+                }
+            });
+
+            // Button Event (Handles Search or Clear depending on Icon)
+            searchBtn.addEventListener('click', () => {
+                const query = searchInput.value.trim();
+                if (searchBtnIcon.classList.contains('fa-xmark')) {
+                    // Clear action
+                    searchInput.value = '';
+                    searchBtnIcon.className = 'fa-solid fa-magnifying-glass';
+                    renderRecentSearches();
+                } else if (query.length > 0) {
+                    // Force Search action (Saves to recents)
+                    clearTimeout(typingTimer);
+                    executeSearch(query, true);
+                }
+            });
+
+            // Keyboard Event (Saves to recents on Enter)
+            searchInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    e.preventDefault();
+                    clearTimeout(typingTimer);
+                    const query = searchInput.value.trim();
+                    if (query.length > 0) executeSearch(query, true);
+                }
+            });
+
+            // Initialize fetch sequence
+            loadHomeContent();
+
+            /* --- CONTENT VIEWER & NAVIGATION LOGIC (Via Event Delegation) --- */
+            const viewer = document.getElementById('content-viewer');
+            const closeViewerBtn = document.getElementById('close-viewer');
+            const viewerSlidesContainer = document.getElementById('viewer-slides');
+            const viewerCounter = document.getElementById('viewer-counter');
+            const viewerTitle = document.getElementById('viewer-title');
+            const viewerDesc = document.getElementById('viewer-desc');
+            const viewerTime = document.getElementById('viewer-time');
+            const viewerWrapper = document.getElementById('viewer-slider-wrapper');
+            const viewerShareBtn = document.querySelector('.viewer-share-btn');
+            
+            let viewerMediaData = [];
+            let currentViewerIndex = 0;
+            let isPureFullscreen = false;
+            let currentPostId = null;
+
+            searchResults.addEventListener('click', async function(e) {
+                
+                // 1. Let standard links navigate normally (Fixes the Chat and Learn bug)
+                const normalLink = e.target.closest('a');
+                if (normalLink) {
+                    return; 
+                }
+
+                // 2. Share Button Logic
+                const shareBtn = e.target.closest('.share-btn');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const title = shareBtn.getAttribute('data-title');
+                    const text = shareBtn.getAttribute('data-desc');
+                    const postId = shareBtn.getAttribute('data-post-id');
+                    const shareUrl = getHomeDeepLink(postId);
+                    
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({ title, text, url: shareUrl });
+                        } catch (err) { console.log('Share cancelled or error.'); }
+                    } else {
+                        alert("Web Share API is not supported on this browser. Share this link: " + shareUrl);
+                    }
+                    return;
+                }
+
+                // 3. Title click - Redirects via Deep Link to home.html
+                const isTitleClick = e.target.closest('.service-title');
+                if (isTitleClick) {
+                    e.preventDefault(); 
+                    const card = e.target.closest('.service-card');
+                    const trigger = card.querySelector('.content-trigger');
+                    if (trigger) {
+                        const postId = trigger.getAttribute('data-post-id');
+                        window.location.href = getHomeDeepLink(postId);
+                    }
+                    return;
+                }
+
+                // 4. Media Area -> Open Content Viewer
+                const trigger = e.target.closest('.content-trigger');
+                if (trigger) {
+                    e.preventDefault();
+                    try {
+                        viewerMediaData = JSON.parse(trigger.getAttribute('data-media'));
+                    } catch (error) { return; }
+                    
+                    const rawTitle = trigger.getAttribute('data-title') || 'Media content';
+                    const rawDesc = trigger.getAttribute('data-desc') || '';
+                    currentPostId = trigger.getAttribute('data-post-id');
+
+                    viewerTitle.innerText = rawTitle;
+                    viewerDesc.innerText = rawDesc;
+                    viewerTime.innerText = trigger.getAttribute('data-time');
+                    currentViewerIndex = 0;
+                    isPureFullscreen = false; 
+
+                    // Viewer Share Button overrides with proper home deep-link
+                    viewerShareBtn.onclick = async () => {
+                        const shareUrl = getHomeDeepLink(currentPostId);
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({ title: rawTitle, text: rawDesc, url: shareUrl });
+                            } catch (err) {}
+                        } else {
+                            alert("Web Share API is not supported on this browser. Share this link: " + shareUrl);
+                        }
+                    };
+                    
+                    viewerSlidesContainer.innerHTML = '';
+                    viewerMediaData.forEach((media) => {
+                        const slide = document.createElement('div');
+                        slide.className = 'viewer-slide';
+                        if(media.type === 'video') {
+                            slide.innerHTML = `<video src="${escapeHTML(media.src)}" poster="${escapeHTML(media.poster || '')}" controls controlsList="nodownload"></video>`;
+                        } else {
+                            slide.innerHTML = `<img src="${escapeHTML(media.src)}" alt="Slide image">`;
+                        }
+                        viewerSlidesContainer.appendChild(slide);
+                    });
+
+                    updateViewerUI();
+                    viewer.classList.remove('pure-mode'); 
+                    viewer.classList.add('active');
+                }
+            });
+
+            // Viewer Local Functionality
+            viewerSlidesContainer.addEventListener('click', (e) => {
+                if(e.target.tagName === 'VIDEO') return;
+                if(e.target.tagName === 'IMG' || e.target.classList.contains('viewer-slide')) {
+                    isPureFullscreen = true;
+                    viewer.classList.add('pure-mode');
+                    viewer.scrollTop = 0;
+                }
+            });
+
+            closeViewerBtn.addEventListener('click', () => {
+                if (isPureFullscreen) {
+                    isPureFullscreen = false;
+                    viewer.classList.remove('pure-mode');
+                } else {
+                    viewer.classList.remove('active');
+                    pauseAllVideos(); 
+                }
+            });
+
+            function pauseAllVideos() {
+                viewerSlidesContainer.querySelectorAll('video').forEach(vid => vid.pause());
+            }
+
+            function updateViewerUI() {
+                viewerSlidesContainer.style.transform = `translateX(-${currentViewerIndex * 100}%)`;
+                if(viewerMediaData.length > 1) {
+                    viewerCounter.style.display = 'block';
+                    viewerCounter.innerText = `${currentViewerIndex + 1}/${viewerMediaData.length}`;
+                } else {
+                    viewerCounter.style.display = 'none';
+                }
+                pauseAllVideos();
+            }
+
+            // Swipe capability in viewer
+            let vStartX = 0, vEndX = 0;
+            viewerWrapper.addEventListener('touchstart', (e) => { vStartX = e.changedTouches[0].screenX; }, {passive: true});
+            viewerWrapper.addEventListener('touchend', (e) => {
+                vEndX = e.changedTouches[0].screenX;
+                const threshold = 40; 
+                if (vStartX - vEndX > threshold && currentViewerIndex < viewerMediaData.length - 1) {
+                    currentViewerIndex++; updateViewerUI();
+                } else if (vEndX - vStartX > threshold && currentViewerIndex > 0) {
+                    currentViewerIndex--; updateViewerUI();
+                }
+            }, {passive: true});
+
+            // Keyboard capability in viewer
+            document.addEventListener('keydown', (e) => {
+                if(!viewer.classList.contains('active')) return;
+                if(e.key === 'ArrowRight' && currentViewerIndex < viewerMediaData.length - 1) {
+                    currentViewerIndex++; updateViewerUI();
+                } else if(e.key === 'ArrowLeft' && currentViewerIndex > 0) {
+                    currentViewerIndex--; updateViewerUI();
+                } else if(e.key === 'Escape') {
+                    if(isPureFullscreen) {
+                        isPureFullscreen = false; viewer.classList.remove('pure-mode');
+                    } else {
+                        viewer.classList.remove('active'); pauseAllVideos();
+                    }
+                }
+            });
+
+            // Automatically focus input on load
+            searchInput.focus();
+        });
+    </script>
+</body>
+</html>

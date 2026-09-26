@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Use | NaponTech</title>
+    <title>Terms of Use | Napon Tech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -230,39 +230,39 @@
         <div class="nav-right">
             <!-- Full Logo & Text on the Right -->
             <div class="logo" onclick="window.location.href='home.html'">
-                <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                Napon<span class="text-blue">Tech</span>
+                <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                Napon <span class="text-blue">Tech</span>
             </div>
         </div>
     </nav>
 
-    <!-- Document Header (With Image Background, No Animations) -->
+    <!-- Document Header -->
     <header class="doc-header">
         <h1>Terms of Use</h1>
-        <p>Effective Date: October 24, 2024</p>
+        <p>Effective Date: January 2025</p>
     </header>
 
-    <!-- Document Content (No Animations) -->
+    <!-- Document Content -->
     <main class="doc-content">
-        <p>Welcome to NaponTech. By accessing this website, we assume you accept these terms and conditions. Do not continue to use NaponTech if you do not agree to take all of the terms and conditions stated on this page.</p>
+        <p>Welcome to Napon Tech. By accessing this website, we assume you accept these terms and conditions. Do not continue to use Napon Tech if you do not agree to the terms and conditions stated on this page.</p>
 
         <h2>1. Intellectual Property Rights</h2>
-        <p>Other than the content you own, under these Terms, NaponTech and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted limited license only for purposes of viewing the material contained on this Website.</p>
+        <p>Other than the content you own, under these Terms, Napon Tech and/or its licensors own all the intellectual property rights and materials contained in this website. You are granted limited license only for purposes of viewing the material contained on this website.</p>
 
         <h2>2. Restrictions</h2>
         <p>You are specifically restricted from all of the following:</p>
         <ul>
-            <li>Publishing any Website material in any other media without credit.</li>
-            <li>Selling, sublicensing and/or otherwise commercializing any Website material.</li>
-            <li>Using this Website in any way that is or may be damaging to this Website.</li>
-            <li>Using this Website contrary to applicable laws and regulations.</li>
+            <li>Publishing any website material in any other media without credit.</li>
+            <li>Selling, sublicensing, and/or otherwise commercializing any website material.</li>
+            <li>Using this website in any way that is or may be damaging to the website or its infrastructure.</li>
+            <li>Using this website contrary to applicable laws and regulations.</li>
         </ul>
 
         <h2>3. Services & Client Agreements</h2>
-        <p>When you engage NaponTech for development, design, or consulting services, specific deliverables, timelines, and payment structures will be governed by a separate legally binding Service Level Agreement (SLA) or Master Service Agreement (MSA) signed by both parties.</p>
+        <p>When you hire Napon Tech for development, design, or technology services, specific deliverables, timelines, and payment structures will be agreed upon in a separate project contract before work begins.</p>
 
         <h2>4. Limitation of Liability</h2>
-        <p>In no event shall NaponTech, nor any of its officers, directors, and employees, be held liable for anything arising out of or in any way connected with your use of this Website. NaponTech shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this Website.</p>
+        <p>In no event shall Napon Tech, nor any of its team members, be held liable for anything arising out of or in any way connected with your use of this website. Napon Tech shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this website.</p>
 
         <h2>5. Governing Law & Jurisdiction</h2>
         <p>These Terms will be governed by and interpreted in accordance with the laws of Nigeria, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Nigeria for the resolution of any disputes.</p>
@@ -273,12 +273,12 @@
         <div class="footer-grid">
             <div class="footer-col reveal-up">
                 <div class="footer-logo">
-                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon<span class="text-blue">Tech</span>
+                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon <span class="text-blue">Tech</span>
                 </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
                 <br>
-                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
             </div>
 
             <div class="footer-col reveal-up delay-1">
@@ -321,7 +321,7 @@
         </div>
 
         <div class="footer-bottom reveal-up">
-            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="terms.html">Terms of Use</a>
                 <a href="privacy.html">Privacy Policy</a>
@@ -338,6 +338,15 @@
     <!-- Intersection Observer Script for Scroll Animations (Footer Only) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            
+            // Dynamic copyright year
+            const currentYear = new Date().getFullYear();
+            const startYear = 2025;
+            const copyrightElement = document.getElementById('copyright-year');
+            if (copyrightElement) {
+                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+            }
+
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: "0px 0px -50px 0px"
