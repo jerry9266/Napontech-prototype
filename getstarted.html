@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Security: Prevents basic front-end attacks (XSS) -->
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+    
+    <title>Get Started | NaponTech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            --success-color: #10b981;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        html { width: 100%; }
+        
+        body { 
+            background-color: var(--off-white); 
+            color: var(--text-gray); 
+            line-height: 1.6; 
+            overflow-x: clip; 
+            width: 100%; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.3; font-family: 'Montserrat', sans-serif; }
+        h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); }
+        h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+        p { margin-bottom: 15px; }
+        .text-blue { color: var(--brand-blue); }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- Buttons --- */
+        .btn { 
+            display: inline-flex; justify-content: center; align-items: center; 
+            padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; 
+            border: none; transition: var(--transition); font-size: 0.95rem; text-align: center; gap: 8px; 
+            white-space: nowrap; 
+        }
+        .btn-primary { background-color: var(--brand-blue); color: var(--white); }
+        .btn-primary:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+        .btn-outline { background-color: transparent; border: 2px solid var(--brand-blue); color: var(--brand-blue); }
+        .btn-outline:hover { background-color: var(--brand-blue); color: var(--white); transform: translateY(-2px); }
+        .btn-whatsapp { background-color: #25D366; color: var(--white); }
+        .btn-whatsapp:hover { background-color: #1ebc59; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .btn-full { width: 100%; }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* --- Smooth Sign In / Sign Up Button Design --- */
+        .btn-auth {
+            background: linear-gradient(135deg, var(--accent-yellow), #f59e0b);
+            color: var(--black);
+            font-weight: 700;
+            border-radius: 30px; /* Smooth pill shape */
+            padding: 10px 24px;
+            box-shadow: 0 4px 15px rgba(255, 184, 0, 0.4);
+            border: none;
+        }
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 184, 0, 0.6);
+            color: var(--black);
+        }
+
+        /* --- Navigation Header (Focused View) --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 70px;
+        }
+        
+        .header-title {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .header-title:hover { color: var(--accent-yellow); }
+        .back-arrow { font-size: 1.2rem; } 
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0) scale(1); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* --- Page Header --- */
+        .get-started-header { 
+            background: var(--white); 
+            padding: 60px 5% 50px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border); 
+        }
+        .get-started-header h1 { margin-bottom: 15px; color: var(--text-dark); }
+        .get-started-header p { max-width: 600px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray); }
+
+        /* --- Communication Options Grid --- */
+        .options-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        
+        .option-card { 
+            background: var(--white); 
+            border-radius: 12px; 
+            padding: 40px 30px; 
+            text-align: center; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+            transition: var(--transition); 
+            display: flex; flex-direction: column; align-items: center; height: 100%; 
+            transform: translateZ(0); /* Anti-glitch */
+        }
+        .option-card:hover { 
+            transform: translateY(-8px) translateZ(0); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
+            border-color: var(--brand-blue); 
+        }
+        
+        .option-icon { 
+            width: 70px; height: 70px; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 1.8rem; margin-bottom: 20px; transition: var(--transition);
+        }
+        .option-card:hover .option-icon { transform: scale(1.1); }
+        
+        .icon-chat { background: rgba(37, 99, 235, 0.1); color: var(--brand-blue); }
+        .icon-wa { background: rgba(37, 211, 102, 0.1); color: #25D366; }
+        .icon-email { background: rgba(255, 184, 0, 0.15); color: #d97706; }
+        .icon-phone { background: rgba(17, 24, 39, 0.1); color: var(--text-dark); }
+
+        .option-card h3 { margin-bottom: 10px; font-size: 1.3rem; color: var(--text-dark); }
+        .option-card p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 25px; flex-grow: 1; }
+        .option-card .btn { width: 100%; }
+
+        /* --- Project Request Banner --- */
+        .project-banner { 
+            background: linear-gradient(135deg, var(--black), #0f172a); 
+            border-radius: 16px; padding: 60px 40px; color: var(--white); 
+            text-align: center; position: relative; overflow: hidden; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+        }
+        .project-banner::before { 
+            content: ''; position: absolute; top: -50%; left: -50%; 
+            width: 200%; height: 200%; 
+            background: radial-gradient(circle, rgba(255,184,0,0.15) 0%, transparent 60%); 
+            z-index: 0; pointer-events: none; 
+        }
+        .project-banner-content { position: relative; z-index: 1; }
+        .project-banner h2 { color: var(--white); margin-bottom: 15px; }
+        .project-banner p { color: var(--text-light); max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
+
+        /* ========================================================= */
+        /* --- FULL SCREEN VIEWS (Strict Layout / No Overflow) --- */
+        /* ========================================================= */
+        
+        .fs-view { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            height: 100dvh; width: 100%; background: var(--off-white); 
+            z-index: 2000; display: flex; flex-direction: column; 
+            transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow: hidden; 
+        }
+        .fs-view.active { transform: translateX(0); }
+        
+        .fs-header { 
+            background: var(--white); padding: 0 5%; display: flex; align-items: center; gap: 15px; 
+            border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
+            z-index: 10; flex-shrink: 0; height: 70px; width: 100%;
+        }
+        .fs-back-btn { 
+            background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-dark); 
+            display: flex; align-items: center; justify-content: center; 
+            width: 40px; height: 40px; border-radius: 50%; transition: var(--transition); 
+        }
+        .fs-back-btn:hover { background: var(--off-white); color: var(--brand-blue); }
+        .fs-header h3 { font-size: 1.2rem; margin: 0; display: flex; align-items: center; gap: 10px; color: var(--text-dark); }
+        
+        .fs-content { flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; overflow: hidden; }
+        
+        .form-wrapper { max-width: 700px; margin: 0 auto; padding: 40px 5%; width: 100%; overflow-y: auto; height: 100%; }
+        
+        /* --- Forms --- */
+        .form-box { background: var(--white); padding: 30px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 6px; color: var(--text-dark); }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; background: var(--off-white); transition: var(--transition); outline: none; box-sizing: border-box; }
+        .form-control:focus { border-color: var(--brand-blue); background: var(--white); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+
+        /* --- Live Chat Full Screen Specifics --- */
+        .chat-interface { 
+            display: none; flex-direction: column; flex: 1; width: 100%; max-width: 900px; margin: 0 auto; 
+            background: var(--white); border-left: 1px solid var(--border); border-right: 1px solid var(--border); 
+            box-shadow: 0 0 20px rgba(0,0,0,0.02); overflow: hidden; 
+        }
+        .chat-messages { flex: 1; min-height: 0; padding: 20px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--off-white); }
+        
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 0.95rem; line-height: 1.4; position: relative; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; }
+        .chat-bubble.team { background: var(--white); color: var(--text-dark); align-self: flex-start; border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+        .chat-bubble.visitor { background: var(--brand-blue); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-timestamp { font-size: 0.7rem; margin-top: 5px; opacity: 0.7; text-align: right; display: block; }
+        
+        .chat-status { text-align: center; font-size: 0.8rem; color: var(--text-light); margin-bottom: 10px; }
+        
+        .chat-account-prompt { text-align: center; background: #e0e7ff; color: var(--brand-blue); padding: 12px; font-size: 0.85rem; border-radius: 8px; margin-bottom: 15px; cursor: pointer; transition: var(--transition); border: 1px dashed #818cf8; text-decoration: none; display: block; }
+        .chat-account-prompt:hover { background: #c7d2fe; }
+
+        .chat-input-area { flex-shrink: 0; width: 100%; padding: 15px 5%; padding-bottom: max(15px, env(safe-area-inset-bottom)); background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; box-sizing: border-box; }
+        .chat-input-area input { flex: 1; min-width: 0; padding: 14px 20px; border: 1px solid var(--border); border-radius: 30px; outline: none; font-size: 0.95rem; background: var(--off-white); transition: var(--transition); }
+        .chat-input-area input:focus { border-color: var(--brand-blue); background: var(--white); }
+        .chat-send-btn { background: var(--brand-blue); color: var(--white); border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); font-size: 1.2rem; flex-shrink: 0; }
+        .chat-send-btn:hover { background: var(--brand-blue-hover); transform: scale(1.05); }
+
+        /* --- Success States --- */
+        .success-state { text-align: center; padding: 60px 20px; display: none; margin: auto; }
+        .success-icon { font-size: 5rem; color: var(--success-color); margin-bottom: 20px; }
+        .success-state h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--text-dark); }
+        .success-state p { font-size: 1.1rem; max-width: 500px; margin: 0 auto 25px; color: var(--text-gray); }
+        
+        /* ========================================================= */
+        /* --- GLOBAL FOOTER --- */
+        /* ========================================================= */
+        
+        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        
+        .footer-logo {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
+        
+        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
+        .footer-col ul li a:hover { color: var(--brand-blue); }
+        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
+        .footer-services i { color: var(--brand-blue); }
+        .footer-contact i { color: var(--accent-yellow); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); transition: var(--transition); }
+        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
+        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
+        .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* --- Floating WhatsApp Icon --- */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: #25D366; color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
+        .whatsapp-float:hover { background-color: #1ebc59; transform: scale(1.1); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* --- Responsive Adaptations --- */
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-left span { font-size: 1.1rem; }
+            .btn-auth { padding: 8px 15px; font-size: 0.85rem; }
+            
+            .form-grid { grid-template-columns: 1fr; gap: 0; }
+            .get-started-header { padding: 40px 5% 30px; }
+            .options-section { padding: 40px 5%; }
+            .project-banner { padding: 40px 20px; }
+            
+            /* Footer Responsive Fixes */
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .footer-col p { margin: 0 auto; }
+            .footer-logo { justify-content: center; }
+            .footer-services li, .footer-contact li { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links a { margin: 0 8px; }
+            
+            /* Chat Interface Adjustments */
+            .chat-interface { border-left: none; border-right: none; }
+            .chat-input-area { padding: 10px 5%; gap: 8px; }
+            .chat-input-area input { padding: 12px 15px; font-size: 1rem; }
+            .chat-send-btn { width: 45px; height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Central Configuration & Security Script -->
+    <script>
+        const NAPON_CONFIG = {
+            whatsappNumber: '2348012345678', 
+            emailAddress: 'hello@napontech.com',
+            phoneNumber: '+2348012345678',
+            displayPhone: '+234 801 234 5678'
+        };
+
+        // Anti-XSS Sanitization (Escapes HTML)
+        function sanitizeInput(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+    </script>
+
+    <!-- Navigation Header (Focused View: No Hamburger, No Main Links) -->
+    <nav>
+        <div class="nav-left">
+            <div class="header-title" onclick="history.back()">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Get Started</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <!-- Updated Auth Button with custom gradient styling -->
+            <a href="credentials.html" class="btn btn-auth"><i class="fa-solid fa-user-circle" style="margin-right: 4px;"></i> Sign in / Sign up</a>
+        </div>
+    </nav>
+
+    <!-- Page Description Header -->
+    <header class="get-started-header reveal-up">
+        <h1>How would you like to begin?</h1>
+        <p>Have a project in mind, a question, or simply want to talk to our team? Choose the way you’d like to connect with Napon Tech.</p>
+    </header>
+
+    <!-- Communication Options -->
+    <section class="options-section">
+        <div class="options-grid">
+            
+            <div class="option-card reveal-up delay-1">
+                <div class="option-icon icon-chat">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </div>
+                <h3>Live Chat</h3>
+                <p>Chat directly with a member of the Napon Tech team.</p>
+                <button class="btn btn-primary" onclick="openView('chatView')">
+                    <i class="fa-solid fa-paper-plane"></i> Start Live Chat
+                </button>
+            </div>
+
+            <div class="option-card reveal-up delay-2">
+                <div class="option-icon icon-wa">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3>WhatsApp</h3>
+                <p>Message us directly on WhatsApp.</p>
+                <button class="btn btn-whatsapp" onclick="openWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </button>
+            </div>
+
+            <div class="option-card reveal-up delay-3">
+                <div class="option-icon icon-email">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>Send us a direct email and tell us how we can help.</p>
+                <button class="btn btn-outline btn-full" onclick="openEmail()">
+                    <i class="fa-regular fa-envelope"></i> Send an Email
+                </button>
+            </div>
+
+            <div class="option-card reveal-up delay-4">
+                <div class="option-icon icon-phone">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p>Prefer to speak directly? Give our team a call.</p>
+                <button class="btn btn-outline btn-full" onclick="makeCall()" id="callBtnText">
+                    <i class="fa-solid fa-phone"></i> Call Napon Tech
+                </button>
+            </div>
+
+        </div>
+
+        <div class="project-banner reveal-scale">
+            <div class="project-banner-content">
+                <h2>Start a Project</h2>
+                <p>Ready to build something? Tell us what you need and our team will get back to you.</p>
+                <!-- Styled specifically to pop against the dark banner -->
+                <button class="btn btn-primary" style="background: var(--accent-yellow); color: var(--black);" onclick="openView('projectView')">
+                    <i class="fa-solid fa-rocket"></i> Start Your Project
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FULL SCREEN VIEWS ================= -->
+
+    <!-- Live Chat Full Screen View -->
+    <div class="fs-view" id="chatView">
+        <div class="fs-header">
+            <button class="fs-back-btn" onclick="closeView('chatView')" aria-label="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h3><i class="fa-solid fa-headset text-blue" style="margin-right: 5px;"></i> Napon Tech Live Support</h3>
+        </div>
+        
+        <div class="fs-content">
+            <div class="form-wrapper" id="chatFormView">
+                <div class="form-box">
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Welcome to Live Chat</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Please provide your basic details so we can assist you better.</p>
+                    
+                    <form id="startChatForm" onsubmit="startChat(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" id="chatFirstName" class="form-control" pattern="^[A-Za-z\s\-]+$" title="Only letters and spaces allowed" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" id="chatLastName" class="form-control" pattern="^[A-Za-z\s\-]+$" title="Only letters and spaces allowed" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" id="chatEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" id="chatPhone" class="form-control" pattern="^[\+0-9\s\-]+$" title="Valid phone characters only" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">How can we help you today? *</label>
+                                <textarea id="chatInitialMessage" class="form-control" maxlength="1000" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="startChatBtn" style="padding: 15px;">Start Chat</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="chat-interface" id="chatInterfaceView">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-status" id="chatStatusText">Connecting you to a team member...</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatMessageInput" placeholder="Type your message..." autocomplete="off" maxlength="800" enterkeyhint="send" onkeypress="handleChatEnter(event)">
+                    <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start a Project Full Screen View -->
+    <div class="fs-view" id="projectView">
+        <div class="fs-header">
+            <button class="fs-back-btn" onclick="closeView('projectView')" aria-label="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h3><i class="fa-solid fa-file-signature text-blue" style="margin-right: 5px;"></i> Start a Project</h3>
+        </div>
+        
+        <div class="fs-content">
+            <div class="form-wrapper" id="projectFormView">
+                <div class="form-box">
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Project Details</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Tell us about what you want to build, and we'll get right back to you.</p>
+                    
+                    <form id="projectRequestForm" onsubmit="submitProject(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" pattern="^[A-Za-z\s\-]+$" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" pattern="^[A-Za-z\s\-]+$" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone / WhatsApp *</label>
+                                <input type="tel" class="form-control" pattern="^[\+0-9\s\-]+$" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Service Required *</label>
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Select a service...</option>
+                                    <option value="Website Development">Website Development</option>
+                                    <option value="Custom Software">Custom Software</option>
+                                    <option value="Mobile App Development">Mobile App Development</option>
+                                    <option value="UI/UX Design">UI/UX Design</option>
+                                    <option value="Cybersecurity">Cybersecurity</option>
+                                    <option value="Graphic Design">Graphic Design</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Project Description *</label>
+                                <textarea class="form-control" placeholder="Tell us briefly about what you want to build..." maxlength="2000" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Budget Range (Optional)</label>
+                                <select class="form-control">
+                                    <option value="">Select budget range...</option>
+                                    <option value="< $1000">Less than $1,000</option>
+                                    <option value="$1000 - $5000">$1,000 - $5,000</option>
+                                    <option value="$5000 - $10000">$5,000 - $10,000</option>
+                                    <option value="$10000+">$10,000+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Preferred Timeline (Optional)</label>
+                                <select class="form-control">
+                                    <option value="">Select timeline...</option>
+                                    <option value="ASAP">As soon as possible</option>
+                                    <option value="1-3 Months">1 - 3 Months</option>
+                                    <option value="3-6 Months">3 - 6 Months</option>
+                                    <option value="Flexible">Flexible</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="submitProjectBtn" style="padding: 15px;">Submit Project Request</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Success Interface -->
+            <div class="form-wrapper success-state" id="projectSuccessView">
+                <i class="fa-solid fa-circle-check success-icon"></i>
+                <h3>Request Received</h3>
+                <p>Project request received. Thank you for choosing Napon Tech. Our team will review your request and get in touch with you shortly.</p>
+                <button class="btn btn-outline" style="margin-top: 15px;" onclick="closeView('projectView')"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exact Global Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col reveal-up">
+                <!-- Full Logo Restored in Footer -->
+                <div class="footer-logo">
+                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon<span class="text-blue">Tech</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <br>
+                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+            </div>
+
+            <div class="footer-col reveal-up delay-1">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="getstarted.html">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-2">
+                <h4>Services</h4>
+                <ul class="footer-services">
+                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
+                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-3">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom reveal-up">
+            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <div class="whatsapp-float" onclick="openWhatsApp()" title="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Populate dynamic contact fields
+            document.getElementById('callBtnText').innerHTML = `<i class="fa-solid fa-phone"></i> Call ${NAPON_CONFIG.displayPhone}`;
+
+            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Communication Functions
+        function openWhatsApp() { window.open(`https://wa.me/${NAPON_CONFIG.whatsappNumber}`, '_blank', 'noopener,noreferrer'); }
+        function openEmail() { window.location.href = `mailto:${NAPON_CONFIG.emailAddress}`; }
+        function makeCall() { window.location.href = `tel:${NAPON_CONFIG.phoneNumber}`; }
+
+        // View Controller Functions
+        function openView(viewId) {
+            document.getElementById(viewId).classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeView(viewId) {
+            document.getElementById(viewId).classList.remove('active');
+            document.body.style.overflow = ''; 
+        }
+
+        // Live Chat Logic with XSS Protection
+        function startChat(event) {
+            event.preventDefault();
+            const btn = document.getElementById('startChatBtn');
+            btn.innerHTML = 'Starting Chat...';
+            btn.disabled = true;
+
+            const userData = {
+                firstName: sanitizeInput(document.getElementById('chatFirstName').value),
+                message: sanitizeInput(document.getElementById('chatInitialMessage').value)
+            };
+
+            setTimeout(() => {
+                document.getElementById('chatFormView').style.display = 'none';
+                document.getElementById('chatInterfaceView').style.display = 'flex';
+
+                appendMessage('visitor', userData.message);
+
+                setTimeout(() => {
+                    document.getElementById('chatStatusText').innerText = 'A team member has joined the chat.';
+                    appendMessage('team', `Hi ${userData.firstName}! I'm looking at your message now. How can I help you today?`);
+                    
+                    const chatMessagesBox = document.getElementById('chatMessages');
+                    const prompt = document.createElement('a');
+                    prompt.href = 'credentials.html';
+                    prompt.className = 'chat-account-prompt';
+                    prompt.innerHTML = '<strong>Want to track this chat later?</strong><br>Sign in / Sign up to save your conversations and projects.';
+                    
+                    chatMessagesBox.appendChild(prompt);
+                    chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
+
+                }, 1500);
+
+                btn.innerHTML = 'Start Chat';
+                btn.disabled = false;
+                document.getElementById('startChatForm').reset();
+
+            }, 800);
+        }
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') { sendChatMessage(); }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatMessageInput');
+            const text = sanitizeInput(input.value.trim());
+            if (!text) return;
+            
+            appendMessage('visitor', text);
+            input.value = '';
+
+            const statusText = document.getElementById('chatStatusText');
+            statusText.innerText = 'Napon Tech is typing...';
+            
+            setTimeout(() => {
+                appendMessage('team', 'Thanks for the details. We will process this and get back to you shortly.');
+                statusText.innerText = 'Agent is online.';
+            }, 2000);
+        }
+
+        function appendMessage(sender, text) {
+            const container = document.getElementById('chatMessages');
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-bubble ${sender}`;
+            msgDiv.innerHTML = `${text}<span class="chat-timestamp">${time}</span>`;
+            
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Project Request Logic
+        function submitProject(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submitProjectBtn');
+            btn.innerHTML = 'Submitting... <i class="fa-solid fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('projectFormView').style.display = 'none';
+                
+                const successView = document.getElementById('projectSuccessView');
+                successView.style.display = 'flex';
+                successView.style.flexDirection = 'column';
+                successView.style.justifyContent = 'center';
+                successView.style.height = '100%';
+                
+                btn.innerHTML = 'Submit Project Request';
+                btn.disabled = false;
+                document.getElementById('projectRequestForm').reset();
+            }, 1200);
+        }
+    </script>
+</body>
+</html>

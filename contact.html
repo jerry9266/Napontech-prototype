@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | NaponTech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            width: 100%;
+        }
+
+        body {
+            overflow-x: clip; 
+            width: 100%;
+            background-color: var(--off-white);
+            color: var(--text-gray);
+            line-height: 1.6;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        h1 { color: var(--text-dark); line-height: 1.2; font-size: clamp(2.2rem, 6vw, 3.5rem); }
+        h2 { color: var(--text-dark); line-height: 1.3; font-size: clamp(1.8rem, 5vw, 2.5rem); }
+        h3, h4 { color: var(--text-dark); line-height: 1.3; }
+        
+        p { margin-bottom: 15px; word-wrap: break-word; }
+        .text-blue { color: var(--brand-blue); }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            border: none; transition: var(--transition); font-size: 0.9rem; text-align: center; gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-primary, .btn-blue { background-color: var(--brand-blue); color: var(--white); }
+        .btn-primary:hover, .btn-blue:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-yellow);
+            margin-right: 10px;
+        }
+
+        /* --- Navigation Header --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        /* Clean Text Header - Replaces Logo */
+        .header-title {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .header-title:hover { color: var(--accent-yellow); }
+        
+        /* Back Arrow (Hidden on Desktop, block on mobile) */
+        .back-arrow { display: none; } 
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-links a { 
+            font-size: 0.85rem; 
+            font-weight: 500; 
+            color: var(--white); 
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover { color: var(--accent-yellow); }
+
+        .nav-links a.active { color: var(--accent-yellow); font-weight: 600; }
+        .nav-links a.active::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 0; width: 100%; height: 2px;
+            background-color: var(--accent-yellow);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease-out; }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease-out; }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0) scale(1); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Hero Section --- */
+        .contact-hero {
+            position: relative;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&h=500&fit=crop') center/cover;
+            color: var(--white);
+            padding: 100px 5%;
+            text-align: center;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact-hero h1 { color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.7); }
+        .contact-hero p { font-size: 1.1rem; max-width: 650px; margin: 0 auto; color: var(--white); text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+
+        /* --- Global Layout --- */
+        .section-padding { padding: 80px 5%; width: 100%; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-family: 'Montserrat', sans-serif; margin-bottom: 10px; color: var(--text-dark); font-size: 2.2rem; }
+
+        /* --- Contact Grid --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Contact Info Cards --- */
+        .contact-info-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Updated Info Card for Clickability */
+        .info-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform: translateZ(0); 
+        }
+        .info-card:hover {
+            transform: translateY(-5px) translateZ(0);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--brand-blue);
+        }
+        .info-icon {
+            width: 50px; height: 50px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--brand-blue);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .info-card:hover .info-icon {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+        .info-content h4 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text-dark); }
+        .info-content p { font-size: 0.95rem; color: var(--text-gray); margin: 0 0 5px 0; }
+        .info-content span { font-weight: 600; color: var(--brand-blue); font-size: 0.95rem; display: inline-flex; align-items: center; gap: 5px; transition: var(--transition); }
+        .info-card:hover .info-content span { color: var(--brand-blue-hover); transform: translateX(5px); }
+
+        /* Social Media Block */
+        .contact-social {
+            margin-top: 15px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .contact-social h4 { margin-bottom: 15px; color: var(--text-dark); }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-links a {
+            width: 45px; height: 45px;
+            background: var(--off-white);
+            color: var(--text-dark);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+            transform: translateZ(0);
+        }
+        .social-links a:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+            transform: translateY(-3px) translateZ(0);
+        }
+
+        /* --- Secure Contact Form --- */
+        .contact-form-wrapper {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+        }
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-blue);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        /* Invalid states for visual feedback */
+        .form-control:invalid:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .contact-form .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* --- Image Section replacing Google Map --- */
+        .image-replacement-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 80px 5%;
+            text-align: center;
+        }
+        .image-replacement-section img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        /* --- Footer --- */
+        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        
+        .footer-logo {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .site-logo { 
+            height: 28px; 
+            width: auto; 
+            max-width: 140px; 
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
+        .footer-col ul li a:hover { color: var(--brand-blue); }
+        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
+        .footer-services i { color: var(--brand-blue); }
+        .footer-contact i { color: var(--accent-yellow); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); }
+        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
+        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
+        .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* --- Floating WhatsApp Icon --- */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
+            background-color: var(--brand-blue); color: var(--white); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 28px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); cursor: pointer; z-index: 90;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+
+        /* --- Responsive Adaptations --- */
+        @media (max-width: 1100px) {
+            .header-title {
+                font-size: 1.1rem; 
+                font-weight: 700;
+            }
+            .back-arrow { 
+                display: block; /* Shows only on mobile */
+            }
+            
+            .hamburger { display: block; }
+            
+            .nav-links {
+                position: fixed; top: 60px; left: -100%; width: 100%; height: calc(100vh - 60px);
+                background: linear-gradient(180deg, var(--black) 0%, #1a1a1a 80%, #3d2f00 120%);
+                flex-direction: column; align-items: center;
+                padding: 40px 0 80px 0; transition: var(--transition); box-shadow: 0 10px 10px rgba(0,0,0,0.5); overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links .btn { width: 80%; max-width: 300px; margin-top: 10px; }
+            .nav-links a { color: var(--white); font-size: 1.1rem; margin-bottom: 8px; }
+        }
+
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .contact-form-wrapper { padding: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero { padding: 80px 5%; }
+            .contact-hero h1 { font-size: 2.2rem; }
+            .contact-hero p { font-size: 0.95rem; }
+            
+            .section-padding { padding: 50px 5%; } 
+            .section-title h2 { font-size: 1.8rem; }
+            
+            .contact-form-wrapper { padding: 25px 20px; }
+            
+            /* Footer adjustments */
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .footer-logo { justify-content: center; }
+            .footer-col p { margin: 0 auto; }
+            .footer-services li, .footer-contact li { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links a { margin: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="nav-left">
+            <!-- Header Text - Logo completely removed, only title and back arrow -->
+            <div class="header-title" onclick="history.back()">
+                <i class="fa-solid fa-arrow-left back-arrow"></i>
+                <span>Contact Us</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html" class="active">Contact Us</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="support.html">Support</a>
+            <a href="getstarted.html" class="btn btn-blue">Get Started</a>
+        </div>
+        
+        <div class="nav-actions">
+            <!-- Hamburger Menu -->
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero Section -->
+    <header class="contact-hero reveal-up">
+        <h1>Let's Start a Conversation</h1>
+        <p>Whether you have a question about our services, pricing, or need a technical consultation, our team is ready to answer all your questions.</p>
+    </header>
+
+    <!-- Main Contact Section -->
+    <section class="section-padding">
+        <div class="contact-container">
+            
+            <!-- Left Side: Contact Information (Clickable Cards) -->
+            <div class="contact-info-wrapper reveal-left">
+                <div class="section-title" style="text-align: left; margin-bottom: 20px;">
+                    <div class="section-label" style="justify-content: flex-start;">Get In Touch</div>
+                    <h2>We're Here to Help</h2>
+                </div>
+
+                <!-- Info Card 1: Email CTA -->
+                <a href="mailto:hello@napontech.com" class="info-card delay-1">
+                    <div class="info-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="info-content">
+                        <h4>Email Us</h4>
+                        <p>For general queries and project briefs.</p>
+                        <span>Send an Email <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- Info Card 2: Phone CTA -->
+                <a href="tel:+2348012345678" class="info-card delay-2">
+                    <div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                    <div class="info-content">
+                        <h4>Call Us</h4>
+                        <p>Mon-Fri from 8am to 5pm.</p>
+                        <span>Call +234 801 234 5678 <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- Info Card 3: WhatsApp CTA (Replacing Location/HQ) -->
+                <a href="https://wa.me/2348012345678" target="_blank" class="info-card delay-3">
+                    <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="info-content">
+                        <h4>WhatsApp Us</h4>
+                        <p>Chat directly with our support team instantly.</p>
+                        <span>Start Chatting <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- Social Links -->
+                <div class="contact-social delay-4">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Secured Contact Form -->
+            <div class="contact-form-wrapper reveal-right">
+                <!-- 
+                  SECURITY IMPLEMENTED:
+                  - Strict pattern matching blocks special characters < > = etc. to prevent XSS payloads.
+                  - Maxlength limits database overflow (simulated).
+                  - JavaScript handles sanitization on submit to encode characters.
+                -->
+                <form id="secureContactForm" class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <!-- Validation: Only letters and spaces -->
+                            <input type="text" id="firstName" class="form-control" placeholder="John" required maxlength="50" pattern="^[a-zA-Z\s]+$" title="Only letters and spaces are allowed">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Doe" required maxlength="50" pattern="^[a-zA-Z\s]+$" title="Only letters and spaces are allowed">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <!-- Native email validation -->
+                        <input type="email" id="email" class="form-control" placeholder="john@example.com" required maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" class="form-control" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile App">Mobile App Development</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                            <option value="Consulting">Technical Consulting</option>
+                            <option value="Other">Other Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <!-- Max length added to prevent payload bombing -->
+                        <textarea id="message" class="form-control" placeholder="Tell us about your project or inquiry..." required maxlength="1000"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Send Message <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    
+                    <div id="formFeedback" style="display:none; margin-top: 15px; padding: 10px; border-radius: 8px; text-align: center; font-weight: 500;"></div>
+                </form>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Image Section (Replacing Google Map) -->
+    <div class="image-replacement-section reveal-up">
+        <img src="design_image.PNG" alt="NaponTech Design Graphic" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=500&fit=crop'">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col reveal-up">
+                <!-- Full Logo Restored in Footer -->
+                <div class="footer-logo">
+                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon<span class="text-blue">Tech</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <br>
+                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+            </div>
+
+            <div class="footer-col reveal-up delay-1">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="getstarted.html">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-2">
+                <h4>Services</h4>
+                <ul class="footer-services">
+                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
+                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-3">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom reveal-up">
+            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript Integrations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* --- HAMBURGER MENU LOGIC --- */
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+
+            /* --- SECURE FORM SUBMISSION SCRIPT --- */
+            const secureForm = document.getElementById('secureContactForm');
+            const formFeedback = document.getElementById('formFeedback');
+
+            // Basic XSS Sanitization Function (Encodes HTML entities)
+            function sanitizeHTML(str) {
+                return str.replace(/[^\w. @-]/gi, function (c) {
+                    return '&#' + c.charCodeAt(0) + ';';
+                });
+            }
+
+            secureForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevents default form submission
+
+                // Fetching and sanitizing inputs
+                const fName = sanitizeHTML(document.getElementById('firstName').value.trim());
+                const lName = sanitizeHTML(document.getElementById('lastName').value.trim());
+                const email = document.getElementById('email').value.trim(); // Handled by native type="email"
+                const msg = sanitizeHTML(document.getElementById('message').value.trim());
+
+                // Additional check to prevent empty sanitized strings (e.g. if a user only typed <script>)
+                if(!fName || !lName || !msg) {
+                    formFeedback.style.display = 'block';
+                    formFeedback.style.backgroundColor = '#fef2f2';
+                    formFeedback.style.color = '#dc2626';
+                    formFeedback.style.border = '1px solid #f87171';
+                    formFeedback.textContent = 'Error: Invalid characters detected. Please use standard text.';
+                    return;
+                }
+
+                // Simulate successful, secure submission
+                formFeedback.style.display = 'block';
+                formFeedback.style.backgroundColor = '#f0fdf4';
+                formFeedback.style.color = '#16a34a';
+                formFeedback.style.border = '1px solid #86efac';
+                formFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> Thank you, ${fName}! Your message was securely sent.`;
+                
+                // Reset form
+                secureForm.reset();
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formFeedback.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | NaponTech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        html { width: 100%; }
+        
+        body { 
+            background-color: var(--white); /* Reverted to light background for the document */
+            color: var(--text-gray); 
+            line-height: 1.8; 
+            overflow-x: clip; 
+            width: 100%; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.3; font-family: 'Montserrat', sans-serif; }
+        p { margin-bottom: 15px; }
+        .text-blue { color: var(--brand-blue); }
+
+        /* --- Navigation Header (Focused View) --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+            width: 100%;
+        }
+
+        .nav-left { display: flex; align-items: center; }
+        
+        /* Back Arrow on the Left */
+        .back-btn {
+            color: var(--white);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .back-btn:hover {
+            color: var(--accent-yellow);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-3px);
+        }
+
+        .nav-right { display: flex; align-items: center; }
+        
+        /* Full Logo on the Right */
+        .nav-right .logo {
+            font-size: 1.5rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .nav-right .site-logo {
+            height: 32px; 
+            width: auto; 
+            max-width: 140px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .nav-right .logo:hover { color: var(--accent-yellow); }
+
+        /* --- Scroll Animation Classes (Kept only for Footer) --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Document Header (Image Background) --- */
+        .doc-header { 
+            /* Image background with a dark overlay to make text readable */
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)), url('Privacy_image.png') center/cover no-repeat;
+            padding: 100px 5%; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border-dark); 
+        }
+        .doc-header h1 { 
+            color: var(--white); 
+            font-size: clamp(2.2rem, 5vw, 3.5rem); 
+            margin-bottom: 10px; 
+        }
+        .doc-header p { 
+            color: var(--text-light); 
+            font-size: 1rem; 
+            font-weight: 500;
+            margin-bottom: 0; 
+        }
+
+        /* --- Document Content Formatting (Original Layout, No Card) --- */
+        .doc-content { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 60px 20px 80px; 
+        }
+        .doc-content h2 { 
+            color: var(--text-dark); 
+            font-size: 1.5rem; 
+            margin: 40px 0 15px; 
+        }
+        .doc-content h2:first-child { margin-top: 0; }
+        .doc-content p { font-size: 1rem; margin-bottom: 20px; }
+        .doc-content ul { margin-bottom: 20px; padding-left: 20px; }
+        .doc-content li { margin-bottom: 10px; font-size: 1rem; }
+        .doc-content strong { color: var(--text-dark); font-weight: 600; }
+        .doc-content a { color: var(--brand-blue); font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: var(--transition); }
+        .doc-content a:hover { color: var(--brand-blue-hover); border-bottom-color: var(--brand-blue-hover); }
+
+        /* ========================================================= */
+        /* --- GLOBAL FOOTER --- */
+        /* ========================================================= */
+        
+        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        
+        .footer-logo {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .footer-logo .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
+        
+        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
+        .footer-col ul li a:hover { color: var(--brand-blue); }
+        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
+        .footer-services i { color: var(--brand-blue); }
+        .footer-contact i { color: var(--accent-yellow); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); transition: var(--transition); }
+        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
+        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
+        .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* --- Floating WhatsApp Icon --- */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: #25D366; color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
+        .whatsapp-float:hover { background-color: #1ebc59; transform: scale(1.1); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* --- Responsive Adaptations --- */
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .doc-header { padding: 80px 5% 60px; }
+            .doc-content { padding: 40px 20px 60px; }
+            
+            /* Footer Responsive Fixes */
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; overflow: hidden; }
+            .footer-col p { margin: 0 auto; }
+            .footer-logo { justify-content: center; }
+            .footer-services li, .footer-contact li { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links a { margin: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header (Focused View: Back Arrow Left, Full Logo Right) -->
+    <nav>
+        <div class="nav-left">
+            <div class="back-btn" onclick="history.back()" title="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <!-- Full Logo & Text on the Right -->
+            <div class="logo" onclick="window.location.href='home.html'">
+                <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                Napon<span class="text-blue">Tech</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Document Header (With Image Background, No Animations) -->
+    <header class="doc-header">
+        <h1>Privacy Policy</h1>
+        <p>Last Updated: October 24, 2024</p>
+    </header>
+
+    <!-- Document Content (No Card, No Animations) -->
+    <main class="doc-content">
+        <p>At NaponTech, accessible from napontech.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by NaponTech and how we use it.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
+        <ul>
+            <li><strong>Contact Information:</strong> Name, email address, phone number, and company details when you submit a form.</li>
+            <li><strong>Usage Data:</strong> Information about how you interact with our website, collected automatically via cookies and analytics tools.</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>We use the information we collect in various ways, including to:</p>
+        <ul>
+            <li>Provide, operate, and maintain our website.</li>
+            <li>Improve, personalize, and expand our website.</li>
+            <li>Understand and analyze how you use our website.</li>
+            <li>Develop new products, services, features, and functionality.</li>
+            <li>Communicate with you for customer service, updates, and marketing (with your consent).</li>
+        </ul>
+
+        <h2>3. Log Files and Analytics</h2>
+        <p>NaponTech follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks.</p>
+
+        <h2>4. Data Security</h2>
+        <p>We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable.</p>
+
+        <h2>5. Contact Us</h2>
+        <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at <a href="mailto:privacy@napontech.com">privacy@napontech.com</a>.</p>
+    </main>
+
+    <!-- Exact Global Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col reveal-up">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon<span class="text-blue">Tech</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <br>
+                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+            </div>
+
+            <div class="footer-col reveal-up delay-1">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="getstarted.html">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-2">
+                <h4>Services</h4>
+                <ul class="footer-services">
+                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
+                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-3">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom reveal-up">
+            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/2348012345678" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Intersection Observer Script for Scroll Animations (Footer Only) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

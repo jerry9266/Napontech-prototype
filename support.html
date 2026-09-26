@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support & Help Center | NaponTech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            width: 100%;
+        }
+
+        body {
+            overflow-x: clip; 
+            width: 100%;
+            background-color: var(--off-white);
+            color: var(--text-gray);
+            line-height: 1.6;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        h1 { color: var(--text-dark); line-height: 1.2; font-size: clamp(2.2rem, 6vw, 3.5rem); }
+        h2 { color: var(--text-dark); line-height: 1.3; font-size: clamp(1.8rem, 5vw, 2.5rem); }
+        h3, h4 { color: var(--text-dark); line-height: 1.3; }
+        
+        p { margin-bottom: 15px; word-wrap: break-word; }
+        .text-blue { color: var(--brand-blue); }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            border: none; transition: var(--transition); font-size: 0.9rem; text-align: center; gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-primary, .btn-blue { background-color: var(--brand-blue); color: var(--white); }
+        .btn-primary:hover, .btn-blue:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+        .btn-outline { background-color: transparent; color: var(--white); border: 2px solid var(--white); }
+        .btn-outline:hover { background-color: var(--white); color: var(--black); transform: translateY(-2px); }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-yellow);
+            margin-right: 10px;
+        }
+
+        /* --- Navigation Header --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        /* Clean Text Header - Replaces Logo */
+        .header-title {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .header-title:hover { color: var(--accent-yellow); }
+        
+        /* Back Arrow (Hidden on Desktop, block on mobile) */
+        .back-arrow { display: none; } 
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-links a { 
+            font-size: 0.85rem; 
+            font-weight: 500; 
+            color: var(--white); 
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover { color: var(--accent-yellow); }
+
+        .nav-links a.active { color: var(--accent-yellow); font-weight: 600; }
+        .nav-links a.active::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 0; width: 100%; height: 2px;
+            background-color: var(--accent-yellow);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease-out; }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease-out; }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0) scale(1); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* --- Support Hero --- */
+        .support-hero {
+            position: relative;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=1600&h=500&fit=crop') center/cover;
+            color: var(--white);
+            padding: 100px 5%;
+            text-align: center;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .support-hero h1 { color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 800; margin-bottom: 25px; text-shadow: 0 4px 12px rgba(0,0,0,0.7); }
+        
+        .search-container { max-width: 600px; width: 100%; margin: 0 auto; position: relative; }
+        .search-container input { width: 100%; padding: 18px 20px 18px 55px; border-radius: 30px; border: none; font-size: 1rem; outline: none; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: var(--transition); }
+        .search-container input:focus { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.4); }
+        .search-container i { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--brand-blue); font-size: 1.3rem; }
+
+        /* --- Global Layout --- */
+        .section-padding { padding: 80px 5%; width: 100%; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-family: 'Montserrat', sans-serif; color: var(--text-dark); }
+
+        /* --- Support Grid --- */
+        .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .support-card { background: var(--white); padding: 40px 30px; border-radius: 12px; text-align: center; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, border-color 0.3s ease; transform: translateZ(0); cursor: pointer; }
+        .support-card:hover { transform: translateY(-8px) translateZ(0); border-color: var(--brand-blue); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1); }
+        .support-icon { font-size: 3rem; color: var(--brand-blue); margin-bottom: 20px; transition: var(--transition); }
+        .support-card:hover .support-icon { transform: scale(1.1); color: var(--brand-blue-hover); }
+        .support-card h3 { color: var(--text-dark); margin-bottom: 15px; font-size: 1.3rem; }
+        .support-card p { color: var(--text-gray); font-size: 0.95rem; margin: 0; }
+
+        /* --- FAQ Accordion --- */
+        .faq-section { background-color: var(--white); }
+        .faq-container { max-width: 900px; margin: 0 auto; }
+        details { background: var(--white); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: var(--transition); box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        summary { padding: 20px 25px; font-weight: 600; color: var(--text-dark); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; transition: var(--transition); }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--brand-blue); transition: transform 0.3s ease; }
+        summary:hover { color: var(--brand-blue); }
+        details[open] summary { border-bottom: 1px solid var(--border); color: var(--brand-blue); }
+        details[open] summary::after { transform: rotate(180deg); }
+        details[open] { border-color: var(--brand-blue); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.08); }
+        .faq-content { padding: 20px 25px; color: var(--text-gray); font-size: 0.95rem; line-height: 1.7; background: var(--white); }
+
+        /* --- CTA Section --- */
+        .faq-cta {
+            text-align: center;
+            padding: 100px 5%;
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.92)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&h=600&fit=crop') center/cover no-repeat;
+            color: var(--white);
+            position: relative;
+        }
+        .faq-cta h2 { color: var(--white); font-size: 2.4rem; margin-bottom: 15px; }
+        .faq-cta p { color: var(--text-light); max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* --- Footer (Dark Palette) --- */
+        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        
+        .footer-logo {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .site-logo { 
+            height: 28px; 
+            width: auto; 
+            max-width: 140px; 
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
+        .footer-col ul li a:hover { color: var(--brand-blue); }
+        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
+        .footer-services i { color: var(--brand-blue); }
+        .footer-contact i { color: var(--accent-yellow); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); }
+        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
+        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
+        .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* --- Floating WhatsApp Icon --- */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: var(--brand-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+
+        /* --- Responsive Adaptations --- */
+        @media (max-width: 1100px) {
+            .header-title { font-size: 1.1rem; font-weight: 700; }
+            .back-arrow { display: block; }
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed; top: 60px; left: -100%; width: 100%; height: calc(100vh - 60px);
+                background: linear-gradient(180deg, var(--black) 0%, #1a1a1a 80%, #3d2f00 120%);
+                flex-direction: column; align-items: center;
+                padding: 40px 0 80px 0; transition: var(--transition); box-shadow: 0 10px 10px rgba(0,0,0,0.5); overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links .btn { width: 80%; max-width: 300px; margin-top: 10px; }
+            .nav-links a { color: var(--white); font-size: 1.1rem; margin-bottom: 8px; }
+        }
+
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .support-hero { padding: 80px 5%; }
+            .support-hero h1 { font-size: 2.2rem; }
+            .search-container input { padding: 15px 20px 15px 50px; font-size: 0.95rem; }
+            
+            .section-padding { padding: 50px 5%; } 
+            .section-title h2, .faq-cta h2 { font-size: 1.8rem; }
+            
+            .support-grid { grid-template-columns: 1fr; gap: 20px; }
+            .support-card { padding: 30px 20px; }
+            
+            .cta-buttons { flex-direction: column; align-items: stretch; }
+            .cta-buttons .btn { width: 100%; }
+            
+            /* Footer adjustments */
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .footer-logo { justify-content: center; }
+            .footer-col p { margin: 0 auto; }
+            .footer-services li, .footer-contact li { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links a { margin: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="nav-left">
+            <!-- Header Text - Replacing Logo -->
+            <div class="header-title" onclick="history.back()">
+                <i class="fa-solid fa-arrow-left back-arrow"></i>
+                <span>Support</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="support.html" class="active">Support</a>
+            <a href="getstarted.html" class="btn btn-blue">Get Started</a>
+        </div>
+        
+        <div class="nav-actions">
+            <!-- Search icon removed as requested -->
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Support Hero (Search Input Kept) -->
+    <header class="support-hero reveal-up">
+        <h1>How can we help you?</h1>
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search for articles, guides, or questions...">
+        </div>
+    </header>
+
+    <!-- Support Grid (Cards Updated with specific text & links) -->
+    <section class="section-padding">
+        <div class="support-grid">
+            <div class="support-card reveal-up delay-1" onclick="window.location.href='getstarted.html'">
+                <i class="fa-solid fa-rocket support-icon"></i>
+                <h3>Getting Started</h3>
+                <p>Learn how to start a project with Napon Tech, what to expect, and what information we need from you.</p>
+            </div>
+            
+            <div class="support-card reveal-up delay-2" onclick="window.location.href='getstarted.html'">
+                <i class="fa-solid fa-file-invoice-dollar support-icon"></i>
+                <h3>Billing & Payments</h3>
+                <p>Learn about project pricing, payments, invoices, and billing arrangements.</p>
+            </div>
+            
+            <div class="support-card reveal-up delay-3" onclick="window.location.href='getstarted.html'">
+                <i class="fa-solid fa-screwdriver-wrench support-icon"></i>
+                <h3>Technical Support</h3>
+                <p>Get help with websites, apps, APIs, hosting, and other technical issues.</p>
+            </div>
+            
+            <div class="support-card reveal-up delay-4" onclick="window.location.href='privacy.html'">
+                <i class="fa-solid fa-shield-halved support-icon"></i>
+                <h3>Security & Privacy</h3>
+                <p>Learn how we protect your information, digital products, and project data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion (Updated with specific Q&A) -->
+    <section class="section-padding faq-section">
+        <div class="section-title reveal-up">
+            <div class="section-label">Find Answers</div>
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container reveal-up delay-1">
+            <details>
+                <summary>How do I start a project with Napon Tech?</summary>
+                <div class="faq-content">Tell us what you want to build through the Get Started page. We'll review your requirements and discuss the next steps with you.</div>
+            </details>
+            <details>
+                <summary>How long does a project usually take?</summary>
+                <div class="faq-content">The timeline depends on the type and complexity of the project. After understanding your requirements, we'll provide an estimated timeline.</div>
+            </details>
+            <details>
+                <summary>What services does Napon Tech offer?</summary>
+                <div class="faq-content">We provide services including web development, mobile app development, custom software, UI/UX design, cybersecurity, graphic design, and other digital solutions.</div>
+            </details>
+            <details>
+                <summary>How much does a project cost?</summary>
+                <div class="faq-content">Project pricing depends on the scope, features, complexity, and requirements. Contact us with your idea and we'll discuss the appropriate approach and pricing.</div>
+            </details>
+            <details>
+                <summary>Do you provide support after a project is completed?</summary>
+                <div class="faq-content">Yes. We can provide ongoing maintenance, updates, troubleshooting, security support, and other post-launch services depending on your needs.</div>
+            </details>
+            <details>
+                <summary>What technologies do you use?</summary>
+                <div class="faq-content">We choose technologies based on the requirements of each project. The technology stack may vary depending on the product, platform, performance, security, and scalability requirements.</div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Call to Action (Applied Frosted Image Background) -->
+    <section class="faq-cta reveal-scale">
+        <h2>Still have a question?</h2>
+        <p>Can't find the answer you're looking for? Our support team is always ready to help you out with whatever you need.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Support</a>
+            <a href="https://wa.me/2348012345678" target="_blank" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col reveal-up">
+                <!-- Full Logo Restored in Footer -->
+                <div class="footer-logo">
+                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon<span class="text-blue">Tech</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <br>
+                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+            </div>
+
+            <div class="footer-col reveal-up delay-1">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="getstarted.html">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-2">
+                <h4>Services</h4>
+                <ul class="footer-services">
+                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
+                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-3">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom reveal-up">
+            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript Integrations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* --- HAMBURGER MENU LOGIC --- */
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close mobile menu on link click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            /* --- FAQ ACCORDION LOGIC --- */
+            // Make accordions mutually exclusive (opening one closes others)
+            const detailsElements = document.querySelectorAll("details");
+            detailsElements.forEach((targetDetail) => {
+                targetDetail.addEventListener("click", () => {
+                    detailsElements.forEach((detail) => {
+                        if (detail !== targetDetail) {
+                            detail.removeAttribute("open");
+                        }
+                    });
+                });
+            });
+
+            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

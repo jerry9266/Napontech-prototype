@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaponTech | Build • Design • Innovate</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables (Updated to Strict Color System) --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--off-white);
+            color: var(--text-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.2; }
+        .text-blue { color: var(--brand-blue); }
+
+        /* --- Navigation & Header (Kept EXACTLY as it is) --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .site-logo {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a { 
+            font-weight: 500; 
+            color: var(--white); 
+            position: relative;
+        }
+        
+        .nav-links a:hover { color: var(--accent-yellow); }
+
+        /* Active Home Indicator */
+        .nav-links a.active { color: var(--accent-yellow); font-weight: 600; }
+        .nav-links a.active::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 0; width: 100%; height: 2px;
+            background-color: var(--accent-yellow);
+            border-radius: 2px;
+        }
+
+        .mobile-only { display: none; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-icon {
+            font-size: 1.2rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .search-icon:hover { color: var(--accent-yellow); }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        /* Buttons globally */
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            border: none; transition: var(--transition); font-size: 0.95rem; text-align: center; gap: 8px;
+        }
+        .btn-blue, .btn-primary { background-color: var(--brand-blue); color: var(--white); }
+        .btn-blue:hover, .btn-primary:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); }
+        .btn-secondary { background-color: var(--white); color: var(--text-dark); border: 1px solid var(--border); }
+        .btn-secondary:hover { background-color: var(--off-white); border-color: #d1d5db; transform: translateY(-2px); }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease-out; }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease-out; }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0) scale(1); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Auto-Sliding Banner --- */
+        .banner-container {
+            position: relative; width: 100%; overflow: hidden; background: var(--black);
+        }
+        .banner-slides { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
+        .slide { min-width: 100%; position: relative; }
+        .slide img {
+            width: 100%; height: 250px; object-fit: cover; display: block;
+        }
+        
+        .slide-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 40px 5% 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: var(--white);
+        }
+        .slide-overlay h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; margin-bottom: 5px; color: var(--white); }
+
+        .pagination {
+            position: absolute; bottom: 10px; width: 100%;
+            display: flex; justify-content: center; gap: 8px;
+        }
+        .dot {
+            width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%; cursor: pointer; transition: var(--transition);
+        }
+        .dot.active { background-color: var(--white); transform: scale(1.2); }
+
+        /* --- Categories Navigation --- */
+        .categories-container {
+            display: flex; gap: 12px; padding: 15px 5%;
+            background: var(--off-white); overflow-x: auto; border-bottom: 1px solid var(--border);
+            scrollbar-width: none; 
+        }
+        .categories-container::-webkit-scrollbar { display: none; }
+        .cat-btn {
+            background-color: var(--white); color: var(--text-gray);
+            border: 1px solid var(--border); padding: 8px 20px; border-radius: 20px;
+            font-weight: 600; font-size: 13px; white-space: nowrap; cursor: pointer; transition: all 0.2s;
+        }
+        .cat-btn.active { background-color: var(--brand-blue); color: var(--white); border-color: var(--brand-blue); }
+
+        /* --- Main Feed (Responsive Grid) --- */
+        .feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 30px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--white); overflow: hidden;
+            border: 1px solid var(--border); border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        .service-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: var(--brand-blue); }
+
+        .service-image-container {
+            position: relative; width: 100%; height: 240px;
+            cursor: pointer; background-color: var(--black);
+        }
+        .service-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background: rgba(10, 10, 10, 0.7);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            color: var(--white); font-size: 20px; pointer-events: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .play-overlay i { margin-left: 4px; }
+
+        .content-indicator {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(10, 10, 10, 0.7); color: var(--white);
+            padding: 5px 12px; border-radius: 20px; font-size: 12px;
+            font-weight: 600; display: flex; align-items: center; gap: 6px; pointer-events: none;
+        }
+
+        .service-content { padding: 20px; }
+        .service-title-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; gap: 10px;}
+        .service-title { font-size: 1.1rem; color: var(--text-dark); font-weight: 700;}
+        .timestamp { font-size: 12px; color: var(--text-light); font-weight: 500; white-space: nowrap;}
+
+        .service-description {
+            font-size: 14px; color: var(--text-gray); margin-bottom: 20px;
+            display: -webkit-box; -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .action-buttons { display: flex; gap: 10px; }
+        .action-buttons .btn { flex: 1; padding: 10px 5px; font-size: 12px; }
+
+        /* --- Footer (Updated to dark palette) --- */
+        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        .footer-col .logo { margin-bottom: 15px; color: var(--white); }
+        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
+        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.95rem; color: var(--text-light); }
+        .footer-col ul li a:hover { color: var(--brand-blue); }
+        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; margin-bottom: 15px; color: var(--text-light); }
+        .footer-services i { color: var(--brand-blue); }
+        .footer-contact i { color: var(--accent-yellow); }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a {
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
+            background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark);
+        }
+        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center; padding-top: 20px;
+            border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light);
+        }
+        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
+        .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* --- Floating WhatsApp Icon (Adjusted to Palette) --- */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 60px; height: 60px; background-color: var(--brand-blue); color: var(--white); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+            cursor: pointer; z-index: 90; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+
+        /* --- Content Viewer --- */
+        .content-viewer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--black); z-index: 2000; display: none; overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .content-viewer.active { display: block; }
+        .viewer-header {
+            position: sticky; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; color: var(--white); font-size: 18px; background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent); z-index: 20;
+        }
+        .viewer-header button {
+            background: transparent; border: none; color: inherit; cursor: pointer;
+            padding: 10px; font-size: inherit; display: inline-flex; align-items: center; 
+            justify-content: center; transition: opacity 0.2s;
+        }
+        .viewer-header button:hover { color: var(--brand-blue); }
+        .viewer-counter-text { font-weight: 600; font-size: 16px; letter-spacing: 2px; }
+        .viewer-slider-wrapper {
+            position: relative; width: 100%; height: min(70vh, 800px); background: var(--black); transition: height 0.3s ease;
+        }
+        .viewer-slides { display: flex; height: 100%; transition: transform 0.3s ease-out; }
+        .viewer-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .viewer-slide img, .viewer-slide video {
+            width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer;
+        }
+        .viewer-footer { background-color: var(--white); color: var(--text-dark); padding: 25px 5%; min-height: 40vh; }
+        .viewer-footer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+        .viewer-title { font-weight: 700; font-size: 20px; color: var(--text-dark); }
+        .viewer-time { font-size: 13px; color: var(--text-light); font-weight: 500;}
+        .viewer-desc { font-size: 15px; line-height: 1.6; color: var(--text-gray); }
+        .content-viewer.pure-mode { overflow: hidden; }
+        .content-viewer.pure-mode .viewer-header { background: rgba(10,10,10,0.5); position: absolute; }
+        .content-viewer.pure-mode .viewer-slider-wrapper { height: 100vh; position: fixed; inset: 0; z-index: 10; }
+        .content-viewer.pure-mode .viewer-footer { display: none; }
+
+        /* --- Responsive Adaptations --- */
+        @media (min-width: 768px) {
+            .slide img { height: 350px; }
+        }
+
+        @media (max-width: 992px) {
+            .mobile-only { display: block; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed; top: 60px; left: -100%; width: 100%; height: calc(100vh - 60px);
+                background: linear-gradient(180deg, var(--black) 0%, #1a1a1a 80%, #3d2f00 120%);
+                flex-direction: column; align-items: center;
+                padding: 40px 0 80px 0; transition: var(--transition); box-shadow: 0 10px 10px rgba(0,0,0,0.5); overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links .btn { width: 80%; max-width: 300px; margin-top: 10px; }
+            .nav-links a { color: var(--white); font-size: 1.1rem; margin-bottom: 5px; }
+        }
+
+        @media (max-width: 768px) {
+            .feed { grid-template-columns: 1fr; gap: 15px; padding: 15px 0 80px 0; }
+            .service-card { border-radius: 0; border-left: none; border-right: none; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .footer-col p { margin: 0 auto; }
+            .footer-services li, .footer-contact li { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links a { margin: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav>
+        <div class="logo" onclick="window.location.href='home.html'">
+            <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+            Napon<span class="text-blue">Tech</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="home.html" class="active">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="FAQ.html" class="mobile-only">FAQ</a>
+            <a href="support.html" class="mobile-only">Support</a>
+            <a href="getstarted.html" class="btn btn-blue" style="color: var(--white);">Get Started</a>
+        </div>
+        
+        <div class="nav-actions">
+            <!-- Search triggers navigation to search page -->
+            <i class="fa-solid fa-magnifying-glass search-icon" title="Search" onclick="window.location.href='search.html'"></i>
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Slider (3 Slides) -->
+    <div class="banner-container reveal-up" id="banner">
+        <div class="banner-slides" id="banner-slides">
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&h=400&fit=crop" alt="Tech Workspace">
+                <div class="slide-overlay"><h3>Innovative Tech Solutions</h3></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=400&fit=crop" alt="Analytics">
+                <div class="slide-overlay"><h3>Data-Driven Growth</h3></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=400&fit=crop" alt="Team Collaboration">
+                <div class="slide-overlay"><h3>Hire Top Tech Talent</h3></div>
+            </div>
+        </div>
+        <!-- Pagination Dots -->
+        <div class="pagination" id="pagination">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+    </div>
+
+    <!-- Category Buttons -->
+    <div class="categories-container reveal-up">
+        <button class="cat-btn active">For You</button>
+        <button class="cat-btn">Web Dev</button>
+        <button class="cat-btn">UI/UX Design</button>
+        <button class="cat-btn">Mobile Apps</button>
+        <button class="cat-btn">Cloud Architecture</button>
+        <button class="cat-btn">Digital Marketing</button>
+    </div>
+
+    <!-- Main Feed -->
+    <main class="feed">
+        
+        <!-- Post 1: Multiple Images -->
+        <article class="service-card reveal-up delay-1">
+            <div class="service-image-container content-trigger" 
+                 data-time="2 hrs ago"
+                 data-media='[
+                    {"type": "image", "src": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop"}, 
+                    {"type": "image", "src": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop"}
+                 ]'
+                 data-title="Full-Stack Web Development"
+                 data-desc="Need a robust, scalable web application? Our top-tier developers specialize in React, Node.js, and cloud architecture to bring your ideas to life quickly and efficiently. We build applications that can handle millions of concurrent users with zero downtime.">
+                
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop" alt="Web Development">
+                <div class="content-indicator"><i class="fa-regular fa-clone"></i> 1/2</div>
+            </div>
+            
+            <div class="service-content">
+                <div class="service-title-row">
+                    <h2 class="service-title">Full-Stack Web Development</h2>
+                    <span class="timestamp">2 hrs ago</span>
+                </div>
+                <!-- Truncated Description -->
+                <p class="service-description">Need a robust, scalable web application? Our top-tier developers specialize in React, Node.js, and cloud architecture to bring your ideas to life quickly and efficiently. We build applications that can handle millions of concurrent users with zero downtime.</p>
+                <div class="action-buttons">
+                    <a href="getstarted.html" class="btn btn-primary"><i class="fa-solid fa-headset"></i> Chat</a>
+                    <a href="learnmore.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Learn</a>
+                    <button class="btn btn-secondary share-btn" data-title="Full-Stack Web Development" data-desc="Check out NaponTech's robust Web Dev solutions."><i class="fa-solid fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Post 2: VIDEO Component -->
+        <article class="service-card reveal-up delay-2">
+            <div class="service-image-container content-trigger" 
+                 data-time="5 hrs ago"
+                 data-media='[
+                    {"type": "video", "src": "https://www.w3schools.com/html/mov_bbb.mp4", "poster": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop"}
+                 ]'
+                 data-title="Custom Software Engineering"
+                 data-desc="Watch our engineers at work. From API integrations to legacy system modernization, get matched with expert software engineers ready to tackle your most complex business logic. Let us handle the backend so you can focus on scale.">
+                
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop" alt="Video Poster">
+                <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                <div class="content-indicator"><i class="fa-solid fa-video"></i> Video</div>
+            </div>
+
+            <div class="service-content">
+                <div class="service-title-row">
+                    <h2 class="service-title">Custom Software Engineering</h2>
+                    <span class="timestamp">5 hrs ago</span>
+                </div>
+                <p class="service-description">Watch our engineers at work. From API integrations to legacy system modernization, get matched with expert software engineers ready to tackle your most complex business logic. Let us handle the backend so you can focus on scale.</p>
+                <div class="action-buttons">
+                    <a href="getstarted.html" class="btn btn-primary"><i class="fa-solid fa-headset"></i> Chat</a>
+                    <a href="learnmore.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Learn</a>
+                    <button class="btn btn-secondary share-btn" data-title="Custom Software Engineering" data-desc="Watch our engineers build complex scalable logic."><i class="fa-solid fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Post 3: Single Image -->
+        <article class="service-card reveal-up delay-3">
+            <div class="service-image-container content-trigger" 
+                 data-time="1 day ago"
+                 data-media='[{"type": "image", "src": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop"}]'
+                 data-title="Enterprise UI/UX Design"
+                 data-desc="Transform your digital products with user-centric interfaces. We design wireframes, prototypes, and production-ready assets tailored for modern tech companies. Design that drives conversions and retains users.">
+                
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop" alt="UI/UX Design">
+            </div>
+
+            <div class="service-content">
+                <div class="service-title-row">
+                    <h2 class="service-title">Enterprise UI/UX Design</h2>
+                    <span class="timestamp">1 day ago</span>
+                </div>
+                <p class="service-description">Transform your digital products with user-centric interfaces. We design wireframes, prototypes, and production-ready assets tailored for modern tech companies. Design that drives conversions and retains users.</p>
+                <div class="action-buttons">
+                    <a href="getstarted.html" class="btn btn-primary"><i class="fa-solid fa-headset"></i> Chat</a>
+                    <a href="learnmore.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Learn</a>
+                    <button class="btn btn-secondary share-btn" data-title="Enterprise UI/UX Design" data-desc="Transform digital products with stunning, user-centric interfaces."><i class="fa-solid fa-share-nodes"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Footer Attached from Landing Page -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col reveal-up">
+                <div class="logo">
+                    <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                    Napon<span class="text-blue">Tech</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Innovate</p>
+                <br>
+                <p>Turning ideas into digital realities. We build modern websites, apps, games and custom software solutions.</p>
+            </div>
+
+            <div class="footer-col reveal-up delay-1">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="getstarted.html">Get Started</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-2">
+                <h4>Services</h4>
+                <ul class="footer-services">
+                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
+                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+                </ul>
+            </div>
+
+            <div class="footer-col reveal-up delay-3">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom reveal-up">
+            <p>&copy; 2024 NaponTech. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Master Content Viewer -->
+    <div class="content-viewer" id="content-viewer">
+        <header class="viewer-header">
+            <button type="button" id="close-viewer" aria-label="Close viewer" title="Close">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <span class="viewer-counter-text" id="viewer-counter">1/1</span>
+            <button type="button" class="viewer-share-btn" aria-label="Share content" title="Share">
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
+        </header>
+
+        <div class="viewer-slider-wrapper" id="viewer-slider-wrapper">
+            <div class="viewer-slides" id="viewer-slides">
+                <!-- Media injected here dynamically via JS -->
+            </div>
+        </div>
+
+        <div class="viewer-footer">
+            <div class="viewer-footer-header">
+                <div class="viewer-title" id="viewer-title">Title</div>
+                <div class="viewer-time" id="viewer-time">Time</div>
+            </div>
+            <div class="viewer-desc" id="viewer-desc">Description text...</div>
+        </div>
+    </div>
+
+    <!-- JavaScript Integrations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* --- HAMBURGER MENU LOGIC --- */
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close mobile menu on link click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+
+            /* --- DEVICE NATIVE SHARE API --- */
+            const shareButtons = document.querySelectorAll('.share-btn');
+            shareButtons.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const title = btn.getAttribute('data-title');
+                    const text = btn.getAttribute('data-desc');
+                    const url = window.location.href; 
+                    
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: title,
+                                text: text,
+                                url: url
+                            });
+                        } catch (err) {
+                            console.log('User cancelled share or an error occurred.', err);
+                        }
+                    } else {
+                        alert("Web Share API is not supported on this browser. Try copying the link manually!");
+                    }
+                });
+            });
+
+            /* --- BANNER SLIDER --- */
+            const bannerSlides = document.getElementById('banner-slides');
+            const dots = document.querySelectorAll('.dot');
+            let bannerIndex = 0;
+            let bannerInterval;
+
+            function updateBanner(index) {
+                bannerSlides.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+            }
+            function nextBannerSlide() {
+                bannerIndex = (bannerIndex + 1) % dots.length;
+                updateBanner(bannerIndex);
+            }
+            function startBannerAuto() { bannerInterval = setInterval(nextBannerSlide, 4000); }
+            startBannerAuto();
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    bannerIndex = index;
+                    updateBanner(bannerIndex);
+                    clearInterval(bannerInterval);
+                    startBannerAuto();
+                });
+            });
+
+            /* --- CATEGORY BUTTONS --- */
+            const catBtns = document.querySelectorAll('.cat-btn');
+            catBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    catBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            /* --- CONTENT VIEWER (Multi-Level Logic) --- */
+            const contentTriggers = document.querySelectorAll('.content-trigger');
+            const viewer = document.getElementById('content-viewer');
+            const closeViewerBtn = document.getElementById('close-viewer');
+            const viewerSlidesContainer = document.getElementById('viewer-slides');
+            const viewerCounter = document.getElementById('viewer-counter');
+            const viewerTitle = document.getElementById('viewer-title');
+            const viewerDesc = document.getElementById('viewer-desc');
+            const viewerTime = document.getElementById('viewer-time');
+            const viewerWrapper = document.getElementById('viewer-slider-wrapper');
+            const viewerShareBtn = document.querySelector('.viewer-share-btn');
+            
+            let viewerMediaData = [];
+            let currentViewerIndex = 0;
+            let isPureFullscreen = false;
+
+            const escapeHTML = (str) => {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        "'": '&#39;',
+                        '"': '&quot;'
+                    }[tag] || tag)
+                );
+            };
+
+            // 1. OPEN VIEWER
+            contentTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function() {
+                    try {
+                        viewerMediaData = JSON.parse(this.getAttribute('data-media'));
+                    } catch (error) {
+                        console.error('Invalid media data provided:', error);
+                        return;
+                    }
+                    
+                    const rawTitle = this.getAttribute('data-title') || 'Media content';
+                    const safeTitle = escapeHTML(rawTitle);
+                    const rawDesc = this.getAttribute('data-desc') || '';
+
+                    viewerTitle.innerText = rawTitle;
+                    viewerDesc.innerText = rawDesc;
+                    viewerTime.innerText = this.getAttribute('data-time');
+                    currentViewerIndex = 0;
+                    isPureFullscreen = false; 
+
+                    viewerShareBtn.onclick = async () => {
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({
+                                    title: rawTitle,
+                                    text: rawDesc,
+                                    url: window.location.href
+                                });
+                            } catch (err) { console.log('Share error', err); }
+                        } else {
+                            alert("Web Share API is not supported on this browser.");
+                        }
+                    };
+                    
+                    viewerSlidesContainer.innerHTML = '';
+                    viewerMediaData.forEach((media, index) => {
+                        const slide = document.createElement('div');
+                        slide.className = 'viewer-slide';
+                        
+                        if(media.type === 'video') {
+                            slide.innerHTML = `<video src="${escapeHTML(media.src)}" poster="${escapeHTML(media.poster || '')}" aria-label="${safeTitle} - Video ${index + 1}" controls controlsList="nodownload noplaybackrate" disablePictureInPicture oncontextmenu="return false;"></video>`;
+                        } else {
+                            slide.innerHTML = `<img src="${escapeHTML(media.src)}" alt="${safeTitle} - Slide ${index + 1}">`;
+                        }
+                        viewerSlidesContainer.appendChild(slide);
+                    });
+
+                    updateViewerUI();
+                    viewer.classList.remove('pure-mode'); 
+                    viewer.classList.add('active');
+                    document.body.style.overflow = 'hidden'; 
+                });
+            });
+
+            // 2. TOGGLE PURE FULLSCREEN
+            viewerSlidesContainer.addEventListener('click', (e) => {
+                if(e.target.tagName === 'VIDEO') return;
+
+                if(e.target.tagName === 'IMG' || e.target.classList.contains('viewer-slide')) {
+                    isPureFullscreen = true;
+                    viewer.classList.add('pure-mode');
+                    viewer.scrollTop = 0;
+                }
+            });
+
+            // 3. BACK ARROW LOGIC
+            closeViewerBtn.addEventListener('click', () => {
+                if (isPureFullscreen) {
+                    isPureFullscreen = false;
+                    viewer.classList.remove('pure-mode');
+                } else {
+                    viewer.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    pauseAllVideos(); 
+                }
+            });
+
+            function pauseAllVideos() {
+                const videos = viewerSlidesContainer.querySelectorAll('video');
+                videos.forEach(vid => vid.pause());
+            }
+
+            function updateViewerUI() {
+                viewerSlidesContainer.style.transform = `translateX(-${currentViewerIndex * 100}%)`;
+                
+                if(viewerMediaData.length > 1) {
+                    viewerCounter.style.display = 'block';
+                    viewerCounter.innerText = `${currentViewerIndex + 1}/${viewerMediaData.length}`;
+                } else {
+                    viewerCounter.style.display = 'none';
+                }
+                pauseAllVideos();
+            }
+
+            let vStartX = 0;
+            let vEndX = 0;
+
+            viewerWrapper.addEventListener('touchstart', (e) => {
+                vStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            viewerWrapper.addEventListener('touchend', (e) => {
+                vEndX = e.changedTouches[0].screenX;
+                handleViewerSwipe();
+            }, {passive: true});
+
+            function handleViewerSwipe() {
+                const threshold = 40; 
+                if (vStartX - vEndX > threshold && currentViewerIndex < viewerMediaData.length - 1) {
+                    currentViewerIndex++;
+                    updateViewerUI();
+                } else if (vEndX - vStartX > threshold && currentViewerIndex > 0) {
+                    currentViewerIndex--;
+                    updateViewerUI();
+                }
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if(!viewer.classList.contains('active')) return;
+                
+                if(e.key === 'ArrowRight' && currentViewerIndex < viewerMediaData.length - 1) {
+                    currentViewerIndex++;
+                    updateViewerUI();
+                } else if(e.key === 'ArrowLeft' && currentViewerIndex > 0) {
+                    currentViewerIndex--;
+                    updateViewerUI();
+                } else if(e.key === 'Escape') {
+                    if(isPureFullscreen) {
+                        isPureFullscreen = false;
+                        viewer.classList.remove('pure-mode');
+                    } else {
+                        viewer.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        pauseAllVideos();
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
