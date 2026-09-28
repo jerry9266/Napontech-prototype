@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Project Tracking | NaponTech</title>
+    
+    <!-- Google Fonts & Font Awesome CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-page: #F6F8FC;
+            --brand-blue: #4F46E5;
+            --brand-blue-hover: #4338CA;
+            --brand-blue-light: #EEF2FF;
+            --card-bg: #FFFFFF;
+            --black: #0A0A0A;
+            --accent-yellow: #FFB800;
+            --text-dark: #0F172A;
+            --text-gray: #64748B;
+            --text-light: #94A3B8;
+            --border: #EDF2F7;
+            
+            --tag-completed-bg: #DCFCE7;
+            --tag-completed-text: #16A34A;
+            --tag-progress-bg: #EFF6FF;
+            --tag-progress-text: #2563EB;
+            --tag-pending-bg: #F1F5F9;
+            --tag-pending-text: #64748B;
+
+            --radius-card: 16px;
+            --radius-pill: 30px;
+            --shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+        html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-page); color: var(--text-dark); min-height: 100vh; }
+
+        /* Top Sticky Header with Safe Back Button */
+        nav {
+            position: sticky; top: 0; z-index: 1000; width: 100%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            padding: 12px 5%; border-bottom: 2px solid var(--accent-yellow);
+            display: flex; align-items: center; gap: 14px; color: #FFFFFF; height: 60px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .nav-back-btn {
+            color: #FFFFFF; font-size: 1.1rem; cursor: pointer; text-decoration: none;
+            display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+            border-radius: 50%; background: rgba(255,255,255,0.1); transition: 0.2s;
+        }
+        .nav-back-btn:hover { background: var(--brand-blue); color: #FFF; }
+        .nav-title { font-size: 1.05rem; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 16px 12px 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Top Welcome Message */
+        .welcome-section { padding: 4px 2px; }
+        .welcome-sub { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.8px; color: var(--brand-blue); text-transform: uppercase; margin-bottom: 2px; }
+        .welcome-name { font-size: 1.35rem; font-weight: 800; color: var(--text-dark); line-height: 1.2; word-break: break-word; }
+        .welcome-desc { font-size: 0.78rem; color: var(--text-gray); margin-top: 2px; }
+
+        /* General Card Definition with Anti-Overflow Constraints */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        /* Tracking ID Pill Box */
+        .tracking-pill-box {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px; border-radius: 12px; background: var(--card-bg);
+            border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer; gap: 8px;
+        }
+        .tracking-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .tracking-icon-wrap {
+            width: 34px; height: 34px; background: var(--brand-blue-light); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; color: var(--brand-blue); font-size: 0.9rem; flex-shrink: 0;
+        }
+        .tracking-meta span { display: block; font-size: 0.65rem; color: var(--text-light); font-weight: 700; text-transform: uppercase; }
+        .tracking-meta strong { font-size: 0.85rem; color: var(--text-dark); letter-spacing: 0.5px; word-break: break-all; }
+        .copy-icon { color: var(--text-light); font-size: 0.95rem; flex-shrink: 0; }
+
+        /* Project Card */
+        .project-card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .project-avatar-icon {
+            width: 38px; height: 38px; background: #6366F1; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1rem; flex-shrink: 0;
+        }
+        .project-info { min-width: 0; flex: 1; }
+        .project-info span { font-size: 0.68rem; color: var(--text-light); font-weight: 700; text-transform: uppercase; }
+        .project-info h2 { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); line-height: 1.3; margin: 1px 0 3px; word-break: break-word; }
+        .project-info p { font-size: 0.78rem; color: var(--text-gray); line-height: 1.4; margin: 0; word-break: break-word; }
+
+        /* Progress Bar */
+        .progress-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; font-weight: 700; color: var(--text-dark); margin-top: 6px; }
+        .progress-track { height: 7px; background: #E2E8F0; border-radius: 20px; overflow: hidden; width: 100%; margin-top: 6px; }
+        .progress-fill { height: 100%; background: #10B981; border-radius: 20px; width: 0%; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* Section Headings */
+        .section-header-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .section-icon-circle {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .sec-title { min-width: 0; }
+        .sec-title h3 { font-size: 0.88rem; font-weight: 800; color: var(--text-dark); }
+        .sec-title p { font-size: 0.7rem; color: var(--text-light); margin: 0; }
+
+        /* Journey Milestones */
+        .journey-list { display: flex; flex-direction: column; gap: 12px; }
+        .journey-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+        .journey-item-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+        .status-circle-icon {
+            width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;
+        }
+        .status-circle-icon.completed { background: #10B981; color: #FFFFFF; }
+        .status-circle-icon.in-progress { background: #EEF2FF; color: var(--brand-blue); border: 2px solid var(--brand-blue); }
+        .status-circle-icon.not-started { background: #F1F5F9; color: #94A3B8; }
+
+        .journey-details { min-width: 0; }
+        .journey-details h4 { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); margin: 0; word-break: break-word; line-height: 1.25; }
+        .journey-details span { font-size: 0.7rem; color: var(--text-light); }
+
+        .status-tag { padding: 3px 9px; border-radius: var(--radius-pill); font-size: 0.65rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+        .tag-completed { background: var(--tag-completed-bg); color: var(--tag-completed-text); }
+        .tag-progress { background: var(--tag-progress-bg); color: var(--tag-progress-text); }
+        .tag-pending { background: var(--tag-pending-bg); color: var(--tag-pending-text); }
+
+        /* Current Status Banner */
+        .current-status-banner {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #F0FDF4; border: 1px solid #DCFCE7; padding: 14px;
+            border-radius: 14px; gap: 10px; width: 100%;
+        }
+        .cs-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+        .cs-icon-box {
+            width: 38px; height: 38px; background: #4F46E5; color: #FFFFFF;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;
+        }
+        .cs-meta { min-width: 0; }
+        .cs-meta span { font-size: 0.62rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; }
+        .cs-meta h3 { font-size: 0.9rem; font-weight: 800; color: var(--text-dark); margin: 0; word-break: break-word; }
+        .cs-meta p { font-size: 0.72rem; color: var(--text-gray); margin: 0; word-break: break-word; }
+        .cs-right-time { text-align: right; font-size: 0.68rem; color: var(--text-gray); white-space: nowrap; flex-shrink: 0; }
+
+        /* Latest Update Card */
+        .latest-update-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow); }
+        .latest-update-content { display: flex; align-items: flex-start; gap: 10px; background: #F8FAFC; padding: 12px; border-radius: 12px; }
+        .check-circle { width: 22px; height: 22px; background: #10B981; color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; margin-top: 2px; }
+        .lu-text { min-width: 0; flex: 1; }
+        .lu-text h4 { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin: 0; word-break: break-word; }
+        .lu-text p { font-size: 0.74rem; color: var(--text-gray); margin: 2px 0 0; word-break: break-word; }
+
+        /* Next Step Card */
+        .next-step-box { display: flex; align-items: center; justify-content: space-between; background: #F8FAFC; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; gap: 10px; }
+        .ns-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+        .ns-arrow-icon { width: 28px; height: 28px; background: var(--brand-blue-light); color: var(--brand-blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+        .ns-text { min-width: 0; flex: 1; }
+        .ns-text h4 { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); margin: 0; word-break: break-word; }
+        .ns-text p { font-size: 0.74rem; color: var(--text-gray); margin: 2px 0 0; word-break: break-word; }
+
+        /* History Updates */
+        .history-table { width: 100%; border-collapse: collapse; }
+        .history-table tr { border-bottom: 1px solid #F1F5F9; }
+        .history-table tr:last-child { border-bottom: none; }
+        .history-table td { padding: 8px 0; font-size: 0.75rem; word-break: break-word; }
+        .dot-status { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 5px; flex-shrink: 0; }
+
+        /* Feedback Action Button */
+        .btn-feedback-action {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+            background: var(--brand-blue); color: #FFFFFF; padding: 14px; border-radius: 14px;
+            font-weight: 700; font-size: 0.9rem; text-decoration: none; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
+            transition: 0.2s; margin-top: 6px;
+        }
+        .btn-feedback-action:hover { background: var(--brand-blue-hover); }
+
+        .state-box { text-align: center; padding: 50px 15px; }
+        .state-box i { font-size: 2.2rem; color: var(--brand-blue); margin-bottom: 10px; }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: #0F172A; color: #FFFFFF; padding: 8px 16px; border-radius: 30px;
+            font-size: 0.75rem; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 5000;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Header -->
+    <nav>
+        <a href="Track_Your_Project.html" class="nav-back-btn" title="Back to Project Tracker">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="nav-title">Project Details</div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- Loading State -->
+        <div id="loadingBox" class="card state-box">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p style="font-size: 0.85rem; font-weight: 600;">Fetching live project status...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorBox" class="card state-box" style="display: none;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: #EF4444;"></i>
+            <h3 style="font-size: 1rem; margin-bottom: 4px;">Project Not Found</h3>
+            <p id="errorMsg" style="font-size: 0.8rem; color: var(--text-gray); margin-bottom: 12px;">Invalid or expired tracking ID.</p>
+            <a href="Track_Your_Project.html" style="color: var(--brand-blue); font-weight: 700; font-size: 0.8rem; text-decoration: none;">← Try Another ID</a>
+        </div>
+
+        <!-- MAIN DASHBOARD CONTENT -->
+        <div id="projectWrapper" style="display: none; flex-direction: column; gap: 12px;">
+            
+            <!-- 1. Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-sub">Welcome Back,</div>
+                <h1 class="welcome-name" id="uiCustomerName">Client</h1>
+                <p class="welcome-desc">Here's the latest update on your project.</p>
+            </div>
+
+            <!-- 2. Tracking ID Pill -->
+            <div class="tracking-pill-box" onclick="copyTrackingCode()">
+                <div class="tracking-left">
+                    <div class="tracking-icon-wrap"><i class="fa-regular fa-file-lines"></i></div>
+                    <div class="tracking-meta">
+                        <span>Tracking ID</span>
+                        <strong id="uiTrackingId">NAP-00000000</strong>
+                    </div>
+                </div>
+                <i class="fa-regular fa-copy copy-icon" title="Copy ID"></i>
+            </div>
+
+            <!-- 3. Project Overview Card -->
+            <div class="card">
+                <div class="project-card-header">
+                    <div class="project-avatar-icon"><i class="fa-solid fa-cube"></i></div>
+                    <div class="project-info">
+                        <span>Project</span>
+                        <h2 id="uiProjectName">Business Website</h2>
+                        <p id="uiProjectDesc">Professional and modern software development.</p>
+                    </div>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill" id="uiProgressFill"></div>
+                </div>
+                <div class="progress-meta">
+                    <span style="color: var(--text-light); font-size: 0.72rem;">Project Progress</span>
+                    <span id="uiProgressText">0%</span>
+                </div>
+            </div>
+
+            <!-- 4. Project Journey Milestones -->
+            <div class="card">
+                <div class="section-header-wrap">
+                    <div class="section-icon-circle" style="background: var(--brand-blue-light); color: var(--brand-blue);"><i class="fa-solid fa-route"></i></div>
+                    <div class="sec-title">
+                        <h3>Project Journey</h3>
+                        <p>Follow the progress of your project through each milestone.</p>
+                    </div>
+                </div>
+
+                <div class="journey-list" id="uiJourneyList"></div>
+            </div>
+
+            <!-- 5. Current Status Banner -->
+            <div class="current-status-banner">
+                <div class="cs-left">
+                    <div class="cs-icon-box"><i class="fa-solid fa-code"></i></div>
+                    <div class="cs-meta">
+                        <span>Current Status</span>
+                        <h3 id="uiCurrentStatusTitle">Development</h3>
+                        <p id="uiCurrentStatusDesc">Building components and connecting APIs.</p>
+                    </div>
+                </div>
+                <div class="cs-right-time">
+                    <div><i class="fa-regular fa-calendar"></i> <span id="uiStatusDate">Today</span></div>
+                    <div><i class="fa-regular fa-clock"></i> <span id="uiStatusTime">Live</span></div>
+                </div>
+            </div>
+
+            <!-- 6. Latest Update Card -->
+            <div class="latest-update-card">
+                <div class="section-header-wrap" style="margin-bottom: 10px;">
+                    <div class="section-icon-circle" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fa-regular fa-file-lines"></i></div>
+                    <div class="sec-title">
+                        <h3>Latest Update</h3>
+                        <p>Here's what we've been working on recently.</p>
+                    </div>
+                </div>
+
+                <div class="latest-update-content">
+                    <div class="check-circle"><i class="fa-solid fa-check"></i></div>
+                    <div class="lu-text">
+                        <h4 id="uiLatestTitle">Recent milestone completed</h4>
+                        <p id="uiLatestDesc">Integration and user testing underway.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Next Step Card -->
+            <div class="card">
+                <div class="section-header-wrap" style="margin-bottom: 10px;">
+                    <div class="section-icon-circle" style="background: #FDF2F8; color: #DB2777;"><i class="fa-solid fa-bullseye"></i></div>
+                    <div class="sec-title">
+                        <h3>Next Step</h3>
+                        <p>What comes next in the development roadmap.</p>
+                    </div>
+                </div>
+
+                <div class="next-step-box">
+                    <div class="ns-left">
+                        <div class="ns-arrow-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="ns-text">
+                            <h4 id="uiNextTitle">Next phase</h4>
+                            <p id="uiNextDesc">Starting next scheduled milestone.</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="color: #CBD5E1; font-size: 0.75rem;"></i>
+                </div>
+            </div>
+
+            <!-- 8. Project Updates History -->
+            <div class="card">
+                <div class="section-header-wrap" style="margin-bottom: 10px;">
+                    <div class="section-icon-circle" style="background: #F1F5F9; color: var(--text-gray);"><i class="fa-regular fa-clock"></i></div>
+                    <div class="sec-title">
+                        <h3>Project Updates</h3>
+                        <p>A history of all project updates and activities.</p>
+                    </div>
+                </div>
+
+                <table class="history-table" id="uiHistoryTable"></table>
+            </div>
+
+            <!-- 9. Send Feedback Action Button -->
+            <a href="#" id="btnGiveFeedback" class="btn-feedback-action">
+                <i class="fa-solid fa-comment-dots"></i> Give us feedback about this project
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Copied Tracking ID!</div>
+
+    <script>
+        const BACKEND_URL = "https://one11111111111111.onrender.com";
+        let activeTrackingId = '';
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        function copyTrackingCode() {
+            if (!activeTrackingId) return;
+            const fullCode = activeTrackingId.startsWith('NAP-') ? activeTrackingId : `NAP-${activeTrackingId}`;
+            navigator.clipboard.writeText(fullCode).then(() => {
+                showToast('Tracking ID Copied!');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idParam = urlParams.get('id');
+
+            if (!idParam) {
+                showError('Please enter a tracking ID to view status.');
+                return;
+            }
+
+            activeTrackingId = idParam.trim().toUpperCase();
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/api/project/get`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ trackingId: activeTrackingId })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success && data.project) {
+                    renderDashboard(data.project);
+                } else {
+                    showError(data.error || 'Project not found.');
+                }
+            } catch (err) {
+                showError('Could not connect to tracking server. Please try again.');
+            }
+        });
+
+        function renderDashboard(p) {
+            document.getElementById('loadingBox').style.display = 'none';
+            document.getElementById('projectWrapper').style.display = 'flex';
+
+            document.getElementById('uiCustomerName').textContent = p.customerName || 'Valued Client';
+            const displayId = p.trackingId.startsWith('NAP-') ? p.trackingId : `NAP-${p.trackingId}`;
+            document.getElementById('uiTrackingId').textContent = displayId;
+            document.getElementById('uiProjectName').textContent = p.projectName || 'Project';
+            document.getElementById('uiProjectDesc').textContent = p.projectDescription || 'Custom software development by NaponTech.';
+
+            const prog = Math.min(100, Math.max(0, parseInt(p.progress, 10) || 0));
+            document.getElementById('uiProgressText').textContent = `${prog}%`;
+            setTimeout(() => {
+                document.getElementById('uiProgressFill').style.width = `${prog}%`;
+            }, 100);
+
+            const journeyContainer = document.getElementById('uiJourneyList');
+            journeyContainer.innerHTML = '';
+
+            const historyTable = document.getElementById('uiHistoryTable');
+            historyTable.innerHTML = '';
+
+            const milestones = p.milestones && p.milestones.length > 0 ? p.milestones : [
+                { name: 'Project Started', date: 'Initial Phase', status: 'Completed' },
+                { name: 'UI/UX Design', date: 'Design Phase', status: 'Completed' },
+                { name: 'Development', date: 'Active Phase', status: 'In Progress' }
+            ];
+
+            milestones.forEach(m => {
+                const statusLower = (m.status || 'not started').toLowerCase();
+                let iconClass = 'not-started';
+                let iconInner = '<i class="fa-regular fa-circle"></i>';
+                let tagClass = 'tag-pending';
+                let tagText = 'Not Started';
+
+                if (statusLower.includes('complete')) {
+                    iconClass = 'completed';
+                    iconInner = '<i class="fa-solid fa-check"></i>';
+                    tagClass = 'tag-completed';
+                    tagText = 'Completed';
+                } else if (statusLower.includes('progress')) {
+                    iconClass = 'in-progress';
+                    iconInner = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                    tagClass = 'tag-progress';
+                    tagText = 'In Progress';
+                }
+
+                const item = document.createElement('div');
+                item.className = 'journey-item';
+                item.innerHTML = `
+                    <div class="journey-item-left">
+                        <div class="status-circle-icon ${iconClass}">
+                            ${iconInner}
+                        </div>
+                        <div class="journey-details">
+                            <h4>${escapeHTML(m.name)}</h4>
+                            <span>${escapeHTML(m.date || '')}</span>
+                        </div>
+                    </div>
+                    <span class="status-tag ${tagClass}">${tagText}</span>
+                `;
+                journeyContainer.appendChild(item);
+
+                const row = document.createElement('tr');
+                const dotColor = statusLower.includes('complete') ? '#10B981' : (statusLower.includes('progress') ? '#2563EB' : '#94A3B8');
+                row.innerHTML = `
+                    <td style="color: var(--text-gray); width: 32%;"><span class="dot-status" style="background: ${dotColor};"></span>${escapeHTML(m.date || 'Update')}</td>
+                    <td style="font-weight: 600; color: var(--text-dark);">${escapeHTML(m.name)}</td>
+                    <td style="text-align: right;"><span class="status-tag ${tagClass}">${tagText}</span></td>
+                `;
+                historyTable.appendChild(row);
+            });
+
+            document.getElementById('uiCurrentStatusTitle').textContent = p.currentStatusTitle || p.status || 'Development';
+            document.getElementById('uiCurrentStatusDesc').textContent = p.currentStatusDesc || 'Active development sprint.';
+            document.getElementById('uiStatusDate').textContent = p.statusDate || 'Recent';
+            document.getElementById('uiStatusTime').textContent = p.statusTime || 'Live';
+
+            document.getElementById('uiLatestTitle').textContent = p.latestUpdateTitle || p.projectName;
+            document.getElementById('uiLatestDesc').textContent = p.latestUpdateDesc || 'Work ongoing according to schedule.';
+
+            document.getElementById('uiNextTitle').textContent = p.nextStepTitle || 'Next Milestone';
+            document.getElementById('uiNextDesc').textContent = p.nextStepDesc || 'Quality testing and reviews.';
+
+            document.getElementById('btnGiveFeedback').href = `Project_Feedback.html?id=${encodeURIComponent(p.trackingId)}`;
+        }
+
+        function showError(msg) {
+            document.getElementById('loadingBox').style.display = 'none';
+            document.getElementById('errorMsg').textContent = msg;
+            document.getElementById('errorBox').style.display = 'block';
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+            }[tag] || tag));
+        }
+    </script>
+</body>
+</html>

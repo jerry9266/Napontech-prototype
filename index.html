@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Napon Tech | Build • Design • Develop</title>
+    <title>NaponTech | Build • Design • Develop</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CSS Variables - Updated to Napon Tech Color System */
+        /* CSS Variables - Updated to NaponTech Color System */
         :root {
             --brand-blue: #2563EB;
             --brand-blue-dark: #1D4ED8;
@@ -260,7 +260,7 @@
         .cta-image { flex: 1; text-align: right; z-index: 2; }
         .cta-image img { width: 100%; max-width: 320px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        /* Footer */
+        /* Footer Styles Retained to support Centralized Inject */
         footer { background-color: var(--white); padding: 80px 5% 20px; border-top: 1px solid var(--border); }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         .footer-col .logo { margin-bottom: 15px; color: var(--text); } /* Set footer logo to dark */
@@ -287,6 +287,20 @@
         }
         .footer-bottom-links a { margin-left: 15px; color: var(--text-muted); }
         .footer-bottom-links a:hover { color: var(--brand-blue); }
+
+        /* Floating WhatsApp Icon (Adjusted for Index) */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 60px; height: 60px; background-color: var(--brand-blue); color: var(--white); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+            cursor: pointer; z-index: 90; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
 
         /* Scroll Animation Classes */
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
@@ -380,8 +394,8 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            <img src="logo.png" alt="Napon Tech Logo" class="site-logo">
-            Napon <span class="text-blue">Tech</span>
+            <img src="logo.png" alt="NaponTech Logo" class="site-logo">
+            Napon<span class="text-blue">Tech</span>
         </div>
         <div class="nav-links">
             <a href="home.html">Home</a>
@@ -401,7 +415,7 @@
     <!-- Centered Hero Section with Background Image -->
     <header class="hero">
         <div class="hero-content reveal-up">
-            <h1>Building Digital Products with <span class="text-blue">Napon Tech</span></h1>
+            <h1>Building Digital Solutions with <span class="text-blue">NaponTech</span></h1>
             <p>We build websites, mobile apps, and custom software solutions for businesses and individuals.</p>
             <div class="hero-buttons">
                 <a href="home.html" class="btn btn-blue">Explore Services</a>
@@ -414,8 +428,8 @@
     <!-- Why Choose Us -->
     <section class="why-choose">
         <div class="why-text reveal-up">
-            <div class="section-label">Why Napon Tech?</div>
-            <h2>Why Choose <br>Napon <span class="text-blue">Tech</span>?</h2>
+            <div class="section-label">Why NaponTech?</div>
+            <h2>Why Work With <br>Napon<span class="text-blue">Tech</span>?</h2>
             <p>We work closely with you to understand your requirements and build practical, reliable digital solutions.</p>
         </div>
 
@@ -456,7 +470,7 @@
         <div class="expertise-header reveal-up">
             <div class="section-label">Our Expertise</div>
             <h2>Technical <span class="text-blue">Expertise</span></h2>
-            <p style="max-width: 600px; margin: 0 auto;">We provide software development and design services to help turn your ideas into working digital products.</p>
+            <p style="max-width: 600px; margin: 0 auto;">We combine software development and design to turn ideas into practical digital products.</p>
         </div>
 
         <div class="expertise-grid">
@@ -464,7 +478,7 @@
                 <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Software Engineering">
                 <div class="team-card-content">
                     <h3>Software Development</h3>
-                    <p>We build full-stack web applications, APIs, and custom software using modern frameworks like React, Node.js, and Python.</p>
+                    <p>We build websites, web applications, APIs, and custom software using technologies suited to each project.</p>
                     <a href="learnmore.html" class="text-blue" style="font-weight: 600;">Learn More &rarr;</a>
                 </div>
             </div>
@@ -473,7 +487,7 @@
                 <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Graphic Design">
                 <div class="team-card-content">
                     <h3>UI/UX & Graphic Design</h3>
-                    <p>We design clear, consistent, and practical user interfaces and visual assets tailored for your digital products.</p>
+                    <p>We create clean, practical interfaces and visual designs that fit your brand and the way your product works.</p>
                     <a href="learnmore.html" class="text-blue" style="font-weight: 600;">Learn More &rarr;</a>
                 </div>
             </div>
@@ -482,7 +496,7 @@
                 <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mobile Development">
                 <div class="team-card-content">
                     <h3>Mobile Development</h3>
-                    <p>We build responsive mobile applications for iOS and Android based on your specific project requirements.</p>
+                    <p>We build mobile applications based on your project's goals, features, and target users.</p>
                     <a href="learnmore.html" class="text-blue" style="font-weight: 600;">Learn More &rarr;</a>
                 </div>
             </div>
@@ -506,122 +520,90 @@
             </div>
 
             <div class="cta-image">
-                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Napon Tech Desk Setup">
+                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="NaponTech Desk Setup">
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600;">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe text-blue"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen text-blue"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad text-blue"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette text-blue"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="YOUR_TWITTER_URL"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="YOUR_LINKEDIN_URL"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="YOUR_GITHUB_URL"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- JavaScript -->
     <script>
-        // Set dynamic copyright year
-        const currentYear = new Date().getFullYear();
-        const startYear = 2025;
-        document.getElementById('copyright-year').textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    // Set dynamic copyright year
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
 
-        // Hamburger Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+                    // Observe footer elements for animation
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = hamburger.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
 
-        // Close menu when a link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+            // Hamburger Menu Toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
                 const icon = hamburger.querySelector('i');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            });
-        });
-
-        // Scroll Reveal Animations
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-active');
-                    observer.unobserve(entry.target);
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
                 }
             });
-        }, observerOptions);
 
-        const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
-        animatedElements.forEach(el => observer.observe(el));
+            // Close menu when a link is clicked
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            // Scroll Reveal Animations
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+        });
     </script>
 </body>
 </html>

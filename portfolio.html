@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Napon Tech</title>
+    <title>Portfolio | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -269,23 +269,29 @@
             color: var(--white);
         }
 
-        /* --- Testimonials --- */
+        /* --- Testimonials / Client Feedback --- */
         .testimonials { background-color: var(--white); }
-        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
-        .test-card {
-            background: var(--off-white); padding: 30px; border-radius: 16px; position: relative; border: 1px solid var(--border);
-            transition: var(--transition);
+        
+        .feedback-placeholder {
+            background: var(--off-white);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 50px 20px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
         }
-        .test-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: var(--brand-blue); }
-        .test-card::before {
-            content: '\201C'; position: absolute; top: 10px; left: 20px; font-size: 4rem;
-            font-family: 'Times New Roman', serif; color: var(--accent-yellow); opacity: 0.4; line-height: 1;
+        .feedback-placeholder i {
+            font-size: 2.5rem;
+            color: var(--brand-blue);
+            margin-bottom: 15px;
+            opacity: 0.7;
         }
-        .test-text { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; position: relative; z-index: 2; color: var(--text-gray); }
-        .test-author { display: flex; align-items: center; gap: 15px; }
-        .test-author img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand-blue); }
-        .test-author h4 { font-size: 1rem; margin-bottom: 2px; color: var(--text-dark); }
-        .test-author span { font-size: 0.8rem; color: var(--text-light); }
+        .feedback-placeholder p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            margin: 0;
+        }
 
         /* --- CTA Section --- */
         .cta-section {
@@ -300,26 +306,12 @@
             display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;
         }
 
-        /* --- Footer (Dark Palette) --- */
+        /* --- Footer Base Styles Retained for Centralized Integration --- */
         footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         
-        .footer-logo {
-            font-size: 1.3rem; 
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .site-logo { 
-            height: 28px; 
-            width: auto; 
-            max-width: 140px; 
-            object-fit: contain;
-            flex-shrink: 0;
-        }
+        .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
 
         .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
         .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
@@ -386,7 +378,7 @@
             .section-padding { padding: 50px 5%; }
             .section-header h2, .cta-section h2 { font-size: 1.8rem; }
             
-            .portfolio-grid, .test-grid { grid-template-columns: 1fr; gap: 30px; }
+            .portfolio-grid { grid-template-columns: 1fr; gap: 30px; }
             
             .tech-grid { gap: 12px; }
             .tech-badge { font-size: 0.9rem; padding: 12px 18px; width: 47%; justify-content: center; }
@@ -505,7 +497,7 @@
         </div>
     </section>
 
-    <!-- Tech Stack (Updated with Background Image & Glassmorphism) -->
+    <!-- Tech Stack -->
     <section id="technologies" class="section-padding tech-stack">
         <div class="section-header reveal-up">
             <div class="section-label">Our Toolkit</div>
@@ -523,46 +515,16 @@
         </div>
     </section>
 
-    <!-- Testimonials (Labeled as Demo Content) -->
+    <!-- Client Feedback / Testimonials -->
     <section id="reviews" class="section-padding testimonials">
         <div class="section-header reveal-up">
-            <div class="section-label">Demo Content</div>
-            <h2>Example Testimonials</h2>
+            <div class="section-label">Client Feedback</div>
+            <h2>What People Say</h2>
         </div>
         
-        <div class="test-grid">
-            <div class="test-card reveal-up delay-1">
-                <p class="test-text">"[Sample Testimonial] We will feature feedback from our clients here once their projects are completed. This space helps demonstrate how client quotes are displayed."</p>
-                <div class="test-author">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Client Placeholder">
-                    <div>
-                        <h4>David Williams</h4>
-                        <span>Sample Client</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="test-card reveal-up delay-2">
-                <p class="test-text">"[Sample Testimonial] We will feature feedback from our clients here once their projects are completed. This space helps demonstrate how client quotes are displayed."</p>
-                <div class="test-author">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Client Placeholder">
-                    <div>
-                        <h4>Sarah Jenkins</h4>
-                        <span>Sample Client</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="test-card reveal-up delay-3">
-                <p class="test-text">"[Sample Testimonial] We will feature feedback from our clients here once their projects are completed. This space helps demonstrate how client quotes are displayed."</p>
-                <div class="test-author">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Client Placeholder">
-                    <div>
-                        <h4>Michael Ross</h4>
-                        <span>Sample Client</span>
-                    </div>
-                </div>
-            </div>
+        <div class="feedback-placeholder reveal-up">
+            <i class="fa-regular fa-comments"></i>
+            <p>Client testimonials will be added here as completed projects and verified feedback become available.</p>
         </div>
     </section>
 
@@ -576,71 +538,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <!-- Full Logo Restored in Footer -->
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -648,10 +550,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            document.getElementById('copyright-year').textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    // Set dynamic copyright year
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');

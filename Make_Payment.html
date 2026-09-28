@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment | NaponTech</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-blue: #2563EB; --brand-blue-hover: #1D4ED8; --accent-yellow: #FFB800;
+            --black: #0A0A0A; --dark: #111111; --white: #FFFFFF; --off-white: #F3F3F0;
+            --text-dark: #111827; --text-gray: #4B5563; --text-light: #9CA3AF;
+            --border: #E5E7EB; --border-dark: #222222; --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { width: 100%; }
+        body { background-color: var(--off-white); color: var(--text-gray); line-height: 1.6; overflow-x: clip; width: 100%; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        
+        h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.3; font-family: 'Montserrat', sans-serif; }
+        p { margin-bottom: 15px; }
+
+        /* --- Minimal Navigation Header --- */
+        nav {
+            display: flex; justify-content: flex-start; align-items: center;
+            padding: 12px 5%; background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow); box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky; top: 0; z-index: 1000; height: 70px; width: 100%;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { color: var(--white); font-size: 1.3rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; }
+        .back-btn:hover { color: var(--accent-yellow); background: rgba(255, 255, 255, 0.1); transform: translateX(-3px); }
+        
+        .header-title { color: var(--white); font-size: 1.25rem; font-weight: 700; white-space: nowrap; font-family: 'Montserrat', sans-serif; }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease-out; }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1 !important; transform: translate(0) !important; }
+        .delay-1 { transition-delay: 0.1s; }
+
+        /* --- Page Hero --- */
+        .page-hero {
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&h=500&fit=crop') center/cover no-repeat;
+            color: var(--white); padding: 100px 5%; text-align: center;
+        }
+        .page-hero h1 { color: var(--white); font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.7); }
+        .page-hero p { font-size: 1.1rem; max-width: 650px; margin: 0 auto; color: var(--text-light); text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+
+        /* --- Layout --- */
+        .section-padding { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .payment-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: flex-start; }
+
+        /* --- Left Side: Trust & Info --- */
+        .trust-section { background: var(--white); padding: 40px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .trust-section h3 { font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .trust-section h3 i { color: #10b981; } 
+        .trust-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .trust-item:last-child { margin-bottom: 0; }
+        .trust-icon { font-size: 1.5rem; color: var(--brand-blue); background: rgba(37, 99, 235, 0.1); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+        .trust-text h4 { font-size: 1.05rem; margin-bottom: 5px; }
+        .trust-text p { font-size: 0.9rem; margin: 0; color: var(--text-gray); }
+
+        /* --- Right Side: Payment Form --- */
+        .payment-card { background: var(--white); padding: 40px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .payment-card h2 { margin-bottom: 10px; }
+        .payment-card > p { color: var(--text-gray); margin-bottom: 30px; font-size: 0.95rem; }
+
+        .pay-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { text-align: left; }
+        .form-label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 14px 15px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; background-color: var(--off-white); transition: var(--transition); outline: none; }
+        .form-control:focus { border-color: var(--brand-blue); background-color: var(--white); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .btn-pay { background: var(--brand-blue); color: var(--white); border: none; padding: 15px; border-radius: 8px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-pay:hover { background: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .btn-pay:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Honest Feedback Message */
+        .feedback-box { margin-top: 25px; padding: 20px; border-radius: 8px; display: none; text-align: left; background-color: #fffbeb; border: 1px solid #fcd34d; color: #b45309; font-size: 0.95rem; }
+
+        @media (max-width: 992px) {
+            .payment-grid { grid-template-columns: 1fr; }
+            .trust-section { order: 2; }
+            .payment-card { order: 1; }
+        }
+        @media (max-width: 768px) {
+            .payment-card, .trust-section { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Minimal Header -->
+    <nav>
+        <div class="nav-left">
+            <div class="back-btn" onclick="history.back()" title="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <span class="header-title">Make Payment</span>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="page-hero reveal-up">
+        <h1>Make Payment</h1>
+        <p>Securely settle your project invoices directly through our portal.</p>
+    </header>
+
+    <!-- Main Section -->
+    <section class="section-padding">
+        <div class="payment-grid">
+            
+            <!-- Left Side: Trust Assurance -->
+            <div class="trust-section reveal-left delay-1">
+                <h3><i class="fa-solid fa-lock"></i> Secure & Transparent</h3>
+                
+                <div class="trust-item">
+                    <div class="trust-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="trust-text">
+                        <h4>Account Verification</h4>
+                        <p>We verify your email address before any payment is processed to ensure accurate billing.</p>
+                    </div>
+                </div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="trust-text">
+                        <h4>Direct Transfers</h4>
+                        <p>We support secure direct bank transfers for local and international clients.</p>
+                    </div>
+                </div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon"><i class="fa-solid fa-headset"></i></div>
+                    <div class="trust-text">
+                        <h4>Billing Support</h4>
+                        <p>Have questions about an invoice? Contact our support team directly at hello@napontech.com.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Payment Form -->
+            <div class="payment-card reveal-right">
+                <h2>Secure Checkout</h2>
+                <p>Enter your registered email address to proceed to the payment gateway.</p>
+                
+                <form class="pay-form" id="paymentForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" placeholder="client@company.com" required>
+                    </div>
+                    <button type="submit" class="btn-pay" id="payBtn">
+                        <i class="fa-solid fa-credit-card"></i> Proceed to Payment
+                    </button>
+                </form>
+
+                <!-- Honest Feedback State -->
+                <div class="feedback-box" id="feedbackMessage">
+                    <strong><i class="fa-solid fa-circle-info"></i> Gateway Integration in Progress</strong><br><br>
+                    Our automated payment gateway is currently being connected to the new system. 
+                    <br><br>
+                    To make a payment today, please refer to the secure manual bank transfer details attached to the PDF invoice sent to your email, or contact <strong>hello@napontech.com</strong>.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+            // Footer Fetch with automatic reveal activation
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    const container = document.getElementById('footer-container');
+                    container.innerHTML = html;
+                    const yearEl = container.querySelector('#copyright-year');
+                    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+                    // Ensure newly injected footer items animate/become visible
+                    container.querySelectorAll('.reveal-up').forEach(el => {
+                        observer.observe(el);
+                    });
+                })
+                .catch(err => console.error('Error loading footer:', err));
+
+            const form = document.getElementById('paymentForm');
+            const btn = document.getElementById('payBtn');
+            const feedback = document.getElementById('feedbackMessage');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-credit-card"></i> Proceed to Payment';
+                    btn.disabled = false;
+                    feedback.style.display = 'block';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

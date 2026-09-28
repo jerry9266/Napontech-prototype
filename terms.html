@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Use | Napon Tech</title>
+    <title>Terms of Use | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -97,12 +97,10 @@
         .nav-right .logo {
             font-size: 1.5rem; 
             font-weight: 800;
-            color: var(--white);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 8px; /* Gap applies ONLY between the image and the span.brand-name */
             cursor: pointer;
-            white-space: nowrap;
             transition: var(--transition);
         }
         .nav-right .site-logo {
@@ -112,18 +110,20 @@
             object-fit: contain;
             flex-shrink: 0;
         }
-        .nav-right .logo:hover { color: var(--accent-yellow); }
+        .nav-right .brand-name {
+            color: var(--white);
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .nav-right .logo:hover .brand-name { color: var(--accent-yellow); }
 
-        /* --- Scroll Animation Classes (For Footer) --- */
+        /* --- Scroll Animation Classes --- */
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
         .reveal-active { opacity: 1; transform: translate(0); }
         .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
 
         /* --- Document Header (Image Background) --- */
         .doc-header { 
-            /* Image background with a dark overlay to make text highly readable */
             background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)), url('Terms_image.png') center/cover no-repeat;
             padding: 100px 5%; 
             text-align: center; 
@@ -141,7 +141,7 @@
             margin-bottom: 0; 
         }
 
-        /* --- Document Content Formatting (Static Layout, No Animations) --- */
+        /* --- Document Content Formatting --- */
         .doc-content { 
             max-width: 800px; 
             margin: 0 auto; 
@@ -160,66 +160,21 @@
         .doc-content a { color: var(--brand-blue); font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: var(--transition); }
         .doc-content a:hover { color: var(--brand-blue-hover); border-bottom-color: var(--brand-blue-hover); }
 
-        /* ========================================================= */
-        /* --- GLOBAL FOOTER --- */
-        /* ========================================================= */
-        
-        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
-        
-        .footer-logo {
-            font-size: 1.3rem; 
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .footer-logo .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
-        
-        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
-        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
-        .footer-col ul li a:hover { color: var(--brand-blue); }
-        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
-        .footer-services i { color: var(--brand-blue); }
-        .footer-contact i { color: var(--accent-yellow); }
-        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); transition: var(--transition); }
-        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
-        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
-        .footer-bottom-links a:hover { color: var(--brand-blue); }
-
         /* --- Floating WhatsApp Icon --- */
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: #25D366; color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
-        .whatsapp-float:hover { background-color: #1ebc59; transform: scale(1.1); }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: var(--brand-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
+        .whatsapp-float:hover { background-color: var(--brand-blue-hover); transform: scale(1.1); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
 
         /* --- Responsive Adaptations --- */
-        @media (max-width: 992px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-        }
         @media (max-width: 768px) {
             .doc-header { padding: 80px 5% 60px; }
             .doc-content { padding: 40px 20px 60px; }
-            
-            /* Footer Responsive Fixes */
-            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; overflow: hidden; }
-            .footer-col p { margin: 0 auto; }
-            .footer-logo { justify-content: center; }
-            .footer-services li, .footer-contact li { justify-content: center; }
-            .social-icons { justify-content: center; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            .footer-bottom-links a { margin: 0 8px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Header (Focused View: Back Arrow Left, Full Logo Right) -->
+    <!-- Navigation Header -->
     <nav>
         <div class="nav-left">
             <div class="back-btn" onclick="history.back()" title="Go Back">
@@ -228,10 +183,10 @@
         </div>
         
         <div class="nav-right">
-            <!-- Full Logo & Text on the Right -->
+            <!-- Corrected, 100% Unspaced Logo Structure -->
             <div class="logo" onclick="window.location.href='home.html'">
-                <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                Napon <span class="text-blue">Tech</span>
+                <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                <span class="brand-name">Napon<span class="text-blue">Tech</span></span>
             </div>
         </div>
     </nav>
@@ -244,10 +199,10 @@
 
     <!-- Document Content -->
     <main class="doc-content">
-        <p>Welcome to Napon Tech. By accessing this website, we assume you accept these terms and conditions. Do not continue to use Napon Tech if you do not agree to the terms and conditions stated on this page.</p>
+        <p>Welcome to NaponTech. By accessing this website, we assume you accept these terms and conditions. Do not continue to use NaponTech if you do not agree to the terms and conditions stated on this page.</p>
 
         <h2>1. Intellectual Property Rights</h2>
-        <p>Other than the content you own, under these Terms, Napon Tech and/or its licensors own all the intellectual property rights and materials contained in this website. You are granted limited license only for purposes of viewing the material contained on this website.</p>
+        <p>Other than the content you own, under these Terms, NaponTech and/or its licensors own all the intellectual property rights and materials contained in this website. You are granted a limited license to view the material contained on this website.</p>
 
         <h2>2. Restrictions</h2>
         <p>You are specifically restricted from all of the following:</p>
@@ -259,93 +214,47 @@
         </ul>
 
         <h2>3. Services & Client Agreements</h2>
-        <p>When you hire Napon Tech for development, design, or technology services, specific deliverables, timelines, and payment structures will be agreed upon in a separate project contract before work begins.</p>
+        <p>When you hire NaponTech for development, design, or technology services, specific deliverables, timelines, and payment structures will be agreed upon in a separate project contract before work begins.</p>
 
         <h2>4. Limitation of Liability</h2>
-        <p>In no event shall Napon Tech, nor any of its team members, be held liable for anything arising out of or in any way connected with your use of this website. Napon Tech shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this website.</p>
+        <p>In no event shall NaponTech, nor any of its team members, be held liable for anything arising out of or in any way connected with your use of this website. NaponTech shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this website.</p>
 
         <h2>5. Governing Law & Jurisdiction</h2>
         <p>These Terms will be governed by and interpreted in accordance with the laws of Nigeria, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Nigeria for the resolution of any disputes.</p>
     </main>
 
-    <!-- Exact Global Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/2348012345678" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- Intersection Observer Script for Scroll Animations (Footer Only) -->
+    <!-- Footer Fetch and Scroll Animations -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            const copyrightElement = document.getElementById('copyright-year');
-            if (copyrightElement) {
-                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
-            }
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const footerElements = document.querySelectorAll('#footer-container .reveal-up');
+                    footerElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             const observerOptions = {
                 threshold: 0.1,

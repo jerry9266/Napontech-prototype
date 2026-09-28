@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>404 - Page Unavailable | NaponTech</title>
+    
+    <!-- Google Fonts & Font Awesome CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-gray: #64748B;
+            --border: #E2E8F0;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+        }
+
+        /* Full Screen Edge-to-Edge Container */
+        .edge-screen {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 5% 40px;
+            position: relative;
+        }
+
+        /* Top Bar with Back Arrow */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+        }
+
+        .back-circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 1px solid var(--border);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-circle-btn:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+            transform: translateX(-3px);
+        }
+
+        /* Center Content Area */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .error-code {
+            font-size: clamp(5.5rem, 18vw, 8.5rem);
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--black) 30%, var(--brand-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .error-desc {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons Wrap */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.95rem;
+            gap: 8px;
+            transition: var(--transition);
+            width: 100%;
+            border: none;
+        }
+
+        .btn-report {
+            background-color: var(--brand-blue);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-report:hover {
+            background-color: var(--brand-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-back-home {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border);
+        }
+
+        .btn-back-home:hover {
+            background-color: var(--white);
+            border-color: #cbd5e1;
+        }
+
+        /* Bottom Brand Text */
+        .bottom-brand {
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .bottom-brand span {
+            color: var(--brand-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="edge-screen">
+        
+        <!-- Top Left Back Navigation Button -->
+        <div class="top-bar">
+            <button class="back-circle-btn" onclick="history.back()" title="Go Back" aria-label="Go Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </div>
+
+        <!-- Center 404 Message -->
+        <div class="center-content">
+            <div class="error-code">404</div>
+            <h1 class="error-message">This page is currently unavailable</h1>
+            <p class="error-desc">The link you followed may be broken, removed, or temporarily undergoing maintenance.</p>
+
+            <div class="action-buttons">
+                <!-- Direct Link to Report Issue page -->
+                <a href="issues.html" class="btn btn-report">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Report an Issue
+                </a>
+                
+                <!-- Navigate back to previous page -->
+                <button class="btn btn-back-home" onclick="history.back()">
+                    <i class="fa-solid fa-arrow-left"></i> Go Back
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Brand Footer -->
+        <div class="bottom-brand">
+            Napon<span>Tech</span> • Engineering & Digital Solutions
+        </div>
+
+    </main>
+
+</body>
+</html>

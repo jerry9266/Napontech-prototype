@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ | Napon Tech</title>
+    <title>FAQ | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -245,26 +244,12 @@
         .faq-cta p { color: var(--text-light); max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
         .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 
-        /* --- Footer (Dark Palette) --- */
+        /* --- Footer Base Styles Retained for Centralized Integration --- */
         footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         
-        .footer-logo {
-            font-size: 1.3rem; 
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .site-logo { 
-            height: 28px; 
-            width: auto; 
-            max-width: 140px; 
-            object-fit: contain;
-            flex-shrink: 0;
-        }
+        .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
 
         .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
         .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
@@ -381,12 +366,12 @@
         <div class="faq-category reveal-up delay-1">
             <h3><i class="fa-solid fa-circle-info"></i> General Information</h3>
             <details name="faq">
-                <summary>What services does Napon Tech offer?</summary>
+                <summary>What services does NaponTech offer?</summary>
                 <div class="faq-content">We provide web development, mobile app development, custom software, UI/UX design, cybersecurity, graphic design, and other digital solutions.</div>
             </details>
             <details name="faq">
                 <summary>Do you work with international clients?</summary>
-                <div class="faq-content">from Nigeria and works with clients locally and internationally.</div>
+                <div class="faq-content">We are based in Nigeria and work with clients locally and internationally.</div>
             </details>
             <details name="faq">
                 <summary>Do you provide ongoing support after a project is finished?</summary>
@@ -440,74 +425,15 @@
         <p>If you can't find the answer you're looking for, send us a message and we'll get back to you.</p>
         <div class="cta-buttons">
             <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Support</a>
-            <a href="https://wa.me/2348012345678" target="_blank" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+            <a href="https://wa.me/2348142769726" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -515,13 +441,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            const copyrightElement = document.getElementById('copyright-year');
-            if (copyrightElement) {
-                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
-            }
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    // Set dynamic copyright year
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');
@@ -583,4 +523,3 @@
     </script>
 </body>
 </html>
-

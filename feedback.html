@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback & Reviews | NaponTech</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --brand-blue: #2563EB;
+            --brand-blue-hover: #1D4ED8;
+            --accent-yellow: #FFB800;
+            
+            --black: #0A0A0A;
+            --dark: #111111;
+            --white: #FFFFFF;
+            --off-white: #F3F3F0;
+            
+            --text-dark: #111827;
+            --text-gray: #4B5563;
+            --text-light: #9CA3AF;
+            
+            --border: #E5E7EB;
+            --border-dark: #222222;
+            
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Reset & Base Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        html { width: 100%; }
+        
+        body { 
+            background-color: var(--off-white); 
+            color: var(--text-gray); 
+            line-height: 1.6; 
+            overflow-x: clip; 
+            width: 100%; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        h1 { color: var(--text-dark); line-height: 1.2; font-size: clamp(2.2rem, 6vw, 3.5rem); font-family: 'Montserrat', sans-serif; }
+        h2 { color: var(--text-dark); line-height: 1.3; font-size: clamp(1.8rem, 5vw, 2.5rem); font-family: 'Montserrat', sans-serif; }
+        h3, h4 { color: var(--text-dark); line-height: 1.3; }
+        p { margin-bottom: 15px; word-wrap: break-word; }
+        .text-blue { color: var(--brand-blue); }
+
+        /* --- Buttons --- */
+        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: var(--transition); font-size: 1rem; text-align: center; gap: 8px; white-space: nowrap; }
+        .btn-primary { background-color: var(--brand-blue); color: var(--white); }
+        .btn-primary:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+        /* --- Navigation Header (Focused View) --- */
+        nav {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 12px 5%;
+            background: linear-gradient(135deg, var(--black) 70%, #4a3800 90%, var(--accent-yellow) 120%);
+            border-bottom: 2px solid var(--accent-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+            width: 100%;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 15px; }
+        
+        .header-title {
+            font-size: 1.3rem; 
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .header-title:hover { color: var(--accent-yellow); }
+        .back-arrow { font-size: 1.2rem; } 
+
+        .nav-right { display: flex; align-items: center; }
+        
+        .nav-right .logo {
+            font-size: 1.5rem; 
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .nav-right .site-logo {
+            height: 32px; 
+            width: auto; 
+            max-width: 140px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .nav-right .brand-name {
+            color: var(--white);
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .nav-right .logo:hover .brand-name { color: var(--accent-yellow); }
+
+        /* --- Scroll Animation Classes --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
+        .reveal-active { opacity: 1; transform: translate(0) scale(1); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Page Hero --- */
+        .page-hero { 
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&h=600&fit=crop') center/cover no-repeat; 
+            color: var(--white); 
+            padding: 100px 5%; 
+            text-align: center; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .page-hero h1 { color: var(--white); margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.7); }
+        .page-hero p { font-size: 1.15rem; color: var(--text-light); text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+
+        /* --- Direct Form Layout (No Card Box) --- */
+        .form-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 5% 90px 5%;
+            width: 100%;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 22px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--text-dark);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+        }
+        textarea.form-control { resize: vertical; min-height: 150px; }
+
+        /* Star Rating */
+        .rating-box { display: flex; align-items: center; gap: 10px; margin: 5px 0 10px 0; }
+        .star-item { font-size: 1.8rem; color: #D1D5DB; cursor: pointer; transition: color 0.2s; }
+        .star-item.active { color: var(--accent-yellow); }
+
+        /* Anti-Bot Honeypot */
+        .hp-field { display: none !important; opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; }
+
+        #formError {
+            display: none;
+            margin-top: 15px;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+
+        /* Success Pop-up Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-box {
+            background: var(--white);
+            max-width: 460px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            border: 1px solid var(--border);
+        }
+        .modal-icon-circle {
+            width: 64px; height: 64px;
+            background: #EFF6FF;
+            color: var(--brand-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px auto;
+        }
+        .modal-box h3 { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 12px; font-family: 'Montserrat', sans-serif; }
+        .modal-box p { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; margin-bottom: 25px; }
+
+        /* Floating WhatsApp Icon */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: var(--brand-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
+        .whatsapp-float:hover { background-color: var(--brand-blue-hover); transform: scale(1.1); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; gap: 0; }
+            .nav-right .logo span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header (Focused View) -->
+    <nav>
+        <div class="nav-left">
+            <div class="header-title" onclick="history.back()">
+                <i class="fa-solid fa-arrow-left back-arrow"></i>
+                <span>Give Feedback</span>
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <div class="logo" onclick="window.location.href='home.html'">
+                <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                <span class="brand-name">Napon<span class="text-blue">Tech</span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="page-hero reveal-up">
+        <div class="hero-content">
+            <h1>We Value Your Feedback</h1>
+            <p>Help us improve our engineering services and client experience with your honest review.</p>
+        </div>
+    </header>
+
+    <!-- Direct Interface Form -->
+    <section class="form-section">
+        <form id="feedbackForm" class="reveal-up delay-1">
+            
+            <!-- Honeypot Anti-Bot Field -->
+            <input type="text" name="website_hp" id="website_hp" class="hp-field" tabindex="-1" autocomplete="off">
+            <input type="hidden" id="formLoadTimestamp" value="">
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John" required maxlength="50" pattern="^[a-zA-Z\s\-]+$" title="Letters and spaces only">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" class="form-control" placeholder="Doe" required maxlength="50" pattern="^[a-zA-Z\s\-]+$" title="Letters and spaces only">
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" class="form-control" placeholder="john@example.com" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="+234 800 000 0000" maxlength="25" pattern="^[\+0-9\s\-]+$" title="Valid phone characters only">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Rate Your Experience *</label>
+                <div class="rating-box" id="starRating">
+                    <i class="fa-solid fa-star star-item active" data-rating="1"></i>
+                    <i class="fa-solid fa-star star-item active" data-rating="2"></i>
+                    <i class="fa-solid fa-star star-item active" data-rating="3"></i>
+                    <i class="fa-solid fa-star star-item active" data-rating="4"></i>
+                    <i class="fa-solid fa-star star-item active" data-rating="5"></i>
+                </div>
+                <input type="hidden" id="ratingValue" value="5">
+            </div>
+
+            <div class="form-group">
+                <label for="feedbackType">Feedback Category *</label>
+                <select id="feedbackType" class="form-control" required>
+                    <option value="Project Delivery & Quality">Project Delivery & Quality</option>
+                    <option value="Customer Support">Customer Support</option>
+                    <option value="Pricing & Transparency">Pricing & Transparency</option>
+                    <option value="Website Usability">Website & Usability</option>
+                    <option value="General Review">General Review</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Your Comments & Suggestions *</label>
+                <textarea id="message" class="form-control" placeholder="Tell us what you loved or how we can improve..." required maxlength="3000"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+                <span>Send Feedback</span> <i class="fa-solid fa-paper-plane"></i>
+            </button>
+
+            <div id="formError"></div>
+        </form>
+    </section>
+
+    <!-- Success Pop-up Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon-circle">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3>Message Sent</h3>
+            <p>Your message has been received successfully. We’ll get back to you shortly.</p>
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer Fetch and Scroll Animations (Matching Learn More Architecture) -->
+    <script>
+        const BACKEND_URL = "https://one11111111111111.onrender.com";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Set timestamp for anti-bot speed verification
+            document.getElementById('formLoadTimestamp').value = Date.now();
+
+            // Intersection Observer configuration
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.reveal-up, .reveal-scale');
+            animatedElements.forEach(el => observer.observe(el));
+
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const footerElements = document.querySelectorAll('#footer-container .reveal-up');
+                    footerElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
+
+            // Star Rating Logic
+            const stars = document.querySelectorAll('.star-item');
+            const ratingInput = document.getElementById('ratingValue');
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = parseInt(star.getAttribute('data-rating'));
+                    ratingInput.value = rating;
+                    stars.forEach((s, idx) => {
+                        if (idx < rating) s.classList.add('active');
+                        else s.classList.remove('active');
+                    });
+                });
+            });
+
+            // Anti-Bot & XSS Clean
+            function sanitizeClean(str) {
+                return str.replace(/[^\w\s\.\,\@\-\:\?\!\(\)\/]/gi, '');
+            }
+
+            // Form Submit Logic
+            const form = document.getElementById('feedbackForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const formError = document.getElementById('formError');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Bot Honeypot Check
+                const honeypot = document.getElementById('website_hp').value;
+                if (honeypot) return;
+
+                // Speed Check
+                const loadTime = parseInt(document.getElementById('formLoadTimestamp').value, 10);
+                if (Date.now() - loadTime < 1000) {
+                    showError('Submission too rapid. Please try again.');
+                    return;
+                }
+
+                const firstName = sanitizeClean(document.getElementById('firstName').value.trim());
+                const lastName = sanitizeClean(document.getElementById('lastName').value.trim());
+                const email = document.getElementById('email').value.trim();
+                const phone = sanitizeClean(document.getElementById('phone').value.trim());
+                const rating = document.getElementById('ratingValue').value;
+                const feedbackType = document.getElementById('feedbackType').value;
+                const userMessage = sanitizeClean(document.getElementById('message').value.trim());
+
+                if (!firstName || !lastName || !email || !userMessage) {
+                    showError('Please fill in all required fields.');
+                    return;
+                }
+
+                const formattedMessage = `Rating: ${rating} / 5 Stars\nFeedback Area: ${feedbackType}\n\nClient Comments:\n${userMessage}`;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `Sending... <i class="fa-solid fa-spinner fa-spin"></i>`;
+                formError.style.display = 'none';
+
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/submit`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firstName,
+                            lastName,
+                            email,
+                            phone,
+                            subject: `${rating} Star - ${feedbackType}`,
+                            message: formattedMessage,
+                            category: 'feedback'
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok && data.success) {
+                        form.reset();
+                        stars.forEach(s => s.classList.add('active'));
+                        ratingInput.value = "5";
+                        openSuccessModal();
+                    } else {
+                        throw new Error(data.error || 'Failed to submit feedback.');
+                    }
+                } catch (err) {
+                    showError(err.message || 'Could not connect to server.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Send Feedback</span> <i class="fa-solid fa-paper-plane"></i>`;
+                }
+            });
+
+            function showError(msg) {
+                formError.style.display = 'block';
+                formError.textContent = msg;
+            }
+        });
+
+        function openSuccessModal() { document.getElementById('successModal').classList.add('active'); }
+        function closeSuccessModal() { document.getElementById('successModal').classList.remove('active'); }
+    </script>
+</body>
+</html>

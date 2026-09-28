@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Give Project Feedback | NaponTech</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-blue: #4F46E5;
+            --brand-blue-hover: #4338CA;
+            --black: #0A0A0A;
+            --white: #FFFFFF;
+            --off-white: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-gray: #64748B;
+            --border: #E2E8F0;
+            --accent-yellow: #FFB800;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        html, body { width: 100%; min-height: 100vh; background: var(--off-white); color: var(--text-dark); display: flex; flex-direction: column; }
+
+        nav {
+            padding: 12px 5%; background: var(--black); border-bottom: 2px solid var(--accent-yellow);
+            display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; height: 60px;
+        }
+        .back-btn {
+            color: #FFFFFF; font-size: 1.1rem; cursor: pointer; text-decoration: none;
+            display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+            border-radius: 50%; background: rgba(255,255,255,0.1);
+        }
+        .header-title { color: #FFFFFF; font-size: 1.05rem; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+
+        .chat-view-container {
+            flex: 1; display: flex; flex-direction: column; width: 100%; max-width: 600px; margin: 0 auto;
+            padding: 20px 16px; justify-content: space-between;
+        }
+
+        .meta-inputs-wrap {
+            display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 4px; }
+        .input-group label { font-size: 0.72rem; font-weight: 800; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .chat-input {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+            font-size: 0.92rem; background: var(--white); outline: none; transition: 0.2s;
+        }
+        .chat-input:focus { border-color: var(--brand-blue); }
+
+        .message-area-wrap {
+            flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .message-box {
+            width: 100%; min-height: 180px; padding: 14px; border: 1px solid var(--border);
+            border-radius: 12px; font-size: 0.95rem; background: var(--white); outline: none; resize: none; margin-bottom: 12px;
+        }
+        .message-box:focus { border-color: var(--brand-blue); }
+
+        .btn-send {
+            width: 100%; background: var(--brand-blue); color: #FFFFFF; padding: 14px; border-radius: 12px;
+            font-size: 0.95rem; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-send:hover { background: var(--brand-blue-hover); }
+
+        .success-box {
+            display: none; text-align: center; margin: auto; padding: 40px 15px;
+        }
+        .success-box i { font-size: 3rem; color: #10B981; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="javascript:history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="header-title">Give Project Feedback</div>
+    </nav>
+
+    <div class="chat-view-container">
+        
+        <div id="formView" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="meta-inputs-wrap">
+                <div class="input-group">
+                    <label for="fbTrackingId">Tracking ID *</label>
+                    <input type="text" id="fbTrackingId" class="chat-input" required style="font-weight: 700; text-transform: uppercase;" placeholder="e.g. NAP-8K4P92X7">
+                </div>
+                <div class="input-group">
+                    <label for="fbName">Your Name</label>
+                    <input type="text" id="fbName" class="chat-input" placeholder="e.g. John Doe">
+                </div>
+            </div>
+
+            <div class="message-area-wrap">
+                <div class="input-group" style="margin-bottom: 6px;">
+                    <label for="fbMessage">Your Message *</label>
+                </div>
+                <textarea id="fbMessage" class="message-box" placeholder="Type your project message or feedback here..." required></textarea>
+                
+                <button type="button" id="btnSendFeedback" class="btn-send" onclick="submitFeedback()">
+                    <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="successView" class="success-box">
+            <i class="fa-solid fa-circle-check"></i>
+            <h3 style="margin-bottom: 4px;">Message Delivered</h3>
+            <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 20px;">Your feedback has been sent directly to the project manager.</p>
+            <a href="javascript:history.back()" style="color: var(--brand-blue); font-weight: 700; text-decoration: none;">← Return to Project Status</a>
+        </div>
+
+    </div>
+
+    <script>
+        const BACKEND_URL = "https://one11111111111111.onrender.com";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (id) {
+                document.getElementById('fbTrackingId').value = id.toUpperCase();
+            }
+        });
+
+        async function submitFeedback() {
+            const trackingId = document.getElementById('fbTrackingId').value.trim().toUpperCase();
+            const clientName = document.getElementById('fbName').value.trim();
+            const message = document.getElementById('fbMessage').value.trim();
+            const btn = document.getElementById('btnSendFeedback');
+
+            if (!trackingId || !message) {
+                alert('Please enter your Tracking ID and message.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/api/project-feedback/send`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ trackingId, clientName, message })
+                });
+
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    document.getElementById('formView').style.display = 'none';
+                    document.getElementById('successView').style.display = 'block';
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to send feedback.'));
+                }
+            } catch (err) {
+                alert('Connection error: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>`;
+            }
+        }
+    </script>
+</body>
+</html>

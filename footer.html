@@ -1,0 +1,349 @@
+<style>
+  /* 
+   * SCOPED FOOTER CSS
+   * All rules are tied strictly to #napon-main-footer to prevent conflicts.
+   * Exact hex colors are used so it doesn't rely on parent page variables.
+   */
+  #napon-main-footer {
+    background-color: #0A0A0A;
+    padding: 80px 5% 20px;
+    color: #9CA3AF;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    border-top: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #napon-main-footer * {
+    box-sizing: border-box;
+  }
+
+  #napon-main-footer .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+
+  /* Fixed Flexbox Issue: Logo alignment and spacing */
+  #napon-main-footer .logo {
+    font-size: 1.5rem; 
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* This gap now ONLY applies between the Image and the whole text */
+    margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  #napon-main-footer .site-logo {
+    height: 32px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  /* Strict White and Blue Colors applied to the single word wrapper */
+  #napon-main-footer .brand-name {
+    color: #FFFFFF !important; /* Forces 'Napon' to be pure white */
+    white-space: nowrap;
+  }
+
+  #napon-main-footer .brand-name .text-blue {
+    color: #2563EB !important; /* Forces 'Tech' to be Brand Blue */
+  }
+
+  #napon-main-footer p {
+    font-size: 0.9rem;
+    color: #9CA3AF;
+    max-width: 280px;
+    margin: 0 0 15px 0;
+  }
+
+  #napon-main-footer h4 {
+    font-size: 1.1rem;
+    margin: 0 0 20px 0;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  #napon-main-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #napon-main-footer ul li {
+    margin-bottom: 12px;
+  }
+
+  #napon-main-footer ul li a {
+    font-size: 0.9rem;
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #napon-main-footer ul li a:hover {
+    color: #2563EB;
+  }
+
+  /* =======================================================
+     NEW BULLETPROOF BUTTON CSS (Immune to parent page CSS)
+     ======================================================= */
+  #napon-main-footer .npt-action-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 25px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  #napon-main-footer .npt-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    width: fit-content !important; /* Prevents stretching */
+    cursor: pointer !important;
+  }
+
+  #napon-main-footer .npt-track-btn {
+    background-color: #2563EB !important; /* Brand Blue */
+    color: #FFFFFF !important;
+    border: 1px solid #2563EB !important;
+  }
+
+  #napon-main-footer .npt-track-btn:hover {
+    background-color: #1D4ED8 !important; /* Darker Blue */
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+  }
+
+  #napon-main-footer .npt-pay-btn {
+    background-color: #FFB800 !important; /* Accent Yellow */
+    color: #0A0A0A !important; /* Dark Text for Contrast */
+    border: 1px solid #FFB800 !important;
+  }
+
+  #napon-main-footer .npt-pay-btn:hover {
+    background-color: #E6A600 !important; /* Darker Yellow */
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 184, 0, 0.4) !important;
+  }
+  /* ======================================================= */
+
+  #napon-main-footer .footer-services li, 
+  #napon-main-footer .footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #9CA3AF;
+  }
+
+  #napon-main-footer .footer-services i {
+    color: #2563EB;
+    margin-top: 4px;
+  }
+
+  #napon-main-footer .footer-contact i {
+    color: #FFB800;
+    margin-top: 4px;
+  }
+
+  #napon-main-footer .social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  #napon-main-footer .social-icons a {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111111;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    border: 1px solid #222222;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  #napon-main-footer .social-icons a:hover {
+    background: #2563EB;
+    border-color: #2563EB;
+    color: #FFFFFF;
+    transform: translateY(-3px);
+  }
+
+  #napon-main-footer .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #222222;
+    font-size: 0.85rem;
+    color: #9CA3AF;
+  }
+
+  #napon-main-footer .footer-bottom-links a {
+    margin-left: 15px;
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #napon-main-footer .footer-bottom-links a:hover {
+    color: #2563EB;
+  }
+
+  /* Initial Animation States */
+  #napon-main-footer .reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s ease-out;
+  }
+  
+  /* Active Animation State */
+  #napon-main-footer .reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #napon-main-footer .delay-1 { transition-delay: 0.1s; }
+  #napon-main-footer .delay-2 { transition-delay: 0.2s; }
+  #napon-main-footer .delay-3 { transition-delay: 0.3s; }
+
+  /* Mobile Responsive Adaptations */
+  @media (max-width: 992px) {
+    #napon-main-footer .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #napon-main-footer {
+      padding: 60px 5% 20px;
+    }
+    #napon-main-footer .footer-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 30px;
+    }
+    #napon-main-footer .logo {
+      justify-content: center;
+    }
+    #napon-main-footer p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #napon-main-footer .npt-action-container {
+      align-items: center !important; /* Centers the buttons safely on mobile */
+    }
+    #napon-main-footer .footer-services li, 
+    #napon-main-footer .footer-contact li {
+      justify-content: center;
+    }
+    #napon-main-footer .social-icons {
+      justify-content: center;
+    }
+    #napon-main-footer .footer-bottom {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+    #napon-main-footer .footer-bottom-links a {
+      margin: 0 8px;
+    }
+  }
+</style>
+
+<footer id="napon-main-footer">
+  <div class="footer-grid">
+    <div class="footer-col reveal-up">
+      <!-- Fixed Logo Structure -->
+      <a href="home.html" class="logo">
+        <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+        <span class="brand-name">Napon<span class="text-blue">Tech</span></span>
+      </a>
+      <p style="font-size: 0.85rem; margin-bottom: 8px; font-weight: 600; color: #FFFFFF;">Build • Design • Develop</p>
+      <p>We build websites, mobile apps, and custom software for real-world needs.</p>
+      
+      <!-- BULLETPROOF ACTION BUTTONS -->
+      <div class="npt-action-container">
+        <a href="Track_Your_Project.html" class="npt-btn npt-track-btn">
+          <i class="fa-solid fa-map-location-dot"></i> Track Your Project
+        </a>
+        <a href="Make_Payment.html" class="npt-btn npt-pay-btn">
+          <i class="fa-solid fa-credit-card"></i> Make Payment
+        </a>
+      </div>
+      <!-- END ACTION BUTTONS -->
+
+    </div>
+    
+    <div class="footer-col reveal-up delay-1">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="getstarted.html">Get Started</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="issues.html">Report Issue</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col reveal-up delay-2">
+      <h4>Services</h4>
+      <ul class="footer-services">
+        <li><i class="fa-solid fa-globe"></i> Web Development</li>
+        <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
+        <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
+        <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
+      </ul>
+    </div>
+    
+    <div class="footer-col reveal-up delay-3">
+      <h4>Get In Touch</h4>
+      <ul class="footer-contact">
+        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
+        <li><i class="fa-solid fa-location-dot"></i> Working with clients in Nigeria and beyond</li>
+        <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348142769726">+234 814 276 9726</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://wa.me/2348142769726" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom reveal-up">
+    <p style="margin: 0;">&copy; <span id="copyright-year"></span> NaponTech. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="terms.html">Terms of Use</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="suppo

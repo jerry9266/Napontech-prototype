@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Napon Tech</title>
+    <title>Contact Us | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -14,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        /* --- CSS Variables --- */
         :root {
             --brand-blue: #2563EB;
             --brand-blue-hover: #1D4ED8;
@@ -43,9 +41,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        html {
-            width: 100%;
-        }
+        html { width: 100%; }
 
         body {
             overflow-x: clip; 
@@ -65,17 +61,17 @@
         h3, h4 { color: var(--text-dark); line-height: 1.3; }
         
         p { margin-bottom: 15px; word-wrap: break-word; }
-        .text-blue { color: var(--brand-blue); }
 
         /* --- Buttons --- */
         .btn {
             display: inline-flex; justify-content: center; align-items: center;
-            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
-            border: none; transition: var(--transition); font-size: 0.9rem; text-align: center; gap: 8px;
+            padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            border: none; transition: var(--transition); font-size: 0.95rem; text-align: center; gap: 8px;
             white-space: nowrap;
         }
         .btn-primary, .btn-blue { background-color: var(--brand-blue); color: var(--white); }
-        .btn-primary:hover, .btn-blue:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+        .btn-primary:hover, .btn-blue:hover { background-color: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
         .section-label {
             display: inline-flex;
@@ -113,7 +109,6 @@
             width: 100%;
         }
 
-        /* Clean Text Header - Replaces Logo */
         .header-title {
             font-size: 1.3rem; 
             font-weight: 800;
@@ -127,7 +122,6 @@
         }
         .header-title:hover { color: var(--accent-yellow); }
         
-        /* Back Arrow (Hidden on Desktop, block on mobile) */
         .back-arrow { display: none; } 
 
         .nav-links {
@@ -214,7 +208,6 @@
             gap: 20px;
         }
         
-        /* Updated Info Card for Clickability */
         .info-card {
             background: var(--white);
             padding: 30px;
@@ -334,11 +327,6 @@
             background-color: var(--white);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-        /* Invalid states for visual feedback */
-        .form-control:invalid:focus {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-        }
         textarea.form-control {
             resize: vertical;
             min-height: 150px;
@@ -348,6 +336,83 @@
             padding: 15px;
             font-size: 1.1rem;
             margin-top: 10px;
+        }
+
+        /* Error Notification Banner */
+        #formError {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+
+        /* --- Professional Pop-up Modal --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-box {
+            background: var(--white);
+            max-width: 460px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+        .modal-icon-circle {
+            width: 64px;
+            height: 64px;
+            background: #EFF6FF;
+            color: var(--brand-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px auto;
+        }
+        .modal-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        .modal-box p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .modal-box .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
         }
 
         /* --- Image Section replacing Google Map --- */
@@ -368,42 +433,6 @@
             border: 1px solid var(--border);
         }
 
-        /* --- Footer --- */
-        footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
-        
-        .footer-logo {
-            font-size: 1.3rem; 
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .site-logo { 
-            height: 28px; 
-            width: auto; 
-            max-width: 140px; 
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
-        .footer-col h4 { font-size: 1.1rem; margin-bottom: 20px; color: var(--white); }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { font-size: 0.9rem; color: var(--text-light); }
-        .footer-col ul li a:hover { color: var(--brand-blue); }
-        .footer-services li, .footer-contact li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; color: var(--text-light); }
-        .footer-services i { color: var(--brand-blue); }
-        .footer-contact i { color: var(--accent-yellow); }
-        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icons a { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: var(--dark); border-radius: 50%; color: var(--white); font-size: 0.9rem; border: 1px solid var(--border-dark); }
-        .social-icons a:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border-dark); font-size: 0.85rem; color: var(--text-light); }
-        .footer-bottom-links a { margin-left: 15px; color: var(--text-light); }
-        .footer-bottom-links a:hover { color: var(--brand-blue); }
-
         /* --- Floating WhatsApp Icon --- */
         .whatsapp-float {
             position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
@@ -420,14 +449,8 @@
 
         /* --- Responsive Adaptations --- */
         @media (max-width: 1100px) {
-            .header-title {
-                font-size: 1.1rem; 
-                font-weight: 700;
-            }
-            .back-arrow { 
-                display: block; /* Shows only on mobile */
-            }
-            
+            .header-title { font-size: 1.1rem; font-weight: 700; }
+            .back-arrow { display: block; }
             .hamburger { display: block; }
             
             .nav-links {
@@ -442,29 +465,13 @@
             .nav-links a { color: var(--white); font-size: 1.1rem; margin-bottom: 8px; }
         }
 
-        @media (max-width: 992px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .contact-form-wrapper { padding: 30px; }
-        }
-
         @media (max-width: 768px) {
             .contact-hero { padding: 80px 5%; }
             .contact-hero h1 { font-size: 2.2rem; }
             .contact-hero p { font-size: 0.95rem; }
-            
             .section-padding { padding: 50px 5%; } 
             .section-title h2 { font-size: 1.8rem; }
-            
             .contact-form-wrapper { padding: 25px 20px; }
-            
-            /* Footer adjustments */
-            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
-            .footer-logo { justify-content: center; }
-            .footer-col p { margin: 0 auto; }
-            .footer-services li, .footer-contact li { justify-content: center; }
-            .social-icons { justify-content: center; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            .footer-bottom-links a { margin: 0 8px; }
         }
     </style>
 </head>
@@ -491,7 +498,6 @@
         </div>
         
         <div class="nav-actions">
-            <!-- Hamburger Menu -->
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -508,14 +514,14 @@
     <section class="section-padding">
         <div class="contact-container">
             
-            <!-- Left Side: Contact Information (Clickable Cards) -->
+            <!-- Left Side: Contact Information -->
             <div class="contact-info-wrapper reveal-left">
                 <div class="section-title" style="text-align: left; margin-bottom: 20px;">
                     <div class="section-label" style="justify-content: flex-start;">Get In Touch</div>
                     <h2>We're Here to Help</h2>
                 </div>
 
-                <!-- Info Card 1: Email CTA -->
+                <!-- Info Card 1: Email -->
                 <a href="mailto:hello@napontech.com" class="info-card delay-1">
                     <div class="info-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                     <div class="info-content">
@@ -525,18 +531,18 @@
                     </div>
                 </a>
 
-                <!-- Info Card 2: Phone CTA -->
-                <a href="tel:+2348012345678" class="info-card delay-2">
+                <!-- Info Card 2: Phone -->
+                <a href="tel:+2348142769726" class="info-card delay-2">
                     <div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
                     <div class="info-content">
                         <h4>Call Us</h4>
-                        <p>Mon-Fri from 8am to 5pm.</p>
-                        <span>Call +234 801 234 5678 <i class="fa-solid fa-arrow-right"></i></span>
+                        <p>Monday–Friday, 8:00 AM–5:00 PM.</p>
+                        <span>Call +234 814 276 9726 <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </a>
 
-                <!-- Info Card 3: WhatsApp CTA (Replacing Location/HQ) -->
-                <a href="https://wa.me/2348012345678" target="_blank" class="info-card delay-3">
+                <!-- Info Card 3: WhatsApp -->
+                <a href="https://wa.me/2348142769726" target="_blank" class="info-card delay-3">
                     <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <div class="info-content">
                         <h4>WhatsApp Us</h4>
@@ -549,141 +555,91 @@
                 <div class="contact-social delay-4">
                     <h4>Connect With Us</h4>
                     <div class="social-links">
-                        <a href="#" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" title="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://wa.me/2348142769726" title="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" title="X/Twitter" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" title="GitHub" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side: Secured Contact Form -->
+            <!-- Right Side: Contact Form -->
             <div class="contact-form-wrapper reveal-right">
-                <!-- 
-                  SECURITY IMPLEMENTED:
-                  - Strict pattern matching blocks special characters < > = etc. to prevent XSS payloads.
-                  - Maxlength limits database overflow (simulated).
-                  - JavaScript handles sanitization on submit to encode characters.
-                -->
                 <form id="secureContactForm" class="contact-form">
                     <h3>Send a Message</h3>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <!-- Validation: Only letters and spaces -->
-                            <input type="text" id="firstName" class="form-control" placeholder="John" required maxlength="50" pattern="^[a-zA-Z\s]+$" title="Only letters and spaces are allowed">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="John" required maxlength="50">
                         </div>
                         <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" class="form-control" placeholder="Doe" required maxlength="50" pattern="^[a-zA-Z\s]+$" title="Only letters and spaces are allowed">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Doe" required maxlength="50">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+234 800 000 0000" maxlength="25">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <!-- Native email validation -->
-                        <input type="email" id="email" class="form-control" placeholder="john@example.com" required maxlength="100">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
+                        <label for="subject">Subject *</label>
                         <select id="subject" class="form-control" required>
                             <option value="" disabled selected>Select an option</option>
                             <option value="Web Development">Web Development</option>
                             <option value="Mobile App">Mobile App Development</option>
                             <option value="UI/UX Design">UI/UX Design</option>
-                            <option value="Consulting">Technical Consulting</option>
+                            <option value="Technical Consulting">Technical Consulting</option>
                             <option value="Other">Other Inquiry</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <!-- Max length added to prevent payload bombing -->
-                        <textarea id="message" class="form-control" placeholder="Tell us about your project or inquiry..." required maxlength="1000"></textarea>
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" class="form-control" placeholder="Tell us about your project or inquiry..." required maxlength="2000"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        Send Message <i class="fa-solid fa-paper-plane"></i>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                     
-                    <div id="formFeedback" style="display:none; margin-top: 15px; padding: 10px; border-radius: 8px; text-align: center; font-weight: 500;"></div>
+                    <div id="formError"></div>
                 </form>
             </div>
             
         </div>
     </section>
 
-    <!-- Image Section (Replacing Google Map) -->
-    <div class="image-replacement-section reveal-up">
-        <img src="design_image.PNG" alt="Napon Tech Design Graphic" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=500&fit=crop'">
+    <!-- Professional Pop-up Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon-circle">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3>Message Sent</h3>
+            <p>Your message has been received successfully. We’ll get back to you shortly.</p>
+            <button type="button" class="btn btn-primary" onclick="closeSuccessModal()">OK</button>
+        </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Image Section -->
+    <div class="image-replacement-section reveal-up">
+        <img src="design_image.PNG" alt="NaponTech Design Graphic" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=500&fit=crop'">
+    </div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
     <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -691,45 +647,54 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            const copyrightElement = document.getElementById('copyright-year');
-            if (copyrightElement) {
-                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
-            }
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) copyrightElement.textContent = currentYear;
+
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
 
-            hamburger.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = hamburger.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-xmark');
-                } else {
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
-                }
-            });
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = hamburger.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    } else {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
 
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    const icon = hamburger.querySelector('i');
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = hamburger.querySelector('i');
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    }
                 });
             });
 
-            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
+            /* --- SCROLL ANIMATIONS --- */
+            const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -742,52 +707,82 @@
             const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
             animatedElements.forEach(el => observer.observe(el));
 
-            /* --- SECURE FORM SUBMISSION SCRIPT --- */
+            /* --- FORM SUBMISSION (CONNECTS TO RENDER BACKEND) --- */
+            const BACKEND_URL = "https://one11111111111111.onrender.com";
             const secureForm = document.getElementById('secureContactForm');
-            const formFeedback = document.getElementById('formFeedback');
+            const formError = document.getElementById('formError');
+            const submitBtn = document.getElementById('submitBtn');
 
-            // Basic XSS Sanitization Function (Encodes HTML entities)
-            function sanitizeHTML(str) {
-                return str.replace(/[^\w. @-]/gi, function (c) {
-                    return '&#' + c.charCodeAt(0) + ';';
-                });
-            }
+            secureForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
 
-            secureForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevents default form submission
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value.trim();
 
-                // Fetching and sanitizing inputs
-                const fName = sanitizeHTML(document.getElementById('firstName').value.trim());
-                const lName = sanitizeHTML(document.getElementById('lastName').value.trim());
-                const email = document.getElementById('email').value.trim(); // Handled by native type="email"
-                const msg = sanitizeHTML(document.getElementById('message').value.trim());
-
-                // Additional check to prevent empty sanitized strings (e.g. if a user only typed <script>)
-                if(!fName || !lName || !msg) {
-                    formFeedback.style.display = 'block';
-                    formFeedback.style.backgroundColor = '#fef2f2';
-                    formFeedback.style.color = '#dc2626';
-                    formFeedback.style.border = '1px solid #f87171';
-                    formFeedback.textContent = 'Error: Invalid characters detected. Please use standard text.';
+                if (!firstName || !lastName || !email || !message) {
+                    showError('Please fill in all required fields.');
                     return;
                 }
 
-                // Simulate successful, secure submission
-                formFeedback.style.display = 'block';
-                formFeedback.style.backgroundColor = '#f0fdf4';
-                formFeedback.style.color = '#16a34a';
-                formFeedback.style.border = '1px solid #86efac';
-                formFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> Thank you, ${fName}. Your message has been sent.`;
-                
-                // Reset form
-                secureForm.reset();
-                
-                // Hide message after 5 seconds
-                setTimeout(() => {
-                    formFeedback.style.display = 'none';
-                }, 5000);
+                // UI Loading state with spinner
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `Sending... <i class="fa-solid fa-spinner fa-spin"></i>`;
+                formError.style.display = 'none';
+
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/submit`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            firstName,
+                            lastName,
+                            email,
+                            phone,
+                            subject,
+                            message,
+                            category: 'contact' // Categorizes message under Contact Us
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        // Open professional modal popup
+                        openSuccessModal();
+                        secureForm.reset();
+                    } else {
+                        throw new Error(data.error || 'Failed to submit form.');
+                    }
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    showError(error.message || 'Could not connect to the server. Please try again.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>`;
+                }
             });
+
+            function showError(msg) {
+                formError.style.display = 'block';
+                formError.textContent = msg;
+            }
         });
+
+        function openSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('active');
+        }
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services | Napon Tech</title>
+    <title>Our Services | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -277,7 +277,7 @@
         .process-step h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-dark); }
         .process-step p { font-size: 0.9rem; color: var(--text-gray); }
 
-        /* --- Technologies Stack Section (Updated with Background Image & Glassmorphism) --- */
+        /* --- Technologies Stack Section --- */
         .tech-section { 
             position: relative;
             background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&h=800&fit=crop') center/cover no-repeat;
@@ -291,7 +291,6 @@
             max-width: 900px; margin: 0 auto;
         }
         
-        /* Frosted Glass Effect Badges */
         .tech-badge {
             background: rgba(255, 255, 255, 0.05); 
             padding: 12px 24px; 
@@ -334,11 +333,10 @@
             display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;
         }
 
-        /* --- Footer (Dark Palette) --- */
+        /* --- Footer Base Styles Retained for Centralized Integration --- */
         footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         
-        /* RESTORED LOGO STYLING FOR FOOTER */
         .footer-logo {
             font-size: 1.3rem; 
             font-weight: 800;
@@ -387,14 +385,8 @@
 
         /* --- Responsive Adaptations --- */
         @media (max-width: 1100px) {
-            .header-title {
-                font-size: 1.1rem; 
-                font-weight: 700;
-            }
-            .back-arrow { 
-                display: block; /* Shows only on mobile */
-            }
-            
+            .header-title { font-size: 1.1rem; font-weight: 700; }
+            .back-arrow { display: block; }
             .hamburger { display: block; }
             
             .nav-links {
@@ -442,7 +434,6 @@
     <!-- Navigation Header -->
     <nav>
         <div class="nav-left">
-            <!-- Header Text - Replacing Logo & Company Name completely -->
             <div class="header-title" onclick="history.back()">
                 <i class="fa-solid fa-arrow-left back-arrow"></i>
                 <span>Services</span>
@@ -604,71 +595,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <!-- Restored Image Logo and NaponTech text to Footer -->
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -676,10 +607,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            document.getElementById('copyright-year').textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    // Set dynamic copyright year
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');

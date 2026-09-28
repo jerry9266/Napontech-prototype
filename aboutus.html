@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Napon Tech</title>
+    <title>About Us | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -292,11 +292,18 @@
 
         /* --- Team Section --- */
         .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            display: flex;
+            justify-content: center;
             gap: 40px;
             max-width: 1000px;
             margin: 0 auto;
+        }
+        .team-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.05rem;
+            color: var(--text-gray);
         }
         .team-card { text-align: center; }
         .team-image {
@@ -306,8 +313,8 @@
             border: 5px solid var(--white);
         }
         .team-image img { width: 100%; height: 100%; object-fit: cover; }
-        .team-card h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-dark); }
-        .team-card p { color: var(--brand-blue); font-size: 0.85rem; font-weight: 500; margin-bottom: 0; }
+        .team-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text-dark); }
+        .team-card p { color: var(--brand-blue); font-size: 0.9rem; font-weight: 500; margin-bottom: 0; }
 
         /* --- CTA Section --- */
         .cta-section {
@@ -319,7 +326,7 @@
         .cta-section h2 { color: var(--white); font-size: 2.2rem; margin-bottom: 15px; }
         .cta-section p { color: var(--text-light); max-width: 600px; margin: 0 auto 25px; font-size: 1rem; }
 
-        /* --- Footer (Dark Palette) --- */
+        /* --- Footer Base Styles Retained for Centralized Integration --- */
         footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         .footer-col .logo { font-size: 1.3rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
@@ -436,8 +443,8 @@
             
             <!-- Desktop View: App Logo (Hidden on Mobile < 1100px) -->
             <div class="desktop-logo" onclick="window.location.href='home.html'">
-                <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                Napon <span class="text-blue">Tech</span>
+                <img src="logo.png" alt="NaponTech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
+                Napon<span class="text-blue">Tech</span>
             </div>
         </div>
         
@@ -454,7 +461,7 @@
         
         <div class="nav-actions">
             <!-- Mobile right-side Logo (Hidden on Desktop) -->
-            <img src="loo.png" alt="Napon Tech Logo" class="mobile-logo-right" onerror="this.src='https://via.placeholder.com/32x32?text=N'" onclick="window.location.href='home.html'">
+            <img src="logo.png" alt="NaponTech Logo" class="mobile-logo-right" onerror="this.src='https://via.placeholder.com/32x32?text=N'" onclick="window.location.href='home.html'">
             
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
@@ -464,8 +471,8 @@
 
     <!-- Hero Section -->
     <header class="about-hero reveal-up">
-        <h1>Building Digital Products</h1>
-        <p>Napon Tech is a technology company focused on building digital products and providing practical technology services for businesses and individuals.</p>
+        <h1>Building Practical Digital Solutions</h1>
+        <p>NaponTech is a technology company focused on building digital products and providing practical technology services for businesses and individuals.</p>
     </header>
 
     <!-- Mission & Vision Section -->
@@ -474,20 +481,20 @@
             <div class="mv-content reveal-left">
                 <div class="section-label">Our Story</div>
                 <h2>Who We Are</h2>
-                <p>Napon Tech was built to help solve the technical challenges businesses face when building their digital presence. We work on websites, mobile applications, custom software, and design based on the needs of each project.</p>
-                <p>Our approach is simple: understand the problem, define what needs to be built, and develop it carefully. We partner with our clients to ensure the final product operates exactly as intended.</p>
+                <p>NaponTech was built to help solve the technical challenges businesses face when building their digital presence. We work on websites, mobile applications, custom software, and design based on the needs of each project.</p>
+                <p>Our approach is simple: understand the problem, define what needs to be built, and develop it carefully. We work with our clients to make sure the final product meets the agreed requirements.</p>
                 <div style="margin-top: 30px;">
                     <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: var(--text-dark);"><i class="fa-solid fa-eye text-blue" style="margin-right: 8px;"></i> Our Goal</h3>
                     <p style="font-size: 0.9rem; color: var(--text-gray);">To build reliable and practical digital solutions that help businesses and individuals operate more effectively.</p>
                 </div>
             </div>
             <div class="mv-image reveal-right">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Napon Tech Team Collaboration">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Team Collaboration">
             </div>
         </div>
     </section>
 
-    <!-- Services Overview Section (Replaces Fake Stats) -->
+    <!-- Services Overview Section -->
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item reveal-up delay-1">
@@ -539,60 +546,23 @@
         </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Team / Founder Section -->
     <section class="section-padding">
         <div class="section-title reveal-up">
             <div class="section-label" style="justify-content: center; margin-bottom: 10px;">The Team</div>
-            <h2>Meet Our Members</h2>
+            <h2>The Person Behind NaponTech</h2>
+        </div>
+        <div class="team-intro reveal-up delay-1">
+            <p>NaponTech is currently being built and operated independently, with a focus on software development, design, and practical digital solutions.</p>
         </div>
         <div class="team-grid">
-            <!-- Team Member 1 -->
-            <div class="team-card reveal-up delay-1">
+            <!-- Founder Profile -->
+            <div class="team-card reveal-up delay-2">
                 <div class="team-image">
-                    <img src="jerry_ifeadike.png" alt="Jerry Ifeadike" onerror="this.src='https://via.placeholder.com/400x400?text=J'">
+                    <img src="jerry_ifeadike.png" alt="Jerry Ifeadike" onerror="this.src='https://via.placeholder.com/400x400?text=JI'">
                 </div>
                 <h3>Jerry Ifeadike</h3>
                 <p>Founder and CEO</p>
-            </div>
-            <!-- Team Member 2 -->
-            <div class="team-card reveal-up delay-2">
-                <div class="team-image">
-                    <img src="cynthia_okafor.png" alt="Cynthia Okafor" onerror="this.src='https://via.placeholder.com/400x400?text=C'">
-                </div>
-                <h3>Cynthia Okafor</h3>
-                <p>Chief Technology Officer</p>
-            </div>
-            <!-- Team Member 3 -->
-            <div class="team-card reveal-up delay-3">
-                <div class="team-image">
-                    <img src="devi_francis.png" alt="Devi Francis" onerror="this.src='https://via.placeholder.com/400x400?text=D'">
-                </div>
-                <h3>Devi Francis</h3>
-                <p>Lead UI/UX Designer</p>
-            </div>
-            <!-- Team Member 4 -->
-            <div class="team-card reveal-up delay-1">
-                <div class="team-image">
-                    <img src="fatima_aliu.png" alt="Fatima Aliu" onerror="this.src='https://via.placeholder.com/400x400?text=F'">
-                </div>
-                <h3>Fatima Aliu</h3>
-                <p>Product Manager</p>
-            </div>
-            <!-- Team Member 5 -->
-            <div class="team-card reveal-up delay-2">
-                <div class="team-image">
-                    <img src="james_olatunde.png" alt="James Olatunde" onerror="this.src='https://via.placeholder.com/400x400?text=J'">
-                </div>
-                <h3>James Olatunde</h3>
-                <p>Senior Software Engineer</p>
-            </div>
-            <!-- Team Member 6 -->
-            <div class="team-card reveal-up delay-3">
-                <div class="team-image">
-                    <img src="james_ekanem.png" alt="James Ekanem" onerror="this.src='https://via.placeholder.com/400x400?text=J'">
-                </div>
-                <h3>James Ekanem</h3>
-                <p>Mobile App Developer</p>
             </div>
         </div>
     </section>
@@ -604,70 +574,11 @@
         <a href="getstarted.html" class="btn btn-primary">Start Your Project</a>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
-            </div>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+    <!-- Floating WhatsApp Icon (Channel Link) -->
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -675,13 +586,27 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            const copyrightElement = document.getElementById('copyright-year');
-            if (copyrightElement) {
-                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
-            }
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    // Set dynamic copyright year
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) {
+                        copyrightElement.textContent = currentYear;
+                    }
+
+                    // Observe footer elements for animation
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             /* --- HAMBURGER MENU LOGIC --- */
             const hamburger = document.querySelector('.hamburger');

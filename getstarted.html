@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Security: Prevents basic front-end attacks (XSS) -->
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
     
-    <title>Get Started | Napon Tech</title>
+    <title>Get Started | NaponTech</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -16,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- CSS Variables (Strictly Matching the New Color Palette) --- */
+        /* --- CSS Variables --- */
         :root {
             --brand-blue: #2563EB;
             --brand-blue-hover: #1D4ED8;
@@ -76,14 +73,13 @@
         .btn-whatsapp { background-color: #25D366; color: var(--white); }
         .btn-whatsapp:hover { background-color: #1ebc59; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
         .btn-full { width: 100%; }
-        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
-        /* --- Smooth Sign In / Sign Up Button Design --- */
         .btn-auth {
             background: linear-gradient(135deg, var(--accent-yellow), #f59e0b);
             color: var(--black);
             font-weight: 700;
-            border-radius: 30px; /* Smooth pill shape */
+            border-radius: 30px; 
             padding: 10px 24px;
             box-shadow: 0 4px 15px rgba(255, 184, 0, 0.4);
             border: none;
@@ -94,7 +90,7 @@
             color: var(--black);
         }
 
-        /* --- Navigation Header (Focused View) --- */
+        /* --- Navigation Header --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -124,7 +120,7 @@
         .header-title:hover { color: var(--accent-yellow); }
         .back-arrow { font-size: 1.2rem; } 
 
-        /* --- Scroll Animation Classes --- */
+        /* --- Scroll Animations --- */
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.7s ease-out; }
         .reveal-scale { opacity: 0; transform: scale(0.92); transition: all 0.7s ease-out; }
         .reveal-active { opacity: 1; transform: translate(0) scale(1); }
@@ -143,7 +139,7 @@
         .get-started-header h1 { margin-bottom: 15px; color: var(--text-dark); }
         .get-started-header p { max-width: 600px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray); }
 
-        /* --- Communication Options Grid --- */
+        /* --- Options Grid --- */
         .options-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
         .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
         
@@ -156,7 +152,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
             transition: var(--transition); 
             display: flex; flex-direction: column; align-items: center; height: 100%; 
-            transform: translateZ(0); /* Anti-glitch */
+            transform: translateZ(0); 
         }
         .option-card:hover { 
             transform: translateY(-8px) translateZ(0); 
@@ -197,10 +193,7 @@
         .project-banner h2 { color: var(--white); margin-bottom: 15px; }
         .project-banner p { color: var(--text-light); max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
 
-        /* ========================================================= */
-        /* --- FULL SCREEN VIEWS (Strict Layout / No Overflow) --- */
-        /* ========================================================= */
-        
+        /* --- FULL SCREEN VIEWS --- */
         .fs-view { 
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             height: 100dvh; width: 100%; background: var(--off-white); 
@@ -237,52 +230,87 @@
         .form-control:focus { border-color: var(--brand-blue); background: var(--white); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
         textarea.form-control { resize: vertical; min-height: 100px; }
 
-        /* --- Live Chat Full Screen Specifics --- */
-        .chat-interface { 
-            display: none; flex-direction: column; flex: 1; width: 100%; max-width: 900px; margin: 0 auto; 
-            background: var(--white); border-left: 1px solid var(--border); border-right: 1px solid var(--border); 
-            box-shadow: 0 0 20px rgba(0,0,0,0.02); overflow: hidden; 
+        .form-error {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #f87171;
         }
-        .chat-messages { flex: 1; min-height: 0; padding: 20px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--off-white); }
-        
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 0.95rem; line-height: 1.4; position: relative; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; }
-        .chat-bubble.team { background: var(--white); color: var(--text-dark); align-self: flex-start; border: 1px solid var(--border); border-bottom-left-radius: 4px; }
-        .chat-bubble.visitor { background: var(--brand-blue); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-timestamp { font-size: 0.7rem; margin-top: 5px; opacity: 0.7; text-align: right; display: block; }
-        
-        .chat-status { text-align: center; font-size: 0.8rem; color: var(--text-light); margin-bottom: 10px; }
-        
-        .chat-account-prompt { text-align: center; background: #e0e7ff; color: var(--brand-blue); padding: 12px; font-size: 0.85rem; border-radius: 8px; margin-bottom: 15px; cursor: pointer; transition: var(--transition); border: 1px dashed #818cf8; text-decoration: none; display: block; }
-        .chat-account-prompt:hover { background: #c7d2fe; }
 
-        .chat-input-area { flex-shrink: 0; width: 100%; padding: 15px 5%; padding-bottom: max(15px, env(safe-area-inset-bottom)); background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; box-sizing: border-box; }
-        .chat-input-area input { flex: 1; min-width: 0; padding: 14px 20px; border: 1px solid var(--border); border-radius: 30px; outline: none; font-size: 0.95rem; background: var(--off-white); transition: var(--transition); }
-        .chat-input-area input:focus { border-color: var(--brand-blue); background: var(--white); }
-        .chat-send-btn { background: var(--brand-blue); color: var(--white); border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); font-size: 1.2rem; flex-shrink: 0; }
-        .chat-send-btn:hover { background: var(--brand-blue-hover); transform: scale(1.05); }
+        /* --- Professional Pop-up Modal --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-box {
+            background: var(--white);
+            max-width: 460px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+        .modal-icon-circle {
+            width: 64px;
+            height: 64px;
+            background: #EFF6FF;
+            color: var(--brand-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px auto;
+        }
+        .modal-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        .modal-box p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .modal-box .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+        }
 
-        /* --- Success States --- */
-        .success-state { text-align: center; padding: 60px 20px; display: none; margin: auto; }
-        .success-icon { font-size: 5rem; color: var(--success-color); margin-bottom: 20px; }
-        .success-state h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--text-dark); }
-        .success-state p { font-size: 1.1rem; max-width: 500px; margin: 0 auto 25px; color: var(--text-gray); }
-        
-        /* ========================================================= */
-        /* --- GLOBAL FOOTER --- */
-        /* ========================================================= */
-        
+        /* --- Footer Styles --- */
         footer { background-color: var(--black); padding: 80px 5% 20px; border-top: none; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1.5fr; gap: 40px; margin-bottom: 50px; }
         
-        .footer-logo {
-            font-size: 1.3rem; 
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
+        .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
         .site-logo { height: 28px; width: auto; max-width: 140px; object-fit: contain; flex-shrink: 0; }
         
         .footer-col p { font-size: 0.9rem; color: var(--text-light); max-width: 280px; }
@@ -301,9 +329,8 @@
         .footer-bottom-links a:hover { color: var(--brand-blue); }
 
         /* --- Floating WhatsApp Icon --- */
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: #25D366; color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
-        .whatsapp-float:hover { background-color: #1ebc59; transform: scale(1.1); }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: var(--brand-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4); cursor: pointer; z-index: 90; animation: pulse 2s infinite; transition: var(--transition); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
 
         /* --- Responsive Adaptations --- */
         @media (max-width: 992px) {
@@ -312,49 +339,23 @@
         @media (max-width: 768px) {
             .nav-left span { font-size: 1.1rem; }
             .btn-auth { padding: 8px 15px; font-size: 0.85rem; }
-            
             .form-grid { grid-template-columns: 1fr; gap: 0; }
             .get-started-header { padding: 40px 5% 30px; }
             .options-section { padding: 40px 5%; }
             .project-banner { padding: 40px 20px; }
-            
-            /* Footer Responsive Fixes */
             .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
-            .footer-col p { margin: 0 auto; }
             .footer-logo { justify-content: center; }
+            .footer-col p { margin: 0 auto; }
             .footer-services li, .footer-contact li { justify-content: center; }
             .social-icons { justify-content: center; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             .footer-bottom-links a { margin: 0 8px; }
-            
-            /* Chat Interface Adjustments */
-            .chat-interface { border-left: none; border-right: none; }
-            .chat-input-area { padding: 10px 5%; gap: 8px; }
-            .chat-input-area input { padding: 12px 15px; font-size: 1rem; }
-            .chat-send-btn { width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Central Configuration & Security Script -->
-    <script>
-        const NAPON_CONFIG = {
-            whatsappNumber: '2348012345678', 
-            emailAddress: 'hello@napontech.com',
-            phoneNumber: '+2348012345678',
-            displayPhone: '+234 801 234 5678'
-        };
-
-        // Anti-XSS Sanitization (Escapes HTML)
-        function sanitizeInput(str) {
-            const temp = document.createElement('div');
-            temp.textContent = str;
-            return temp.innerHTML;
-        }
-    </script>
-
-    <!-- Navigation Header (Focused View: No Hamburger, No Main Links) -->
+    <!-- Navigation Header -->
     <nav>
         <div class="nav-left">
             <div class="header-title" onclick="history.back()">
@@ -363,14 +364,14 @@
             </div>
         </div>
         <div class="nav-right">
-            <a href="credentials.html" class="btn btn-auth"><i class="fa-solid fa-user-circle" style="margin-right: 4px;"></i> Sign in / Sign up</a>
+            <a href="404.html" class="btn btn-auth"><i class="fa-solid fa-user-circle" style="margin-right: 4px;"></i> Sign in / Sign up</a>
         </div>
     </nav>
 
-    <!-- Page Description Header -->
+    <!-- Page Header -->
     <header class="get-started-header reveal-up">
         <h1>How would you like to begin?</h1>
-        <p>Have a project in mind, a question, or simply want to talk to our team? Choose the way you’d like to connect with Napon Tech.</p>
+        <p>Have a project in mind, a question, or simply want to talk? Choose how you'd like to connect with NaponTech.</p>
     </header>
 
     <!-- Communication Options -->
@@ -381,8 +382,8 @@
                 <div class="option-icon icon-chat">
                     <i class="fa-solid fa-comment-dots"></i>
                 </div>
-                <h3>Support Chat</h3>
-                <p>Chat directly with a member of the Napon Tech team.</p>
+                <h3>Contact Support</h3>
+                <p>Send us a message and we'll get back to you.</p>
                 <button class="btn btn-primary" onclick="openView('chatView')">
                     <i class="fa-solid fa-paper-plane"></i> Leave a Message
                 </button>
@@ -415,9 +416,9 @@
                     <i class="fa-solid fa-phone-volume"></i>
                 </div>
                 <h3>Call Us</h3>
-                <p>Prefer to speak directly? Give our team a call.</p>
+                <p>Prefer to speak directly? Give us a call.</p>
                 <button class="btn btn-outline btn-full" onclick="makeCall()" id="callBtnText">
-                    <i class="fa-solid fa-phone"></i> Call Napon Tech
+                    <i class="fa-solid fa-phone"></i> Call NaponTech
                 </button>
             </div>
 
@@ -436,62 +437,54 @@
 
     <!-- ================= FULL SCREEN VIEWS ================= -->
 
-    <!-- Live Chat Full Screen View -->
+    <!-- Contact Support View -->
     <div class="fs-view" id="chatView">
         <div class="fs-header">
             <button class="fs-back-btn" onclick="closeView('chatView')" aria-label="Go Back">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
-            <h3><i class="fa-solid fa-headset text-blue" style="margin-right: 5px;"></i> Napon Tech Support</h3>
+            <h3><i class="fa-solid fa-headset text-blue" style="margin-right: 5px;"></i> Contact Support</h3>
         </div>
         
         <div class="fs-content">
-            <div class="form-wrapper" id="chatFormView">
+            <div class="form-wrapper">
                 <div class="form-box">
-                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Welcome to Support</h3>
                     <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Please provide your details so we can help you.</p>
                     
-                    <form id="startChatForm" onsubmit="startChat(event)">
+                    <form id="startChatForm" onsubmit="submitSupport(event)">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label class="form-label">First Name *</label>
-                                <input type="text" id="chatFirstName" class="form-control" pattern="^[A-Za-z\s\-]+$" title="Only letters and spaces allowed" required>
+                                <input type="text" id="chatFirstName" class="form-control" required maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Last Name *</label>
-                                <input type="text" id="chatLastName" class="form-control" pattern="^[A-Za-z\s\-]+$" title="Only letters and spaces allowed" required>
+                                <input type="text" id="chatLastName" class="form-control" required maxlength="50">
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label">Email Address *</label>
-                                <input type="email" id="chatEmail" class="form-control" required>
+                                <input type="email" id="chatEmail" class="form-control" required maxlength="100">
                             </div>
                             <div class="form-group full-width">
-                                <label class="form-label">Phone Number *</label>
-                                <input type="tel" id="chatPhone" class="form-control" pattern="^[\+0-9\s\-]+$" title="Valid phone characters only" required>
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" id="chatPhone" class="form-control" maxlength="25">
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label">How can we help you today? *</label>
-                                <textarea id="chatInitialMessage" class="form-control" maxlength="1000" required></textarea>
+                                <textarea id="chatInitialMessage" class="form-control" maxlength="2000" placeholder="Type your message here..." required></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full" id="startChatBtn" style="padding: 15px;">Start Chat</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="startChatBtn" style="padding: 15px;">
+                            <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                        <div id="chatError" class="form-error"></div>
                     </form>
-                </div>
-            </div>
-
-            <div class="chat-interface" id="chatInterfaceView">
-                <div class="chat-messages" id="chatMessages">
-                    <div class="chat-status" id="chatStatusText">Connecting...</div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatMessageInput" placeholder="Type your message..." autocomplete="off" maxlength="800" enterkeyhint="send" onkeypress="handleChatEnter(event)">
-                    <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Start a Project Full Screen View -->
+    <!-- Start a Project View -->
     <div class="fs-view" id="projectView">
         <div class="fs-header">
             <button class="fs-back-btn" onclick="closeView('projectView')" aria-label="Go Back">
@@ -501,7 +494,7 @@
         </div>
         
         <div class="fs-content">
-            <div class="form-wrapper" id="projectFormView">
+            <div class="form-wrapper">
                 <div class="form-box">
                     <h3 style="margin-bottom: 10px; color: var(--text-dark);">Project Details</h3>
                     <p style="font-size: 0.95rem; margin-bottom: 25px; color: var(--text-gray);">Share the details of your project, and we'll review the requirements with you.</p>
@@ -510,23 +503,23 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label class="form-label">First Name *</label>
-                                <input type="text" class="form-control" pattern="^[A-Za-z\s\-]+$" required>
+                                <input type="text" id="projFirstName" class="form-control" required maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Last Name *</label>
-                                <input type="text" class="form-control" pattern="^[A-Za-z\s\-]+$" required>
+                                <input type="text" id="projLastName" class="form-control" required maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email *</label>
-                                <input type="email" class="form-control" required>
+                                <input type="email" id="projEmail" class="form-control" required maxlength="100">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Phone / WhatsApp *</label>
-                                <input type="tel" class="form-control" pattern="^[\+0-9\s\-]+$" required>
+                                <label class="form-label">Phone / WhatsApp</label>
+                                <input type="tel" id="projPhone" class="form-control" maxlength="25">
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label">Service Required *</label>
-                                <select class="form-control" required>
+                                <select id="projService" class="form-control" required>
                                     <option value="" disabled selected>Select a service...</option>
                                     <option value="Website Development">Website Development</option>
                                     <option value="Custom Software">Custom Software</option>
@@ -539,11 +532,11 @@
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label">Project Description *</label>
-                                <textarea class="form-control" placeholder="Tell us briefly about what you want to build..." maxlength="2000" required></textarea>
+                                <textarea id="projDescription" class="form-control" placeholder="Tell us briefly about what you want to build..." maxlength="3000" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Budget Range (Optional)</label>
-                                <select class="form-control">
+                                <select id="projBudget" class="form-control">
                                     <option value="">Select budget range...</option>
                                     <option value="< $1000">Less than $1,000</option>
                                     <option value="$1000 - $5000">$1,000 - $5,000</option>
@@ -553,7 +546,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Preferred Timeline (Optional)</label>
-                                <select class="form-control">
+                                <select id="projTimeline" class="form-control">
                                     <option value="">Select timeline...</option>
                                     <option value="ASAP">As soon as possible</option>
                                     <option value="1-3 Months">1 - 3 Months</option>
@@ -562,108 +555,75 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full" id="submitProjectBtn" style="padding: 15px;">Submit Project Request</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="submitProjectBtn" style="padding: 15px;">
+                            <span>Submit Project Request</span> <i class="fa-solid fa-rocket"></i>
+                        </button>
+                        <div id="projectError" class="form-error"></div>
                     </form>
                 </div>
             </div>
-
-            <!-- Success Interface -->
-            <div class="form-wrapper success-state" id="projectSuccessView">
-                <i class="fa-solid fa-circle-check success-icon"></i>
-                <h3>Request Received</h3>
-                <p>Your request has been submitted. We will review your requirements and contact you to discuss the next steps.</p>
-                <button class="btn btn-outline" style="margin-top: 15px;" onclick="closeView('projectView')"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
-            </div>
         </div>
     </div>
 
-    <!-- Exact Global Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col reveal-up">
-                <div class="footer-logo">
-                    <img src="logo.png" alt="Napon Tech Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/32x32?text=N'">
-                    Napon <span class="text-blue">Tech</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; color: var(--white);">Build • Design • Develop</p>
-                <br>
-                <p>We build websites, mobile apps, custom software, and digital solutions.</p>
+    <!-- Professional Success Pop-up Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon-circle">
+                <i class="fa-solid fa-check"></i>
             </div>
-
-            <div class="footer-col reveal-up delay-1">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <li><a href="getstarted.html">Get Started</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-2">
-                <h4>Services</h4>
-                <ul class="footer-services">
-                    <li><i class="fa-solid fa-globe"></i> Web Development</li>
-                    <li><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</li>
-                    <li><i class="fa-solid fa-gamepad"></i> Game Development</li>
-                    <li><i class="fa-solid fa-palette"></i> Graphic Design</li>
-                </ul>
-            </div>
-
-            <div class="footer-col reveal-up delay-3">
-                <h4>Get In Touch</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:hello@napontech.com">hello@napontech.com</a></li>
-                    <li><i class="fa-solid fa-location-dot"></i> Serving Clients Across Nigeria & Beyond</li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+2348012345678">+234 801 234 5678</a></li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
+            <h3>Message Sent</h3>
+            <p>Your message has been received successfully. We’ll get back to you shortly.</p>
+            <button type="button" class="btn btn-primary" onclick="closeSuccessModal()">OK</button>
         </div>
+    </div>
 
-        <div class="footer-bottom reveal-up">
-            <p>&copy; <span id="copyright-year">2025</span> Napon Tech. All rights reserved.</p>
-            <div class="footer-bottom-links">
-                <a href="terms.html">Terms of Use</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Centralized Footer Container -->
+    <div id="footer-container"></div>
 
     <!-- Floating WhatsApp Icon -->
-    <div class="whatsapp-float" onclick="openWhatsApp()" title="Chat with us on WhatsApp">
+    <a href="https://whatsapp.com/channel/0029VaiIqd105MUVsapGxW3H" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Join our WhatsApp Channel">
         <i class="fa-brands fa-whatsapp"></i>
-    </div>
+    </a>
 
     <!-- Interactive Scripts -->
     <script>
+        const BACKEND_URL = "https://one11111111111111.onrender.com";
+
+        const NAPON_CONFIG = {
+            whatsappNumber: '2348142769726', 
+            emailAddress: 'hello@napontech.com',
+            phoneNumber: '+2348142769726',
+            displayPhone: '+234 814 276 9726'
+        };
+
         document.addEventListener("DOMContentLoaded", () => {
-            // Dynamic copyright year
-            const currentYear = new Date().getFullYear();
-            const startYear = 2025;
-            const copyrightElement = document.getElementById('copyright-year');
-            if (copyrightElement) {
-                copyrightElement.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : startYear;
-            }
+            
+            /* --- LOAD CENTRALIZED FOOTER --- */
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                    
+                    const currentYear = new Date().getFullYear();
+                    const copyrightElement = document.getElementById('copyright-year');
+                    if (copyrightElement) copyrightElement.textContent = currentYear;
+
+                    const animatedElements = document.querySelectorAll('#footer-container .reveal-up');
+                    animatedElements.forEach(el => observer.observe(el));
+                })
+                .catch(err => console.error('Error loading footer:', err));
 
             // Populate dynamic contact fields
-            document.getElementById('callBtnText').innerHTML = `<i class="fa-solid fa-phone"></i> Call ${NAPON_CONFIG.displayPhone}`;
+            const callBtn = document.getElementById('callBtnText');
+            if (callBtn) {
+                callBtn.innerHTML = `<i class="fa-solid fa-phone"></i> Call ${NAPON_CONFIG.displayPhone}`;
+            }
 
-            /* --- SCROLL ANIMATIONS (Intersection Observer) --- */
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
+            /* --- SCROLL ANIMATIONS --- */
+            const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -682,7 +642,7 @@
         function openEmail() { window.location.href = `mailto:${NAPON_CONFIG.emailAddress}`; }
         function makeCall() { window.location.href = `tel:${NAPON_CONFIG.phoneNumber}`; }
 
-        // View Controller Functions
+        // Fullscreen View Controller
         function openView(viewId) {
             document.getElementById(viewId).classList.add('active');
             document.body.style.overflow = 'hidden'; 
@@ -693,101 +653,118 @@
             document.body.style.overflow = ''; 
         }
 
-        // Live Chat Logic with XSS Protection
-        function startChat(event) {
+        // Modal Controls
+        function openSuccessModal() {
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+            // Close active fullscreen views
+            closeView('chatView');
+            closeView('projectView');
+        }
+
+        // 1. Contact Support Form Submission
+        async function submitSupport(event) {
             event.preventDefault();
             const btn = document.getElementById('startChatBtn');
-            btn.innerHTML = 'Starting Chat...';
+            const errBox = document.getElementById('chatError');
+
+            const firstName = document.getElementById('chatFirstName').value.trim();
+            const lastName = document.getElementById('chatLastName').value.trim();
+            const email = document.getElementById('chatEmail').value.trim();
+            const phone = document.getElementById('chatPhone').value.trim();
+            const message = document.getElementById('chatInitialMessage').value.trim();
+
+            errBox.style.display = 'none';
+            btn.innerHTML = `Sending... <i class="fa-solid fa-spinner fa-spin"></i>`;
             btn.disabled = true;
 
-            const userData = {
-                firstName: sanitizeInput(document.getElementById('chatFirstName').value),
-                message: sanitizeInput(document.getElementById('chatInitialMessage').value)
-            };
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        subject: 'Support Request',
+                        message,
+                        category: 'contact'
+                    })
+                });
 
-            setTimeout(() => {
-                document.getElementById('chatFormView').style.display = 'none';
-                document.getElementById('chatInterfaceView').style.display = 'flex';
+                const data = await response.json();
 
-                appendMessage('visitor', userData.message);
-
-                setTimeout(() => {
-                    document.getElementById('chatStatusText').innerText = 'Thank you for reaching out.';
-                    appendMessage('team', `Hi ${userData.firstName}! We have received your details. How can we help you today?`);
-                    
-                    const chatMessagesBox = document.getElementById('chatMessages');
-                    const prompt = document.createElement('a');
-                    prompt.href = 'credentials.html';
-                    prompt.className = 'chat-account-prompt';
-                    prompt.innerHTML = '<strong>Want to track this chat later?</strong><br>Sign in / Sign up to save your conversations and projects.';
-                    
-                    chatMessagesBox.appendChild(prompt);
-                    chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
-
-                }, 1500);
-
-                btn.innerHTML = 'Start Chat';
+                if (response.ok && data.success) {
+                    document.getElementById('startChatForm').reset();
+                    openSuccessModal();
+                } else {
+                    throw new Error(data.error || 'Failed to submit support request.');
+                }
+            } catch (err) {
+                errBox.style.display = 'block';
+                errBox.textContent = err.message || 'Could not connect to the server. Please try again.';
+            } finally {
                 btn.disabled = false;
-                document.getElementById('startChatForm').reset();
-
-            }, 800);
+                btn.innerHTML = `<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>`;
+            }
         }
 
-        function handleChatEnter(event) {
-            if (event.key === 'Enter') { sendChatMessage(); }
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chatMessageInput');
-            const text = sanitizeInput(input.value.trim());
-            if (!text) return;
-            
-            appendMessage('visitor', text);
-            input.value = '';
-
-            const statusText = document.getElementById('chatStatusText');
-            statusText.innerText = 'Processing...';
-            
-            setTimeout(() => {
-                appendMessage('team', 'Thanks for the details. We will process this and get back to you shortly.');
-                statusText.innerText = 'Message sent.';
-            }, 2000);
-        }
-
-        function appendMessage(sender, text) {
-            const container = document.getElementById('chatMessages');
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `chat-bubble ${sender}`;
-            msgDiv.innerHTML = `${text}<span class="chat-timestamp">${time}</span>`;
-            
-            container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Project Request Logic
-        function submitProject(event) {
+        // 2. Start a Project Form Submission
+        async function submitProject(event) {
             event.preventDefault();
             const btn = document.getElementById('submitProjectBtn');
-            btn.innerHTML = 'Submitting... <i class="fa-solid fa-spinner fa-spin"></i>';
+            const errBox = document.getElementById('projectError');
+
+            const firstName = document.getElementById('projFirstName').value.trim();
+            const lastName = document.getElementById('projLastName').value.trim();
+            const email = document.getElementById('projEmail').value.trim();
+            const phone = document.getElementById('projPhone').value.trim();
+            const service = document.getElementById('projService').value;
+            const description = document.getElementById('projDescription').value.trim();
+            const budget = document.getElementById('projBudget').value || 'Not specified';
+            const timeline = document.getElementById('projTimeline').value || 'Not specified';
+
+            const fullMessage = `Service: ${service}\nBudget Range: ${budget}\nTimeline: ${timeline}\n\nProject Overview:\n${description}`;
+
+            errBox.style.display = 'none';
+            btn.innerHTML = `Submitting... <i class="fa-solid fa-spinner fa-spin"></i>`;
             btn.disabled = true;
 
-            setTimeout(() => {
-                document.getElementById('projectFormView').style.display = 'none';
-                
-                const successView = document.getElementById('projectSuccessView');
-                successView.style.display = 'flex';
-                successView.style.flexDirection = 'column';
-                successView.style.justifyContent = 'center';
-                successView.style.height = '100%';
-                
-                btn.innerHTML = 'Submit Project Request';
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        subject: service,
+                        message: fullMessage,
+                        category: 'get_started'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    document.getElementById('projectRequestForm').reset();
+                    openSuccessModal();
+                } else {
+                    throw new Error(data.error || 'Failed to submit project request.');
+                }
+            } catch (err) {
+                errBox.style.display = 'block';
+                errBox.textContent = err.message || 'Could not connect to the server. Please try again.';
+            } finally {
                 btn.disabled = false;
-                document.getElementById('projectRequestForm').reset();
-            }, 1200);
+                btn.innerHTML = `<span>Submit Project Request</span> <i class="fa-solid fa-rocket"></i>`;
+            }
         }
     </script>
 </body>
 </html>
-
