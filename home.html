@@ -45,7 +45,6 @@
             width: 100%;
         }
 
-        /* Fixed: overflow-x: clip prevents layout breakage while keeping position: sticky working 100% */
         body {
             background-color: var(--off-white);
             color: var(--text-gray);
@@ -61,7 +60,7 @@
         h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.2; font-family: 'Montserrat', sans-serif; }
         .text-blue { color: var(--brand-blue); }
 
-        /* --- STICKY NAVIGATION HEADER --- */
+        /* --- Sticky Navigation Header --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -565,12 +564,12 @@
 
         });
 
+        /* --- PREVIEW SHARING: CANONICAL POST URL BUILDER --- */
         function getPostUrl(postId) {
-            const url = new URL(window.location.href);
-            url.search = '';
-            url.hash = '';
-            url.searchParams.set('post', postId);
-            return url.toString();
+            // Uses current origin/pathname (or server endpoint) to construct clean canonical share links
+            const currentUrl = new URL(window.location.href);
+            const baseUrl = `${currentUrl.protocol}//${currentUrl.host}/home.html`;
+            return `${baseUrl}?post=${encodeURIComponent(postId)}`;
         }
 
         const escapeHTML = (str) => {
@@ -645,7 +644,10 @@
                             <div class="action-buttons">
                                 <a href="getstarted.html" class="btn btn-primary"><i class="fa-solid fa-headset"></i> Chat</a>
                                 <a href="learnmore.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Learn</a>
-                                <button class="btn btn-secondary share-btn" data-post-id="${escapeHTML(post.post_id)}" data-title="${escapeHTML(post.title)}" data-desc="${escapeHTML(post.description)}">
+                                <button class="btn btn-secondary share-btn" 
+                                        data-post-id="${escapeHTML(post.post_id)}" 
+                                        data-title="${escapeHTML(post.title)}" 
+                                        data-desc="${escapeHTML(post.description)}">
                                     <i class="fa-solid fa-share-nodes"></i> Share
                                 </button>
                             </div>
@@ -670,7 +672,7 @@
             }
         }
 
-        // SHARE BUTTONS
+        /* --- PREVIEW SHARING: NATIVE SHARE & CLIPBOARD HANDLER --- */
         function bindShareButtons() {
             const shareButtons = document.querySelectorAll('.share-btn');
             shareButtons.forEach(btn => {
@@ -682,18 +684,24 @@
                     
                     if (navigator.share) {
                         try {
-                            await navigator.share({ title, text, url: shareUrl });
-                        } catch (err) {}
+                            await navigator.share({
+                                title: `${title} | NaponTech`,
+                                text: text,
+                                url: shareUrl
+                            });
+                        } catch (err) {
+                            console.log('Share dismissed');
+                        }
                     } else {
                         navigator.clipboard.writeText(shareUrl).then(() => {
-                            alert("Link copied to clipboard!");
+                            alert("Post link copied to clipboard with preview!");
                         });
                     }
                 });
             });
         }
 
-        // CONTENT VIEWER (ISOLATED SLIDER)
+        /* --- CONTENT VIEWER (WITH SHARE INTEGRATION) --- */
         function bindContentViewer() {
             const contentTriggers = document.querySelectorAll('.content-trigger');
             const viewer = document.getElementById('content-viewer');
@@ -742,10 +750,14 @@
                         const shareUrl = getPostUrl(currentPostId);
                         if (navigator.share) {
                             try {
-                                await navigator.share({ title: rawTitle, text: rawDesc, url: shareUrl });
+                                await navigator.share({
+                                    title: `${rawTitle} | NaponTech`,
+                                    text: rawDesc,
+                                    url: shareUrl
+                                });
                             } catch (err) {}
                         } else {
-                            navigator.clipboard.writeText(shareUrl).then(() => alert("Link copied!"));
+                            navigator.clipboard.writeText(shareUrl).then(() => alert("Post link copied!"));
                         }
                     };
                     
@@ -826,6 +838,7 @@
             }, {passive: true});
         }
 
+        /* --- DEEP LINK AUTO-TRIGGER --- */
         function checkDeepLink() {
             const params = new URLSearchParams(window.location.search);
             const postId = params.get('post');
